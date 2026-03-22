@@ -24,3 +24,10 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Hide Vercel/Next.js Dev Toolbars/Indicators */
+[data-vercel-toolbar], 
+#nextjs__container_build_error_label,
+.nextjs-toast-errors-parent {
+  display: none !important;
+}
