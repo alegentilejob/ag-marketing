@@ -90,30 +90,30 @@ export default function CVPage() {
       <div 
         id="cv-container"
         className="w-[21cm] bg-white shadow-[0_0_50px_rgba(0,0,0,0.05)] p-[2cm] print:shadow-none print:w-full print:p-0 min-h-[29.7cm] flex flex-col"
-        style={{ fontFamily: 'Georgia, serif' }}
+        style={{ fontFamily: 'Arial, Calibri, Helvetica, sans-serif' }}
       >
         {/* Header Section */}
         <header className="mb-8 border-b-2 border-black pb-6 flex flex-col items-center text-center">
           <h1 className="text-3xl font-bold uppercase tracking-tight mb-3 text-black">{siteConfig.meta.name}</h1>
           
           <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-[10pt] text-gray-800">
-             <div className="flex items-center gap-1.5">
+             <div className="flex items-center gap-1.5 font-medium">
                 <Mail size={12} className="text-black" />
                 <a href={`mailto:${siteConfig.contact.email}`} className="hover:underline">{siteConfig.contact.email}</a>
              </div>
-             <div className="flex items-center gap-1.5">
+             <div className="flex items-center gap-1.5 font-medium">
                 <Phone size={12} className="text-black" />
                 <a href={`tel:${siteConfig.contact.phone}`} className="hover:underline">{siteConfig.contact.phone}</a>
              </div>
-             <div className="flex items-center gap-1.5 text-black">
+             <div className="flex items-center gap-1.5 text-black font-medium">
                 <MapPin size={12} />
                 <span>{siteConfig.meta.location}</span>
              </div>
-             <div className="flex items-center gap-1.5">
+             <div className="flex items-center gap-1.5 font-medium">
                 <Linkedin size={12} className="text-black" />
                 <a href={siteConfig.contact.linkedin} target="_blank" className="hover:underline">LinkedIn</a>
              </div>
-             <div className="flex items-center gap-1.5">
+             <div className="flex items-center gap-1.5 font-medium">
                 <Globe size={12} className="text-black" />
                 <a href={siteConfig.contact.website} target="_blank" className="hover:underline">{labels.website}</a>
              </div>
@@ -122,15 +122,15 @@ export default function CVPage() {
 
         {/* Work Experience */}
         <section className="mb-8">
-          <h2 className="text-[14pt] font-bold uppercase border-b border-gray-300 pb-1 mb-4 text-black">{labels.experience}</h2>
+          <h2 className="text-[13pt] font-bold uppercase border-b border-gray-300 pb-1 mb-4 text-black tracking-wide">{labels.experience}</h2>
           <div className="space-y-6">
             {sections.experience.items.map((job: any) => (
               <div key={job.id}>
                 <div className="flex justify-between items-baseline mb-1">
-                  <h3 className="text-[11pt] font-bold text-black">
+                  <h3 className="text-[11pt] font-bold text-black uppercase">
                     {job.role} — {job.company}
                   </h3>
-                  <span className="text-[10pt] font-medium italic text-gray-700">{job.period}</span>
+                  <span className="text-[9.5pt] font-bold text-gray-400 uppercase tracking-widest">{job.period}</span>
                 </div>
                 {/* Clean bullet points for ATS */}
                 <ul className="list-disc list-outside ml-5 space-y-1.5 mt-2">
@@ -140,7 +140,7 @@ export default function CVPage() {
                      // Remove HTML tags for ATS
                      const textOnly = cleanBullet.replace(/<[^>]*>?/gm, '');
                      return (
-                        <li key={bidx} className="text-[10.5pt] leading-snug text-gray-800">
+                        <li key={bidx} className="text-[10pt] leading-snug text-gray-800">
                           {textOnly}
                         </li>
                      );
@@ -153,15 +153,15 @@ export default function CVPage() {
 
         {/* Education */}
         <section className="mb-8">
-          <h2 className="text-[14pt] font-bold uppercase border-b border-gray-300 pb-1 mb-4 text-black">{labels.education}</h2>
+          <h2 className="text-[13pt] font-bold uppercase border-b border-gray-300 pb-1 mb-4 text-black tracking-wide">{labels.education}</h2>
           <div className="space-y-4">
             {sections.about.education.map((edu, idx) => (
               <div key={idx} className="flex justify-between items-start">
                 <div>
                   <h3 className="text-[11pt] font-bold text-black uppercase">{edu.institution}</h3>
-                  <p className="text-[10pt] text-gray-700">{edu.location}</p>
+                  <p className="text-[10pt] font-medium text-gray-600">{edu.location}</p>
                 </div>
-                <span className="text-[10pt] italic text-gray-700">{edu.period}</span>
+                <span className="text-[9.5pt] font-bold text-gray-400 uppercase tracking-widest">{edu.period}</span>
               </div>
             ))}
           </div>
@@ -169,16 +169,16 @@ export default function CVPage() {
 
         {/* Skills Section */}
         <section className="mb-8">
-          <h2 className="text-[14pt] font-bold uppercase border-b border-gray-300 pb-1 mb-4 text-black">{labels.skills}</h2>
+          <h2 className="text-[13pt] font-bold uppercase border-b border-gray-300 pb-1 mb-4 text-black tracking-wide">{labels.skills}</h2>
           <div className="space-y-3">
-             <div className="text-[10.5pt] leading-relaxed">
-                <strong className="text-black">{labels.techSkills}: </strong>
+             <div className="text-[10pt] leading-relaxed">
+                <strong className="text-black uppercase text-[9pt] tracking-wider">{labels.techSkills}: </strong>
                 <span className="text-gray-800">
                    {[...sections.skills.hard, ...sections.skills.software.map((s:any) => s.name)].join(', ')}
                 </span>
              </div>
-             <div className="text-[10.5pt] leading-relaxed">
-                <strong className="text-black">{labels.softSkills}: </strong>
+             <div className="text-[10pt] leading-relaxed">
+                <strong className="text-black uppercase text-[9pt] tracking-wider">{labels.softSkills}: </strong>
                 <span className="text-gray-800">
                    {sections.skills.soft.join(', ')}
                 </span>
@@ -188,11 +188,11 @@ export default function CVPage() {
 
         {/* Languages */}
         <section className="mb-8">
-          <h2 className="text-[14pt] font-bold uppercase border-b border-gray-300 pb-1 mb-4 text-black">{labels.languages}</h2>
+          <h2 className="text-[13pt] font-bold uppercase border-b border-gray-300 pb-1 mb-4 text-black tracking-wide">{labels.languages}</h2>
           <div className="flex flex-wrap gap-x-10 gap-y-2">
             {(sections as any).languages.map((lang: any, idx: number) => (
-              <div key={idx} className="text-[10.5pt]">
-                <strong className="text-black">{lang.name}: </strong>
+              <div key={idx} className="text-[10pt]">
+                <strong className="text-black uppercase text-[9pt] tracking-wider">{lang.name}: </strong>
                 <span className="text-gray-800">{lang.level}</span>
               </div>
             ))}
@@ -201,7 +201,7 @@ export default function CVPage() {
 
         {/* Privacy Footer */}
         <footer className="mt-auto pt-10 border-t border-stone-100">
-          <p className="text-[8.5pt] text-gray-500 italic text-center leading-tight">
+          <p className="text-[8.5pt] text-gray-400 italic text-center leading-tight">
             {lang === 'it' 
               ? "Autorizzo il trattamento dei miei dati personali ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 e dell'art. 13 del GDPR (Regolamento UE 2016/679)."
               : "I authorize the processing of my personal data pursuant to Legislative Decree 30 June 2003, no. 196 and art. 13 of the GDPR (EU Regulation 2016/679)."}
@@ -228,7 +228,7 @@ export default function CVPage() {
             min-height: 0 !important;
             padding: 0 !important;
             box-shadow: none !important;
-            font-family: 'Times New Roman', Georgia, serif !important;
+            font-family: Arial, Calibri, sans-serif !important;
           }
           a {
             text-decoration: none !important;

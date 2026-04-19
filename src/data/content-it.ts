@@ -5,11 +5,17 @@ export const siteConfig = {
     name: "Alessandro Gentile",
     role: "Junior Marketing Strategist",
     tagline: "Dall'analisi dei dati alla creazione di strategie creative",
-    subtitle: "Disponibile full-time e stage · Monza (MB) · Disponibile da subito",
+    subtitle: "Monza (MB), Italia",
     location: "Monza (MB), Italia",
     birthdate: "19/06/2003",
     language: "it",
-    profileImage: "/media/profile/Gemini_Generated_Image_awvuruawvuruawvu.png"
+    bio: "Junior Marketing Strategist con un forte approccio data-driven. Specializzato nell'analisi delle performance web e nello sviluppo di strategie digitali misurabili, trasformo insight complessi in azioni concrete per la crescita del brand.",
+    profileImage: "/media/profile/Gemini_Generated_Image_awvuruawvuruawvu.png",
+    url: "https://alessandrogentile.marketing",
+    languages: [
+      { name: "Italiano", level: "Madrelingua" },
+      { name: "Inglese", level: "B2" }
+    ]
   },
   contact: {
     email: "alegentilejob@gmail.com",
@@ -20,17 +26,17 @@ export const siteConfig = {
 };
 
 export const navigation = [
-  { name: 'Home', href: '#home', icon: Home },
-  { name: 'Chi sono', href: '#about', icon: User },
-  { name: 'Esperienze', href: '#esperienze', icon: Briefcase },
-  { name: 'Skill e Software', href: '#skills', icon: Grid },
-  { name: 'Contattami', href: '#contact', icon: Mail },
+  { key: 'experience', name: 'Esperienze', href: '/esperienze', icon: Briefcase },
+  { key: 'projects', name: 'Progetti', href: '/progetti', icon: Grid },
+  { key: 'skills', name: 'Skill', href: '/skills', icon: Grid },
+  { key: 'about', name: 'Chi sono', href: '/chi-sono', icon: User },
+  { key: 'blog', name: 'Blog', href: '/blog', icon: Grid },
 ];
 
 export const sections = {
   about: {
     title: "Chi sono",
-    bio: "Ho costruito le mie competenze attraverso tre esperienze consecutive in ambiti diversi: ottimizzazione SEO in agenzia, social media management in contesto internazionale e market research nel settore luxury.<br/><br/>Il filo comune è sempre stato lo stesso: partire dai dati, identificare pattern e tradurli in azioni concrete.<br/><br/>Sto cercando un contesto dove crescere come Marketing Strategist, contribuendo su analisi competitiva, SEO e strategie digitali basate su metriche reali.",
+    bio: "Junior Marketing Strategist con un forte approccio data-driven. Specializzato nell'analisi delle performance web e nello sviluppo di strategie digitali misurabili, trasformo insight complessi in azioni concrete per la crescita del brand.",
     education: [
       {
         institution: "ITS Digital Marketing – Fondazione Ammi",
@@ -48,13 +54,13 @@ export const sections = {
     title: "Esperienze Lavorative",
     items: [
       {
-        id: "exp-1",
-        role: "Junior SEO | AEO",
-        type: "Stage extracurricolare",
+        id: "naxa",
+        role: "Stage Marketing Strategist",
+        type: "Stage Curriculare - ITS Angelo Rizzoli",
         company: "Naxa",
-        website: "https://www.naxa.ws/",
-        period: "11/2025 – presente",
-        location: "Bernareggio, Italia",
+        website: "https://www.naxa.it",
+        period: "Ottobre 2025 - Marzo 2026",
+        location: "Milano, Italia",
         introduction: {
           text: "Esperienza focalizzata sull'<strong>ottimizzazione della presenza digitale</strong> attraverso <strong>analisi delle performance web</strong> e strategie <strong>SEO</strong> basate su dati reali.",
           image: "/media/experiences/naxa/MG_9908-w-poltu-quatu.jpg"
@@ -67,15 +73,15 @@ export const sections = {
           text: "Questa esperienza mi ha permesso di sviluppare un <strong>approccio sistematico</strong> all'ottimizzazione digitale e di affinare la capacità di <strong>leggere i dati</strong> per prendere <strong>decisioni strategiche</strong>.",
           image: "/media/experiences/naxa/cantieri-di-pisa-polaris-48-intro.jpg"
         },
-        tags: ["Analisi settimanale su Google Analytics + Search Console", "SEO", "AEO", "Data Analysis", "Content Strategy"]
+        tags: ["SEO", "SEA", "Marketing Strategy", "Data Analysis", "Content Marketing"]
       },
       {
-        id: "exp-2",
-        role: "Social Media Manager",
-        type: "Volontariato",
+        id: "fridhem-center",
+        role: "Staff Multi-purpose",
+        type: "Erasmus +",
         company: "Fridhem Center",
-        website: "https://frid.nu/en/",
-        period: "04/2025 – 05/2025",
+        website: "https://fridhem.org",
+        period: "Giugno 2024 - Agosto 2024",
         location: "Stjärnsund, Svezia",
         introduction: {
           text: "Esperienza internazionale in un contesto <strong>cross-culturale</strong>, focalizzata sulla <strong>gestione strategica dei contenuti social</strong> per un centro culturale svedese.",
@@ -89,15 +95,15 @@ export const sections = {
           text: "Un'esperienza che ha rafforzato la mia capacità di lavorare in <strong>ambienti internazionali</strong> e di adattare <strong>strategie di comunicazione</strong> a pubblici e contesti culturali diverse.",
           image: "/media/experiences/fridhem/Tavola disegno 3@2x.png"
         },
-        tags: ["Gestione contenuti per audience internazionale · Svezia", "Social Media", "Content Strategy", "Cross-cultural", "International"]
+        tags: ["Hospitality", "International Environment", "Event Support"]
       },
       {
-        id: "exp-3",
-        role: "Junior Marketing Strategist",
-        type: "Stage curricolare",
+        id: "anularis",
+        role: "Stage Field Marketing",
+        type: "Stage Curriculare - Liceo",
         company: "Anularis",
-        website: "https://www.anularis.com/",
-        period: "02/2025 – 04/2025",
+        website: "https://www.anularis.com",
+        period: "Maggio 2023 - Giugno 2023",
         location: "Milano, Italia",
         introduction: {
           text: "Stage nel settore <strong>luxury jewelry</strong>, con focus su <strong>market research</strong> e analisi del mercato del <strong>Medio Oriente</strong> per supportare decisioni strategiche di posizionamento.",

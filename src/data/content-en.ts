@@ -5,11 +5,17 @@ export const siteConfig = {
     name: "Alessandro Gentile",
     role: "Junior Marketing Strategist",
     tagline: "From data analysis to the creation of creative strategies",
-    subtitle: "Available for full-time and internship · Monza (MB) · Available immediately",
+    subtitle: "Monza (MB), Italy",
     location: "Monza (MB), Italy",
     birthdate: "19/06/2003",
     language: "en",
-    profileImage: "/media/profile/Gemini_Generated_Image_awvuruawvuruawvu.png"
+    bio: "Junior Marketing Strategist with a strong data-driven approach. Specialized in web performance analysis and the development of measurable digital strategies, I transform complex insights into concrete actions for brand growth.",
+    profileImage: "/media/profile/Gemini_Generated_Image_awvuruawvuruawvu.png",
+    url: "https://alessandrogentile.marketing",
+    languages: [
+      { name: "Italian", level: "Native" },
+      { name: "English", level: "B2" }
+    ]
   },
   contact: {
     email: "alegentilejob@gmail.com",
@@ -20,17 +26,17 @@ export const siteConfig = {
 };
 
 export const navigation = [
-  { name: 'Home', href: '#home', icon: Home },
-  { name: 'About Me', href: '#about', icon: User },
-  { name: 'Experience', href: '#esperienze', icon: Briefcase },
-  { name: 'Skills & Software', href: '#skills', icon: Grid },
-  { name: 'Contact Me', href: '#contact', icon: Mail },
+  { key: 'experience', name: 'Experience', href: '/en/experience', icon: Briefcase },
+  { key: 'projects', name: 'Projects', href: '/en/projects', icon: Grid },
+  { key: 'skills', name: 'Skills', href: '/en/skills', icon: Grid },
+  { key: 'about', name: 'About Me', href: '/en/about-me', icon: User },
+  { key: 'blog', name: 'Blog', href: '/en/blog', icon: Grid },
 ];
 
 export const sections = {
   about: {
     title: "About Me",
-    bio: "I have built my skills through three consecutive experiences in different fields: SEO optimization in an agency, social media management in an international context, and market research in the luxury sector.<br/><br/>The common thread has always been the same: starting from data, identifying patterns, and translating them into concrete actions.<br/><br/>I am looking for a context where I can grow as a Marketing Strategist, contributing to competitive analysis, SEO, and digital strategies based on real metrics.",
+    bio: "Junior Marketing Strategist with a strong data-driven approach. Specialized in web performance analysis and the development of measurable digital strategies, I transform complex insights into concrete actions for brand growth.",
     education: [
       {
         institution: "ITS Digital Marketing – Fondazione Ammi",
@@ -48,13 +54,13 @@ export const sections = {
     title: "Work Experience",
     items: [
       {
-        id: "exp-1",
-        role: "Junior SEO | AEO",
-        type: "Extracurricular Internship",
+        id: "naxa",
+        role: "Marketing Strategist Intern",
+        type: "Curricular Internship - ITS Angelo Rizzoli",
         company: "Naxa",
-        website: "https://www.naxa.ws/",
-        period: "11/2025 – present",
-        location: "Bernareggio, Italy",
+        website: "https://www.naxa.it",
+        period: "October 2025 - March 2026",
+        location: "Milan, Italy",
         introduction: {
           text: "Experience focused on <strong>digital presence optimization</strong> through <strong>web performance analysis</strong> and <strong>SEO</strong> strategies based on real data.",
           image: "/media/experiences/naxa/MG_9908-w-poltu-quatu.jpg"
@@ -67,15 +73,15 @@ export const sections = {
           text: "This experience allowed me to develop a <strong>systematic approach</strong> to digital optimization and to refine my ability to <strong>read data</strong> in order to make <strong>strategic decisions</strong>.",
           image: "/media/experiences/naxa/cantieri-di-pisa-polaris-48-intro.jpg"
         },
-        tags: ["Weekly analysis on Google Analytics + Search Console", "SEO", "AEO", "Data Analysis", "Content Strategy"]
+        tags: ["SEO", "SEA", "Marketing Strategy", "Data Analysis", "Content Marketing"]
       },
       {
-        id: "exp-2",
-        role: "Social Media Manager",
-        type: "Volunteering",
+        id: "fridhem-center",
+        role: "Multi-purpose Staff",
+        type: "Erasmus +",
         company: "Fridhem Center",
-        website: "https://frid.nu/en/",
-        period: "04/2025 – 05/2025",
+        website: "https://fridhem.org",
+        period: "June 2024 - August 2024",
         location: "Stjärnsund, Sweden",
         introduction: {
           text: "International experience in a <strong>cross-cultural</strong> context, focused on <strong>strategic social content management</strong> for a Swedish cultural center.",
@@ -89,15 +95,15 @@ export const sections = {
           text: "An experience that strengthened my ability to work in <strong>international environments</strong> and to adapt <strong>communication strategies</strong> to diverse audiences and cultural contexts.",
           image: "/media/experiences/fridhem/Tavola disegno 3@2x.png"
         },
-        tags: ["Content management for international audience · Sweden", "Social Media", "Content Strategy", "Cross-cultural", "International"]
+        tags: ["Hospitality", "International Environment", "Event Support"]
       },
       {
-        id: "exp-3",
-        role: "Junior Marketing Strategist",
-        type: "Curricular Internship",
+        id: "anularis",
+        role: "Field Marketing Intern",
+        type: "Curricular Internship - High School",
         company: "Anularis",
-        website: "https://www.anularis.com/",
-        period: "02/2025 – 04/2025",
+        website: "https://www.anularis.com",
+        period: "May 2023 - June 2023",
         location: "Milan, Italy",
         introduction: {
           text: "Internship in the <strong>luxury jewelry</strong> sector, with a focus on <strong>market research</strong> and market analysis of the <strong>Middle East</strong> to support strategic positioning decisions.",

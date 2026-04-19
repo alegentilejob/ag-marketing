@@ -1,15 +1,19 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from 'react';
-import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import { Briefcase } from 'lucide-react';
+import { Briefcase, ArrowRight } from 'lucide-react';
 import { RevealText, RevealImage, FadeIn } from "../components/animations";
 import { useLanguage } from "../context/LanguageContext";
+import Link from 'next/link';
+import { getLocalizedPath } from "@/utils/navigation";
+
+import { projectsIt, projectsEn } from './../data/projects';
 
 export default function Home() {
   const { lang, content } = useLanguage();
   const { siteConfig, sections } = content;
+  const projects = lang === 'it' ? projectsIt : projectsEn;
 
   // State for the carousel offset and shuffled images to avoid hydration mismatch
   const [offset, setOffset] = useState(0);
@@ -69,10 +73,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex min-h-screen w-full">
-      <Sidebar activeSection={activeSection} />
-      <main className="flex-1 ml-0 md:ml-16 p-6 pt-24 md:p-12 lg:p-24 relative overflow-x-hidden">
-        <Header activeSection={activeSection} />
+    <div className="min-h-screen bg-white dark:bg-[#111] transition-colors duration-300">
+      <Header activeSection={activeSection} />
+      <main className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 pt-44 pb-24 relative overflow-x-hidden">
         <section id="home" className="min-h-[85vh] md:pt-12 pb-12 flex flex-col justify-center">
           <div className="max-w-4xl">
             <RevealText delay={0.1}>
@@ -81,7 +84,7 @@ export default function Home() {
               </p>
             </RevealText>
             <RevealText delay={0.2}>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-tight max-w-3xl text-gray-900 dark:text-gray-100">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-tight max-w-3xl text-gray-900 dark:text-gray-100">
                 {siteConfig.meta.tagline}
               </h1>
             </RevealText>
@@ -143,6 +146,17 @@ export default function Home() {
                   </FadeIn>
                 ))}
               </div>
+
+              <FadeIn delay={0.5} className="mt-12">
+                <Link 
+                  href={getLocalizedPath("/chi-sono", lang)}
+                  id="nav_link_biografia"
+                  className="inline-flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] pb-2 border-b-2 border-blue-600 hover:text-blue-600 transition-all font-bold"
+                >
+                  {lang === 'it' ? 'Leggi Biografia Completa' : 'Read Full Biography'}
+                  <ArrowRight size={14} />
+                </Link>
+              </FadeIn>
             </div>
           </div>
           {/* Profile Image Box */}
@@ -166,82 +180,103 @@ export default function Home() {
               {sections.experience.title}
             </h2>
           </RevealText>
-          <div className="space-y-32">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
             {sections.experience.items.map((job: any) => (
-              <article key={job.id} className="relative">
-                {/* Header of the job */}
-                <div className="mb-12 border-b border-gray-100 dark:border-gray-800 pb-8">
-                    <FadeIn delay={0.1} className="flex justify-between items-end mb-2">
-                        <span className="text-xs font-bold uppercase tracking-widest text-blue-600">{job.period}</span>
-                        <span className="text-xs text-gray-400">{job.location} | {job.type}</span>
-                    </FadeIn>
-                    <RevealText delay={0.2}>
-                      <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-                          {job.role}
-                      </h3>
-                    </RevealText>
-                    <FadeIn delay={0.3} className="flex flex-wrap items-center gap-x-6 gap-y-3">
-                        <div className="flex items-center gap-3">
-                            <p className="text-2xl text-gray-500 font-medium italic">@ {job.company}</p>
-                            {job.website && (
-                                <a 
-                                    href={job.website} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="text-gray-300 hover:text-blue-600 transition-colors"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-external-link"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-                                </a>
-                            )}
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                            {job.tags && job.tags.map((tag: string, tIdx: number) => (
-                                <span key={tIdx} className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 border border-gray-100 dark:border-gray-800 text-gray-400">
-                                    {tag}
-                                </span>
-                            ))}
-                        </div>
-                    </FadeIn>
+              <Link 
+                key={job.id} 
+                href={getLocalizedPath(`/esperienze/${job.id}`, lang)}
+                id={`cta_exp_item_${job.id}`}
+                className="group block p-10 border border-gray-100 dark:border-gray-800 hover:border-blue-600 transition-all bg-gray-50/50 dark:bg-gray-900/50 relative overflow-hidden"
+              >
+                <div className="flex flex-col h-full relative z-10">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-600 mb-6 block">
+                    {job.period}
+                  </span>
+                  <h3 className="text-3xl font-bold mb-2 uppercase tracking-tighter group-hover:text-blue-600 transition-colors">
+                    {job.company}
+                  </h3>
+                  <p className="text-sm text-gray-400 font-medium uppercase tracking-widest mb-8">
+                    {job.role}
+                  </p>
+                  
+                  <div className="mt-auto flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-900 dark:text-gray-100">
+                    <span>{lang === 'it' ? 'Dettagli Esperienza' : 'Experience Details'}</span>
+                    <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
+                  </div>
                 </div>
+                <div className="absolute -right-4 -bottom-4 text-8xl font-black text-black/[0.02] dark:text-white/[0.02] pointer-events-none select-none">
+                  {job.company.charAt(0)}
+                </div>
+              </Link>
+            ))}
+          </div>
+          
+          <FadeIn className="mt-16 text-center">
+            <Link 
+                href={getLocalizedPath("/esperienze", lang)} 
+                id="cta_exp_view_all"
+                className="inline-flex items-center gap-3 px-10 py-5 bg-black dark:bg-white text-white dark:text-black font-bold uppercase tracking-widest text-[11px] hover:bg-blue-600 dark:hover:bg-blue-600 hover:text-white dark:hover:text-white transition-all shadow-xl"
+            >
+                {lang === 'it' ? 'Vedi Percorso Completo' : 'View Full Journey'}
+                <ArrowRight size={16} />
+            </Link>
+          </FadeIn>
+        </section>
 
-                {/* Slides / Phases */}
-                <div className="space-y-24">
-                  {[
-                    { label: lang === 'it' ? "Introduzione" : "Introduction", data: job.introduction },
-                    { label: lang === 'it' ? "Svolgimento del lavoro" : "Core Development", data: job.development },
-                    { label: lang === 'it' ? "Conclusione" : "Conclusion", data: job.conclusion }
-                  ].map((phase, idx) => (
-                    <div key={idx} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center group">
-                      <div className={idx % 2 === 0 ? "lg:order-1" : "lg:order-2"}>
-                        <FadeIn delay={0.2}>
-                          <h4 className="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">{phase.label}</h4>
-                        </FadeIn>
-                        <RevealText delay={0.3}>
-                          <p 
-                            className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed"
-                            dangerouslySetInnerHTML={{ __html: phase.data.text }}
-                          />
-                        </RevealText>
-                      </div>
-                      <RevealImage delay={0.4} className={`aspect-square bg-gray-100 dark:bg-gray-800 rounded-none border border-gray-100 dark:border-gray-700 overflow-hidden relative ${idx % 2 === 0 ? "lg:order-2" : "lg:order-1"}`}>
-                         {phase.data.image && (
-                           <img 
-                            src={phase.data.image} 
-                            alt={phase.label}
-                            className="absolute inset-0 w-full h-full object-cover bg-gray-200"
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).style.display = 'none';
-                            }}
-                           />
-                         )}
-                         <div className="absolute inset-0 flex items-center justify-center text-xs text-gray-400 uppercase tracking-widest animate-pulse z-[-1]">
-                           {phase.label} {lang === 'it' ? 'Immagine' : 'Image'}
-                         </div>
-                      </RevealImage>
+        {/* Latest Case Studies Section */}
+        <section className="py-32">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+            <RevealText>
+              <h2 className="text-5xl md:text-7xl font-bold tracking-tighter uppercase mb-0">
+                {lang === 'it' ? 'Ultimi Case Studies' : 'Latest Case Studies'}<span className="text-blue-600">.</span>
+              </h2>
+            </RevealText>
+            <FadeIn delay={0.2}>
+              <Link 
+                href={getLocalizedPath("/progetti", lang)}
+                id="cta_projects_view_hub"
+                className="group flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] pb-2 border-b-2 border-gray-100 dark:border-gray-800 hover:border-blue-600 transition-all font-bold"
+              >
+                {lang === 'it' ? 'Esplora l\'Hub Progetti' : 'View All Projects'}
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </FadeIn>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.slice(0, 3).map((project: any, index: number) => (
+              <FadeIn key={project.id} delay={0.1 * index}>
+                <Link 
+                  href={getLocalizedPath(`/progetti/${project.category}/${project.year}/${project.month}/${project.day}/${project.slug}`, lang)}
+                  id={`cta_project_card_${project.id}`}
+                  className="group block"
+                >
+                  <div className="relative aspect-[4/5] overflow-hidden mb-6 bg-gray-100 dark:bg-gray-900 border border-gray-100 dark:border-gray-800">
+                    <img 
+                      src={project.coverImage} 
+                      alt={project.title} 
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute top-6 left-6">
+                      <span className="bg-white/90 dark:bg-black/90 backdrop-blur-md px-4 py-2 text-[8px] font-bold uppercase tracking-[0.4em] border border-gray-100 dark:border-gray-800">
+                        {project.category}
+                      </span>
                     </div>
-                  ))}
-                </div>
-              </article>
+                  </div>
+                  <h3 className="text-xl font-bold uppercase tracking-tight mb-3 leading-tight group-hover:text-blue-600 transition-colors">
+                    {project.title}
+                  </h3>
+                  <div className="flex items-center gap-4">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                      {project.date}
+                    </span>
+                    <div className="w-8 h-px bg-gray-200 dark:bg-gray-800" />
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-blue-600">
+                      {lang === 'it' ? 'Analisi' : 'Analysis'}
+                    </span>
+                  </div>
+                </Link>
+              </FadeIn>
             ))}
           </div>
         </section>        {/* Progetti Personali - Rimosso per ora
@@ -267,7 +302,7 @@ export default function Home() {
                 {sections.skills.hard.map((skill, index) => (
                   <FadeIn key={index} delay={0.2 + index * 0.05}>
                     <li className="text-base md:text-lg text-gray-700 dark:text-gray-300 flex items-center gap-2 font-bold">
-                      <span className="w-1.5 h-1.5 bg-blue-600 shrink-0"></span> <span className="truncate">{skill}</span>
+                      <span className="w-1.5 h-1.5 bg-blue-600 shrink-0"></span> <span className="truncate" id={`lnk_skill_${skill.toLowerCase().replace(/\s/g, '_')}`}>{skill}</span>
                     </li>
                   </FadeIn>
                 ))}
@@ -295,7 +330,7 @@ export default function Home() {
                 {sections.skills.software.map((sw: any, index: number) => (
                   <FadeIn key={index} delay={0.2 + index * 0.05} className="flex items-center gap-2 md:gap-4 group">
                     <div className="flex flex-col min-w-0 border-l-2 border-gray-100 dark:border-gray-800 pl-4 py-1">
-                      <span className="text-sm md:text-lg font-bold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors truncate">{sw.name}</span>
+                      <span className="text-sm md:text-lg font-bold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors truncate" id={`lnk_software_${sw.name.toLowerCase().replace(/\s/g, '_')}`}>{sw.name}</span>
                       <span className="text-[8px] md:text-[10px] uppercase tracking-widest text-gray-400 truncate">{sw.category}</span>
                     </div>
                   </FadeIn>
@@ -303,134 +338,16 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
-
-        <section id="contact" className="relative py-24 -mx-6 md:-mx-12 lg:-mx-24 px-6 md:px-12 lg:px-24 bg-blue-600 text-white mt-24 -mb-6 md:-mb-12 lg:-mb-24">
-          <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            
-            {/* Right Column: Contact Form (Moved up on mobile) */}
-            <FadeIn delay={0.2} className="relative overflow-hidden order-1 lg:order-2">
-              <h3 className="text-xl font-bold mb-8 uppercase tracking-widest text-white relative z-10 border-l-[6px] border-white pl-4 py-1">
-                {lang === 'it' ? 'Form Contatti' : 'Contact Form'}
-              </h3>
-              
-              <form 
-                id="form_contact_main" 
-                data-track-category="conversion" 
-                data-track-label="contact_form_attempt"
-                className="flex flex-col gap-8 relative z-10" 
-                onSubmit={(e) => {
-                  e.preventDefault(); 
-                  window.location.href = `mailto:${siteConfig.contact.email}`;
-              }}>
-                <div>
-                  <label htmlFor="email" className="block text-xs font-bold uppercase tracking-widest text-blue-100 mb-2">{lang === 'it' ? 'La tua Email' : 'Your Email'}</label>
-                  <input type="email" id="email" className="w-full border-b border-white/30 bg-transparent py-3 text-white focus:outline-none focus:border-white transition-colors placeholder-white/30 font-medium" placeholder="hello@company.com" required />
-                </div>
-                <div>
-                  <label htmlFor="azienda" className="block text-xs font-bold uppercase tracking-widest text-blue-100 mb-2">{lang === 'it' ? 'Azienda (Opzionale)' : 'Company (Optional)'}</label>
-                  <input type="text" id="azienda" className="w-full border-b border-white/30 bg-transparent py-3 text-white focus:outline-none focus:border-white transition-colors placeholder-white/30 font-medium" placeholder={lang === 'it' ? "Nome Azienda" : "Company Name"} />
-                </div>
-                <div>
-                  <label htmlFor="descrizione" className="block text-xs font-bold uppercase tracking-widest text-blue-100 mb-2">{lang === 'it' ? 'Descrizione Progetto' : 'Project Description'}</label>
-                  <textarea id="descrizione" rows={4} className="w-full border-b border-white/30 bg-transparent py-3 text-white focus:outline-none focus:border-white transition-colors resize-none placeholder-white/30 font-medium" placeholder={lang === 'it' ? "Di cosa hai bisogno?" : "What do you need?"} required></textarea>
-                </div>
-                <button 
-                  type="submit" 
-                  id="btn_contact_submit"
-                  data-track-category="conversion"
-                  data-track-label="contact_form_submission"
-                  className="mt-4 px-8 py-5 bg-white text-blue-600 font-bold uppercase tracking-[0.2em] text-[11px] w-full hover:bg-blue-50 transition-colors shadow-xl flex justify-center items-center gap-3"
-                >
-                  {lang === 'it' ? 'Invia Messaggio' : 'Send Message'}
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-send"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                </button>
-              </form>
-            </FadeIn>
-
-            {/* Left Column: Infos & Actions (Moved down on mobile) */}
-            <div className="flex flex-col gap-12 order-2 lg:order-1">
-              <div>
-                <RevealText>
-                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold mb-6 text-white text-left tracking-tight">
-                      {lang === 'it' ? "Risorse per Recruitment" : "Recruitment Resources"}
-                  </h2>
-                </RevealText>
-                <RevealText delay={0.2}>
-                  <p className="text-xl text-blue-100 max-w-lg text-left leading-relaxed mb-8">
-                      {lang === 'it' 
-                        ? "Stai valutando il mio profilo per il tuo team? Qui puoi scaricare la documentazione completa aggiornata o contattarmi direttamente per un colloquio conoscitivo."
-                        : "Evaluating my profile for your team? Here you can download the complete updated documentation or contact me directly for a screening interview."}
-                  </p>
-                </RevealText>
-                
-                <FadeIn delay={0.3}>
-                  <div className="flex flex-col gap-4 text-left border-l-2 border-white/20 pl-6 my-8">
-                    <a href={`mailto:${siteConfig.contact.email}`} className="text-2xl md:text-3xl font-bold text-white hover:text-blue-100 transition-colors lowercase">
-                      {siteConfig.contact.email}
-                    </a>
-                    <a href={`tel:${siteConfig.contact.phone}`} className="text-2xl md:text-3xl font-bold text-white hover:text-blue-100 transition-colors">
-                      {siteConfig.contact.phone}
-                    </a>
-                  </div>
-                </FadeIn>
-              </div>
-
-              <FadeIn delay={0.4} className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-                  <button
-                      id="btn_download_portfolio"
-                      data-track-category="conversion"
-                      data-track-label="portfolio_pdf_download"
-                      onClick={() => {
-                        const win = window.open('/portfolio-pdf', '_blank');
-                        if (win) {
-                          win.onload = () => {
-                            setTimeout(() => {
-                              win.print();
-                              // win.close(); // Optional: close after print dialog
-                            }, 500);
-                          };
-                        }
-                      }}
-                      className="hidden md:flex items-center justify-center gap-3 px-8 py-5 bg-white text-blue-600 font-bold hover:bg-blue-50 transition-all uppercase tracking-widest text-[11px] shadow-xl shrink-0 border border-transparent"
-                  >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-file-down"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>
-                      {lang === 'it' ? 'Scarica Portfolio' : 'Download Portfolio'}
-                  </button>
-                  <button
-                      id="btn_download_cv"
-                      data-track-category="conversion"
-                      data-track-label="cv_pdf_download"
-                      onClick={() => {
-                        const win = window.open('/cv', '_blank');
-                        if (win) {
-                          win.onload = () => {
-                            setTimeout(() => {
-                              win.print();
-                            }, 500);
-                          };
-                        }
-                      }}
-                      className="hidden md:flex items-center justify-center gap-3 px-8 py-5 border border-white/30 text-white font-bold hover:bg-white/10 transition-all uppercase tracking-widest text-[11px] shrink-0"
-                  >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-                      {lang === 'it' ? 'Scarica CV' : 'Download CV'}
-                  </button>
-                  <a
-                      id="lnk_linkedin_contact"
-                      data-track-category="engagement"
-                      data-track-label="social_linkedin_visit"
-                      href={siteConfig.contact.linkedin}
-                      target="_blank"
-                      className="md:col-span-2 flex items-center justify-center gap-3 px-8 py-5 bg-[#0A66C2] text-white font-bold hover:bg-[#004182] transition-all uppercase tracking-widest text-[11px] shadow-xl border border-[#0A66C2]"
-                  >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="lucide lucide-linkedin"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
-                      {lang === 'it' ? 'Connettiti su LinkedIn' : 'Connect on LinkedIn'}
-                  </a>
-              </FadeIn>
-            </div>
-
-          </div>
+          
+          <FadeIn className="mt-16 text-center">
+            <Link 
+                href={getLocalizedPath("/skills", lang)} 
+                className="group inline-flex items-center gap-3 px-10 py-5 border-2 border-black dark:border-white font-bold uppercase tracking-widest text-[11px] hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"
+            >
+                {lang === 'it' ? 'Vedi Tutti i Software & Skill' : 'View All Skills & Software'}
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </FadeIn>
         </section>
       </main>
     </div>
