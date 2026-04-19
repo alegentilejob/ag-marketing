@@ -78,7 +78,7 @@ export default function BlogPage() {
                 <img 
                   src={article.coverImage} 
                   alt={article.title}
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                 />
                 <div className="absolute top-4 left-4">
                   <span className="bg-white/90 dark:bg-black/90 backdrop-blur-md px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.3em] border border-gray-100 dark:border-gray-800">

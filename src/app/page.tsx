@@ -38,7 +38,7 @@ export default function Home() {
   useEffect(() => {
     // Shuffle only on the client to prevent hydration errors
     setShuffledImages([...baseImages].sort(() => Math.random() - 0.5));
-    
+
     const interval = setInterval(() => {
       setOffset((prev) => (prev + 1) % (baseImages.length * 600));
     }, 25);
@@ -61,7 +61,7 @@ export default function Home() {
     };
 
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
-    
+
     // Track sections defined in navigation
     const sectionIds = ['home', 'about', 'esperienze', 'skills', 'contact'];
     sectionIds.forEach(id => {
@@ -77,14 +77,14 @@ export default function Home() {
       <Header activeSection={activeSection} />
       <main className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 pt-44 pb-24 relative overflow-x-hidden">
         <section id="home" className="min-h-[85vh] md:pt-12 pb-12 flex flex-col justify-center">
-          <div className="max-w-4xl">
+          <div className="max-w-5xl">
             <RevealText delay={0.1}>
-              <p className="text-gray-500 mb-4 text-sm md:text-base font-medium tracking-wide">
+              <p className="text-gray-500 mb-4 text-sm md:text-base font-mono font-medium tracking-wide">
                 {siteConfig.meta.role}
               </p>
             </RevealText>
             <RevealText delay={0.2}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-tight max-w-3xl text-gray-900 dark:text-gray-100">
+              <h1 className="max-w-4xl text-gray-900 dark:text-gray-100">
                 {siteConfig.meta.tagline}
               </h1>
             </RevealText>
@@ -97,16 +97,16 @@ export default function Home() {
 
           {/* Random Moving Carousel */}
           <FadeIn delay={0.4} className="relative mt-24 -mx-6 md:-mx-12 lg:-mx-24 overflow-hidden py-10">
-            <div 
+            <div
               className="flex gap-6 transition-transform duration-300 ease-linear"
               style={{ transform: `translateX(-${offset}px)` }}
             >
               {shuffledImages.length > 0 && [...shuffledImages, ...shuffledImages, ...shuffledImages, ...shuffledImages].map((src, i) => (
                 <div key={i} className="flex-shrink-0 w-[320px] aspect-[3/4] border border-gray-100 dark:border-gray-800 p-2 bg-white dark:bg-black group">
                   <div className="w-full h-full overflow-hidden relative">
-                    <img 
-                      src={src} 
-                      alt="Portfolio detail" 
+                    <img
+                      src={src}
+                      alt="Portfolio detail"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
@@ -117,60 +117,62 @@ export default function Home() {
         </section>
 
         {/* Chi sono section */}
-        <section id="about" className="py-24 border-t border-gray-100 dark:border-gray-800 grid grid-cols-1 lg:grid-cols-3 gap-12">
-          <div className="lg:col-span-2">
-            <RevealText>
-              <h2 className="text-3xl md:text-4xl font-semibold mb-8 text-gray-900 dark:text-gray-100">
+        <section id="about" className="relative py-24 bg-tech-blue border-y border-gray-100 dark:border-gray-800 left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-[100vw]">
+          <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="lg:col-span-2">
+              <RevealText>
+                <h2 className="mb-8 text-gray-900 dark:text-gray-100">
                   {sections.about.title}
-              </h2>
-            </RevealText>
-            <RevealText delay={0.1}>
-              <p 
-                className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl leading-relaxed mb-12"
-                dangerouslySetInnerHTML={{ __html: sections.about.bio }}
-              />
-            </RevealText>
+                </h2>
+              </RevealText>
+              <RevealText delay={0.1}>
+                <p
+                  className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl leading-relaxed mb-12"
+                  dangerouslySetInnerHTML={{ __html: sections.about.bio }}
+                />
+              </RevealText>
 
-            {/* Education Sub-section */}
-            <div className="space-y-8">
-              <FadeIn delay={0.2}>
-                <h3 className="text-xl font-bold uppercase tracking-widest text-gray-400">{lang === 'it' ? 'Formazione' : 'Education'}</h3>
-              </FadeIn>
-              <div className="space-y-6">
-                {sections.about.education.map((edu, idx) => (
-                  <FadeIn key={idx} delay={0.3 + idx * 0.1}>
-                    <div className="border-l-2 border-blue-600 pl-6">
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{edu.institution}</h4>
-                      <p className="text-gray-500">{edu.period} — {edu.location}</p>
-                    </div>
-                  </FadeIn>
-                ))}
+              {/* Education Sub-section */}
+              <div className="space-y-8">
+                <FadeIn delay={0.2}>
+                  <h3 className="text-xl font-mono font-bold uppercase tracking-widest text-gray-400">{lang === 'it' ? 'Formazione' : 'Education'}</h3>
+                </FadeIn>
+                <div className="space-y-6">
+                  {sections.about.education.map((edu, idx) => (
+                    <FadeIn key={idx} delay={0.3 + idx * 0.1}>
+                      <div className="border-l-2 border-blue-600 pl-6">
+                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{edu.institution}</h4>
+                        <p className="text-gray-500">{edu.period} — {edu.location}</p>
+                      </div>
+                    </FadeIn>
+                  ))}
+                </div>
+
+                <FadeIn delay={0.5} className="mt-12">
+                  <Link
+                    href={getLocalizedPath("/chi-sono", lang)}
+                    id="nav_link_biografia"
+                    className="inline-flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] pb-2 border-b-2 border-blue-600 hover:text-blue-600 transition-all font-bold"
+                  >
+                    {lang === 'it' ? 'Leggi Biografia Completa' : 'Read Full Biography'}
+                    <ArrowRight size={14} />
+                  </Link>
+                </FadeIn>
               </div>
-
-              <FadeIn delay={0.5} className="mt-12">
-                <Link 
-                  href={getLocalizedPath("/chi-sono", lang)}
-                  id="nav_link_biografia"
-                  className="inline-flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] pb-2 border-b-2 border-blue-600 hover:text-blue-600 transition-all font-bold"
-                >
-                  {lang === 'it' ? 'Leggi Biografia Completa' : 'Read Full Biography'}
-                  <ArrowRight size={14} />
-                </Link>
-              </FadeIn>
             </div>
+            {/* Profile Image Box */}
+            <RevealImage delay={0.5} className="aspect-square bg-gray-100 dark:bg-gray-800 rounded-none border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-400 relative overflow-hidden group">
+              <img
+                src={siteConfig.meta.profileImage}
+                alt={siteConfig.meta.name}
+                className="absolute inset-0 w-full h-full object-cover"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                }}
+              />
+              <span className="z-[-1] uppercase text-[10px] tracking-widest absolute">{siteConfig.meta.name} {lang === 'it' ? 'Foto' : 'Photo'}</span>
+            </RevealImage>
           </div>
-          {/* Profile Image Box */}
-          <RevealImage delay={0.5} className="aspect-square bg-gray-100 dark:bg-gray-800 rounded-none border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-400 relative overflow-hidden group">
-            <img 
-              src={siteConfig.meta.profileImage} 
-              alt={siteConfig.meta.name}
-              className="absolute inset-0 w-full h-full object-cover"
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
-              }}
-            />
-            <span className="z-[-1] uppercase text-[10px] tracking-widest absolute">{siteConfig.meta.name} {lang === 'it' ? 'Foto' : 'Photo'}</span>
-          </RevealImage>
         </section>
 
         {/* Esperienze Lavorative */}
@@ -182,8 +184,8 @@ export default function Home() {
           </RevealText>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
             {sections.experience.items.map((job: any) => (
-              <Link 
-                key={job.id} 
+              <Link
+                key={job.id}
                 href={getLocalizedPath(`/esperienze/${job.id}`, lang)}
                 id={`cta_exp_item_${job.id}`}
                 className="group block p-10 border border-gray-100 dark:border-gray-800 hover:border-blue-600 transition-all bg-gray-50/50 dark:bg-gray-900/50 relative overflow-hidden"
@@ -198,7 +200,7 @@ export default function Home() {
                   <p className="text-sm text-gray-400 font-medium uppercase tracking-widest mb-8">
                     {job.role}
                   </p>
-                  
+
                   <div className="mt-auto flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-900 dark:text-gray-100">
                     <span>{lang === 'it' ? 'Dettagli Esperienza' : 'Experience Details'}</span>
                     <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
@@ -210,15 +212,15 @@ export default function Home() {
               </Link>
             ))}
           </div>
-          
+
           <FadeIn className="mt-16 text-center">
-            <Link 
-                href={getLocalizedPath("/esperienze", lang)} 
-                id="cta_exp_view_all"
-                className="inline-flex items-center gap-3 px-10 py-5 bg-black dark:bg-white text-white dark:text-black font-bold uppercase tracking-widest text-[11px] hover:bg-blue-600 dark:hover:bg-blue-600 hover:text-white dark:hover:text-white transition-all shadow-xl"
+            <Link
+              href={getLocalizedPath("/esperienze", lang)}
+              id="cta_exp_view_all"
+              className="btn-secondary"
             >
-                {lang === 'it' ? 'Vedi Percorso Completo' : 'View Full Journey'}
-                <ArrowRight size={16} />
+              {lang === 'it' ? 'Vedi Percorso Completo' : 'View Full Journey'}
+              <ArrowRight size={16} />
             </Link>
           </FadeIn>
         </section>
@@ -232,10 +234,10 @@ export default function Home() {
               </h2>
             </RevealText>
             <FadeIn delay={0.2}>
-              <Link 
+              <Link
                 href={getLocalizedPath("/progetti", lang)}
                 id="cta_projects_view_hub"
-                className="group flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] pb-2 border-b-2 border-gray-100 dark:border-gray-800 hover:border-blue-600 transition-all font-bold"
+                className="btn-inline"
               >
                 {lang === 'it' ? 'Esplora l\'Hub Progetti' : 'View All Projects'}
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -246,16 +248,16 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.slice(0, 3).map((project: any, index: number) => (
               <FadeIn key={project.id} delay={0.1 * index}>
-                <Link 
+                <Link
                   href={getLocalizedPath(`/progetti/${project.category}/${project.year}/${project.month}/${project.day}/${project.slug}`, lang)}
                   id={`cta_project_card_${project.id}`}
                   className="group block"
                 >
                   <div className="relative aspect-[4/5] overflow-hidden mb-6 bg-gray-100 dark:bg-gray-900 border border-gray-100 dark:border-gray-800">
-                    <img 
-                      src={project.coverImage} 
-                      alt={project.title} 
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                    <img
+                      src={project.coverImage}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                     />
                     <div className="absolute top-6 left-6">
                       <span className="bg-white/90 dark:bg-black/90 backdrop-blur-md px-4 py-2 text-[8px] font-bold uppercase tracking-[0.4em] border border-gray-100 dark:border-gray-800">
@@ -292,7 +294,7 @@ export default function Home() {
               {sections.skills.title}
             </h2>
           </RevealText>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div>
               <FadeIn delay={0.1}>
@@ -338,14 +340,14 @@ export default function Home() {
               </div>
             </div>
           </div>
-          
+
           <FadeIn className="mt-16 text-center">
-            <Link 
-                href={getLocalizedPath("/skills", lang)} 
-                className="group inline-flex items-center gap-3 px-10 py-5 border-2 border-black dark:border-white font-bold uppercase tracking-widest text-[11px] hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all"
+            <Link
+              href={getLocalizedPath("/skills", lang)}
+              className="btn-tertiary"
             >
-                {lang === 'it' ? 'Vedi Tutti i Software & Skill' : 'View All Skills & Software'}
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              {lang === 'it' ? 'Vedi Tutti i Software & Skill' : 'View All Skills & Software'}
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </FadeIn>
         </section>

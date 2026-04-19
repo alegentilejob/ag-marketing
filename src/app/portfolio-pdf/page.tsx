@@ -82,7 +82,7 @@ export default function PortfolioPDF() {
               src={optimizeImage(siteConfig.meta.profileImage, 800)} 
               alt="" 
               loading="eager"
-              className="w-full h-full object-cover grayscale-0" 
+              className="w-full h-full object-cover" 
             />
           </div>
         </section>
@@ -129,7 +129,7 @@ export default function PortfolioPDF() {
                     src={optimizeImage(job.introduction.image, 1080)} 
                     alt="" 
                     loading="eager"
-                    className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity" 
+                    className="absolute inset-0 w-full h-full object-cover opacity-40" 
                   />
                 )}
                 <div className="relative z-10 w-full">
@@ -141,7 +141,7 @@ export default function PortfolioPDF() {
                             src={optimizeImage(job.introduction.image, 300)} 
                             alt="" 
                             loading="eager"
-                            className="w-full h-full object-cover grayscale brightness-125" 
+                            className="w-full h-full object-cover brightness-110" 
                           />
                         )}
                      </div>

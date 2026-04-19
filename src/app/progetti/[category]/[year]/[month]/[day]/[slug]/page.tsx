@@ -90,7 +90,7 @@ export default function ProjectPage() {
           {/* Hero Section */}
           <header className="mb-12">
             <RevealText>
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-[1.1] text-gray-900 dark:text-white">
+              <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight mb-8 leading-[1.1] text-gray-900 dark:text-white uppercase">
                 {project.title}
               </h1>
             </RevealText>
@@ -101,32 +101,16 @@ export default function ProjectPage() {
               </p>
             </FadeIn>
 
-            {/* Author and Metadata Row - Layout from image */}
+            {/* Metadata Row - No Author as requested */}
             <FadeIn delay={0.3} className="flex flex-wrap items-center justify-between gap-6 border-y border-gray-100 dark:border-gray-800 py-8">
-                <div className="flex items-center gap-4">
-                    <img 
-                        src={siteConfig.meta.profileImage} 
-                        alt={siteConfig.meta.name} 
-                        className="w-12 h-12 rounded-full object-cover border border-gray-100 dark:border-gray-800"
-                    />
-                    <div className="text-left">
-                        <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-0.5">
-                            {labels.writtenBy}
-                        </p>
-                        <p className="text-sm font-bold text-gray-900 dark:text-white">
-                            {siteConfig.meta.name}
-                        </p>
-                    </div>
-                </div>
-
                 <div className="flex items-center gap-3">
-                    <span className="px-4 py-1.5 rounded-full border border-gray-100 dark:border-gray-800 text-[10px] font-bold uppercase tracking-widest text-blue-600">
+                    <span className="px-4 py-1.5 rounded-full border border-gray-100 dark:border-gray-800 text-[10px] font-mono font-bold uppercase tracking-widest text-blue-600">
                         {project.category}
                     </span>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gray-400">
                         {project.date}
                     </span>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 border-l border-gray-100 dark:border-gray-800 pl-3">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gray-400 border-l border-gray-100 dark:border-gray-800 pl-3">
                         {labels.readTime}
                     </span>
                 </div>

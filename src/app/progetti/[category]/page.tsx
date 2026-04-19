@@ -66,7 +66,7 @@ export default function CategoryPage() {
                 <img 
                   src={project.coverImage} 
                   alt={project.title} 
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" 
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105" 
                 />
                 <div className="absolute top-6 left-6">
                   <span className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 text-[9px] font-bold uppercase tracking-widest">

@@ -27,7 +27,7 @@ const Footer = () => {
                     <div className="space-y-6">
                         <RevealText>
                             <h3 className="text-4xl md:text-6xl font-bold tracking-tighter uppercase whitespace-nowrap">
-                                {lang === 'it' ? 'Ti interessa contattarmi? ' : 'Interested in contacting me? '} 
+                                {lang === 'it' ? 'Ti interessa contattarmi? ' : 'Interested in contacting me? '}
                                 <span className="text-blue-600 block md:inline underline underline-offset-8">
                                     {lang === 'it' ? 'Clicca qui' : 'Click here'}
                                 </span>
@@ -35,7 +35,7 @@ const Footer = () => {
                         </RevealText>
                         <FadeIn delay={0.2}>
                             <p className="text-gray-400 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed">
-                                {lang === 'it' 
+                                {lang === 'it'
                                     ? "Stai valutando il mio profilo per il tuo team? Contattami direttamente per un colloquio conoscitivo o connettiti con me su LinkedIn."
                                     : "Evaluating my profile for your team? Contact me directly for a screening interview or connect with me on LinkedIn."}
                             </p>
@@ -43,9 +43,9 @@ const Footer = () => {
                     </div>
 
                     <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
-                        <a 
+                        <a
                             id="lnk_email"
-                            href={`mailto:${siteConfig.contact.email}`} 
+                            href={`mailto:${siteConfig.contact.email}`}
                             onClick={() => trackContactClick('email', siteConfig.contact.email)}
                             className="flex flex-col items-center gap-4 group"
                         >
@@ -57,10 +57,10 @@ const Footer = () => {
                             </span>
                         </a>
 
-                        <a 
+                        <a
                             id="lnk_linkedin"
-                            href={siteConfig.contact.linkedin} 
-                            target="_blank" 
+                            href={siteConfig.contact.linkedin}
+                            target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => trackContactClick('linkedin', siteConfig.contact.linkedin)}
                             className="flex flex-col items-center gap-4 group"
@@ -73,9 +73,9 @@ const Footer = () => {
                             </span>
                         </a>
 
-                        <a 
+                        <a
                             id="lnk_phone"
-                            href={`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`} 
+                            href={`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`}
                             onClick={() => trackContactClick('phone', siteConfig.contact.phone)}
                             className="flex flex-col items-center gap-4 group"
                         >

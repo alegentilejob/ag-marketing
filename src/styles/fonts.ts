@@ -1,4 +1,4 @@
-import { Inter } from 'next/font/google';
+import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 
 export const primaryFont = Inter({
   subsets: ['latin'],
@@ -6,4 +6,14 @@ export const primaryFont = Inter({
   variable: '--font-primary',
 });
 
-// Aggiungeremo il tuo font personalizzato qui in futuro
+export const displayFont = Space_Grotesk({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-display',
+});
+
+export const monoFont = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-mono',
+});
