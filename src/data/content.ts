@@ -1,11 +1,12 @@
 import { Home, User, Briefcase, Grid, Mail } from 'lucide-react';
+import { framerHero } from '../styles/framer-tokens';
 
 export const siteConfig = {
   meta: {
     name: "Alessandro Gentile",
-    role: "Junior Marketing Strategist",
-    tagline: "Trasformo insight analitici in strategie di crescita misurabili",
-    subtitle: "Junior Marketing Strategist orientato ai risultati. Supporto i dipartimenti marketing attraverso l'analisi delle performance e lo sviluppo di workflow data-driven per team innovativi.",
+    role: `${framerHero.headline} ${framerHero.headlineAccent}`, // "Digital Strategist"
+    tagline: framerHero.subtitle, // "Strategie di marketing basate sui dati, ottimizzazione SEO..."
+    subtitle: framerHero.subtitle, 
     location: "Monza (MB), Italia",
     birthdate: "19/06/2003",
     language: "it",
