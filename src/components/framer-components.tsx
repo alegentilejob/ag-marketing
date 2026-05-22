@@ -51,7 +51,7 @@ export function ServiceCard({ index, title, description }: ServiceCardProps) {
             {index}
           </motion.span>
           <motion.h3
-            className="font-medium truncate"
+            className="font-medium whitespace-normal break-words"
             style={{
               fontFamily: framerTypography.headings.h48.fontFamily,
               fontWeight: framerTypography.headings.h48.fontWeight,
@@ -183,7 +183,7 @@ export function ProjectCard({ title, imageUrl, categories }: ProjectCardProps) {
       {/* Meta Content row below image */}
       <div className="flex items-center justify-between gap-4 px-1">
         <h3
-          className="font-medium text-neutral-900 leading-tight truncate"
+          className="font-medium text-neutral-900 leading-tight whitespace-normal break-words"
           style={{
             fontFamily: framerTypography.headings.h32.fontFamily,
             fontWeight: framerTypography.headings.h32.fontWeight,

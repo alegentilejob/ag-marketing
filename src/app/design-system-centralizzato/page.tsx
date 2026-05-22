@@ -1,8 +1,22 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { framerColors, framerTypography, framerButtons, framerDemoData } from '@/styles/framer-tokens';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  framerColors, 
+  framerTypography, 
+  framerSpacing, 
+  framerAnimations, 
+  framerEffects, 
+  framerNav, 
+  framerHero, 
+  framerSectionHeaders, 
+  framerSpecNotes, 
+  framerFooter, 
+  framerSpecsPanel, 
+  framerButtons, 
+  framerDemoData 
+} from '@/styles/framer-tokens';
 import { ServiceCard, ProjectCard, TestimonialCard, PricingCard, FaqAccordionList } from '@/components/framer-components';
 
 /**
@@ -33,9 +47,10 @@ function ArrowIcon({ color = "currentColor" }: { color?: string }) {
  * Generic Framer Button Component
  * Renders any button variant cataloged in framer-tokens.ts with full fidelity.
  */
-export function FramerButtonShowcase({ variantKey }: { variantKey: keyof typeof framerButtons }) {
+export function FramerButtonShowcase({ variantKey, text }: { variantKey: keyof typeof framerButtons; text?: string }) {
   const spec = framerButtons[variantKey];
-  const spring = { type: "spring", stiffness: 300, damping: 25 };
+  const spring = framerAnimations.springButton;
+  const buttonText = text || "Meet the team";
 
   if (spec.type === "link") {
     return (
@@ -65,7 +80,7 @@ export function FramerButtonShowcase({ variantKey }: { variantKey: keyof typeof 
           }}
           transition={spring}
         >
-          Meet the team
+          {buttonText}
         </motion.span>
 
         <motion.span
@@ -100,6 +115,7 @@ export function FramerButtonShowcase({ variantKey }: { variantKey: keyof typeof 
         borderRadius: spec.borderRadius,
         padding: spec.padding,
         gap: spec.gap,
+        backgroundColor: spec.backgroundColor,
       }}
       variants={{
         visible: { 
@@ -134,7 +150,7 @@ export function FramerButtonShowcase({ variantKey }: { variantKey: keyof typeof 
         }}
         transition={spring}
       >
-        Meet the team
+        {buttonText}
       </motion.span>
       <motion.span
         variants={{
@@ -152,18 +168,15 @@ export function FramerButtonShowcase({ variantKey }: { variantKey: keyof typeof 
 /**
  * PrimaryButton Component (Framer 'Menu Icon' replica, nodeId: ePYScSbZ9)
  */
-export function PrimaryButton() {
-  const buttonSpring = {
-    type: "spring",
-    stiffness: 300,
-    damping: 25
-  };
+export function PrimaryButton({ onClick }: { onClick?: () => void }) {
+  const buttonSpring = framerAnimations.springButton;
 
   return (
     <motion.button
+      onClick={onClick}
       className="relative overflow-hidden cursor-pointer select-none border-none focus:outline-none flex items-center justify-center shadow-lg"
       style={{
-        borderRadius: "22px",
+        borderRadius: framerSpacing.buttonRadiusFull,
         padding: "8px 16px",
         width: "fit-content",
         height: "fit-content",
@@ -172,10 +185,10 @@ export function PrimaryButton() {
       transition={buttonSpring}
       whileHover={{
         scale: 1.05,
-        boxShadow: `0 10px 30px -10px rgba(0, 72, 249, 0.3)`,
+        boxShadow: framerEffects.shadowPrimaryGlow,
       }}
       whileTap={{ scale: 0.95 }}
-      aria-label="Menu"
+      aria-label={framerNav.menuButtonLabel}
     >
       <span
         className="font-medium inline-block select-none"
@@ -190,384 +203,514 @@ export function PrimaryButton() {
           top: "-1px",
         }}
       >
-        Menu
+        {framerNav.menuButtonLabel}
       </span>
     </motion.button>
   );
 }
 
-export default function CentralizedSandboxPage() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-      }
-    }
-  };
+/**
+ * 1. GridBackground Component
+ * Recreates the authentic Framer design background with thin absolute lines and subtle radial glow.
+ */
+function GridBackground() {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      {/* Soft blue radial glow */}
+      <div 
+        className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[1200px] h-[800px]" 
+        style={{ background: framerEffects.heroGlow }}
+      />
+      
+      {/* Grid Lines */}
+      <div className="absolute inset-0 flex justify-between px-6 md:px-12 lg:px-24">
+        <div className="w-[1px] h-full" style={{ backgroundColor: framerColors.gridLine.value }} />
+        <div className="w-[1px] h-full" style={{ backgroundColor: framerColors.gridLine.value }} />
+        <div className="w-[1px] h-full" style={{ backgroundColor: framerColors.gridLine.value }} />
+        <div className="w-[1px] h-full" style={{ backgroundColor: framerColors.gridLine.value }} />
+        <div className="w-[1px] h-full" style={{ backgroundColor: framerColors.gridLine.value }} />
+      </div>
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { type: "spring", stiffness: 260, damping: 25 }
+      {/* Horizontal Divider Lines */}
+      <div className="absolute top-1/4 left-0 right-0 h-[1px]" style={{ backgroundColor: framerColors.gridLine.value }} />
+      <div className="absolute top-2/4 left-0 right-0 h-[1px]" style={{ backgroundColor: framerColors.gridLine.value }} />
+      <div className="absolute top-3/4 left-0 right-0 h-[1px]" style={{ backgroundColor: framerColors.gridLine.value }} />
+    </div>
+  );
+}
+
+/**
+ * 2. FramerSection Component
+ * Reusable wrapper for standard Framer section paddings, widths, and structural containers.
+ */
+interface FramerSectionProps {
+  id?: string;
+  children: React.ReactNode;
+  borderBottom?: boolean;
+  className?: string;
+  hasBackground?: boolean;
+}
+
+function FramerSection({ 
+  id, 
+  children, 
+  borderBottom = true, 
+  className = "",
+  hasBackground = false 
+}: FramerSectionProps) {
+  return (
+    <section 
+      id={id}
+      className={`w-full flex justify-center relative overflow-hidden ${className}`}
+      style={{
+        paddingTop: framerSpacing.sectionPaddingY,
+        paddingBottom: framerSpacing.sectionPaddingY,
+        paddingLeft: framerSpacing.sectionPaddingXSm,
+        paddingRight: framerSpacing.sectionPaddingXSm,
+        borderBottom: borderBottom ? `1px solid ${framerColors.divider.value}` : "none",
+      }}
+    >
+      {hasBackground && <GridBackground />}
+      <div 
+        className="w-full flex flex-col z-10"
+        style={{
+          maxWidth: framerSpacing.containerMaxWidth,
+          gap: framerSpacing.containerGapMd,
+        }}
+      >
+        {children}
+      </div>
+    </section>
+  );
+}
+
+/**
+ * 3. SectionHeader Component
+ * Implements the 1:3 Framer grid layout blueprint. Left: Section Badge; Right: Main Heading & supportive paragraph text.
+ */
+interface SectionHeaderProps {
+  badge: string;
+  title: string;
+  subtitle?: string;
+  titleTag?: "h2" | "h3";
+}
+
+function SectionHeader({ 
+  badge, 
+  title, 
+  subtitle, 
+  titleTag = "h2" 
+}: SectionHeaderProps) {
+  const Tag = titleTag;
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-0 items-start">
+      {/* Left Column (25% Width): Section Badge */}
+      <div className="col-span-1">
+        <span 
+          className="px-3.5 py-1.5 rounded-md font-mono text-[9px] font-extrabold uppercase tracking-widest inline-block select-none"
+          style={{
+            backgroundColor: framerColors.primarySubtle.value,
+            color: framerColors.primary.value,
+            border: `1px solid ${framerColors.primaryBorder.value}`,
+          }}
+        >
+          {badge}
+        </span>
+      </div>
+
+      {/* Right Columns (75% Width): Title & Subtitle */}
+      <div className="col-span-1 lg:col-span-3 flex flex-col gap-6 items-start">
+        <Tag 
+          className="font-medium tracking-tight leading-tight select-none"
+          style={{
+            fontFamily: framerTypography.headings.h72.fontFamily,
+            fontWeight: framerTypography.headings.h72.fontWeight,
+            fontSize: "clamp(32px, 5vw, 64px)",
+            letterSpacing: framerTypography.headings.h72.letterSpacing,
+            fontVariationSettings: framerTypography.headings.h72.fontVariationSettings,
+            color: framerColors.neutral950.value,
+          }}
+        >
+          {title}
+        </Tag>
+        {subtitle && (
+          <p 
+            className="max-w-xl font-medium leading-relaxed select-none"
+            style={{
+              fontFamily: framerTypography.paragraphs.p18.fontFamily,
+              fontSize: "16px",
+              fontVariationSettings: framerTypography.paragraphs.p18.fontVariationSettings,
+              color: framerColors.neutral500.value,
+            }}
+          >
+            {subtitle}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * MAIN CENTRALIZED SANDBOX HOMEPAGE
+ */
+export default function CentralizedSandboxPage() {
+  const [activeMenuTab, setActiveMenuTab] = useState("hero");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSpecsPanelOpen, setIsSpecsPanelOpen] = useState(false);
+
+  // Smooth scroll handler
+  const handleScrollTo = (id: string) => {
+    setActiveMenuTab(id);
+    setIsSidebarOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
   return (
     <div 
-      className="min-h-screen bg-white text-neutral-950 flex flex-col items-center justify-start py-20 px-8 antialiased relative overflow-x-hidden"
-      style={{ fontFamily: '"Inter", system-ui, sans-serif' }}
+      className="min-h-screen flex flex-col items-center justify-start antialiased relative overflow-x-hidden"
+      style={{ 
+        fontFamily: framerTypography.paragraphs.p16.fontFamily,
+        backgroundColor: framerColors.white.value,
+        color: framerColors.neutral950.value,
+      }}
     >
-      {/* Subtle light-blue radial glow in the background */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-[radial-gradient(circle_at_center,rgba(0,72,249,0.02)_0%,transparent_70%)] pointer-events-none" />
-
-      {/* Main Container */}
-      <motion.div 
-        className="w-full max-w-4xl flex flex-col gap-16 z-10"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
+      {/* ---------------- NAVIGATION HEADER ---------------- */}
+      <header 
+        className="fixed top-0 left-0 right-0 backdrop-blur-md z-50 flex items-center justify-center px-6 md:px-12 lg:px-24"
+        style={{
+          height: framerSpacing.navHeight,
+          backgroundColor: framerEffects.navBackground,
+          borderBottom: `1px solid ${framerColors.divider.value}`,
+          backdropFilter: `blur(${framerEffects.blurNav})`,
+        }}
       >
-        {/* Header Label */}
-        <motion.div variants={itemVariants} className="border-b border-neutral-100 pb-6">
-          <span className="text-[10px] font-mono tracking-widest text-[#0048F9] font-bold uppercase">
-            Framer Design System Centralizzato
-          </span>
-          <h1 className="text-xl font-medium text-neutral-500 mt-1">
-            Official Typography Templates & Button Components (Token-Driven)
-          </h1>
-        </motion.div>
-
-        {/* Headings Showcase Section */}
-        <div className="flex flex-col gap-14">
-          <motion.h2 
-            variants={itemVariants} 
-            className="text-neutral-400 font-mono text-[10px] uppercase tracking-widest border-b border-neutral-100 pb-2"
+        <div className="w-full max-w-[1400px] flex items-center justify-between">
+          {/* Logo Name */}
+          <div 
+            onClick={() => handleScrollTo("hero")}
+            className="font-mono text-xs font-black tracking-widest cursor-pointer select-none uppercase"
+            style={{ color: framerColors.neutral900.value }}
           >
-            Headings (Inter Display / Inter — opsz: 32)
-          </motion.h2>
-          
-          {Object.entries(framerTypography.headings).map(([key, style]) => {
-            const Tag = style.tag;
-            return (
-              <motion.div key={key} variants={itemVariants} className="flex flex-col gap-2">
-                <span className="font-mono text-[9px] text-neutral-400 uppercase tracking-widest">
-                  {style.tag.toUpperCase()} — {style.path} ({style.fontSize} / Line Height: {style.lineHeight} / Spacing: {style.letterSpacing})
-                </span>
-                <Tag 
-                  className="font-medium text-neutral-950 select-none"
-                  style={{
-                    fontFamily: style.fontFamily,
-                    fontWeight: style.fontWeight,
-                    fontSize: style.fontSize,
-                    lineHeight: style.lineHeight,
-                    letterSpacing: style.letterSpacing,
-                    fontVariationSettings: style.fontVariationSettings,
-                  }}
-                >
-                  {style.name === "Heading 108" ? "Alessandro Gentile" : 
-                   style.name === "Heading 96" ? "Digital Strategist" :
-                   style.name === "Heading 72" ? "Esperienze & Progetti" :
-                   style.name === "Heading 48" ? "Junior Marketing Strategist" : "Informazioni di Contatto"}
-                </Tag>
-              </motion.div>
-            );
-          })}
-        </div>
+            {framerNav.brandName} <span style={{ color: framerColors.primary.value }}>{framerNav.brandDot}</span> {framerNav.brandSuffix}
+          </div>
 
-        {/* Paragraphs Showcase Section */}
-        <div className="flex flex-col gap-10 border-t border-neutral-100 pt-14">
-          <motion.h2 
-            variants={itemVariants} 
-            className="text-neutral-400 font-mono text-[10px] uppercase tracking-widest border-b border-neutral-100 pb-2"
-          >
-            Paragraphs (Inter — opsz: 14)
-          </motion.h2>
-
-          {Object.entries(framerTypography.paragraphs).map(([key, style]) => (
-            <motion.div key={key} variants={itemVariants} className="flex flex-col gap-2">
-              <span className="font-mono text-[9px] text-neutral-400 uppercase tracking-widest">
-                P — {style.path} ({style.fontSize} / Line Height: {style.lineHeight} / Spacing: {style.letterSpacing})
-              </span>
-              <p 
-                className="font-medium text-neutral-700 select-none"
+          {/* Desktop Nav Links */}
+          <nav className="hidden md:flex items-center gap-8">
+            {framerNav.links.map((link) => (
+              <button
+                key={link.id}
+                onClick={() => handleScrollTo(link.id)}
+                className="font-mono text-[9px] font-bold uppercase tracking-wider cursor-pointer border-none bg-transparent transition-colors"
                 style={{
-                  fontFamily: style.fontFamily,
-                  fontWeight: style.fontWeight,
-                  fontSize: style.fontSize,
-                  lineHeight: style.lineHeight,
-                  letterSpacing: style.letterSpacing,
-                  fontVariationSettings: style.fontVariationSettings,
+                  color: activeMenuTab === link.id ? framerColors.primary.value : framerColors.neutral400.value,
                 }}
               >
-                {style.name === "Paragraph 24" ? "Strategie di marketing basate sui dati, ottimizzazione SEO e campagne performance digitali misurabili." :
-                 style.name === "Paragraph 20" ? "Questo testo dimostrativo utilizza le precise specifiche di spaziatura, altezza linea e dimensione configurate nel file del progetto originale su Framer." :
-                 style.name === "Paragraph 18" ? "Analisi competitiva, posizionamento del brand ed esecuzione di campagne digitali per ottimizzare il ritorno sull'investimento e incrementare l'efficacia dei canali." :
-                 style.name === "Paragraph 16" ? "Sviluppo di strategie di posizionamento SEO, digital analytics, tracciamento tassonomico, gestione canali social media e inserzioni a performance." :
-                 "Nota a piè di pagina: Stili tipografici globali sincronizzati in tempo reale dal server Framer MCP."}
-              </p>
-            </motion.div>
-          ))}
+                {link.label}
+              </button>
+            ))}
+          </nav>
+
+          {/* Actions & Framer Menu Button */}
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setIsSpecsPanelOpen(!isSpecsPanelOpen)}
+              className="px-3.5 py-2 rounded-full border font-mono text-[9px] font-bold uppercase tracking-wider transition-all hidden sm:block bg-transparent cursor-pointer"
+              style={{
+                borderColor: framerColors.neutral200.value,
+                color: framerColors.neutral900.value,
+              }}
+            >
+              {isSpecsPanelOpen ? framerNav.specsButtonCloseLabel : framerNav.specsButtonLabel}
+            </button>
+            <PrimaryButton onClick={() => setIsSidebarOpen(true)} />
+          </div>
         </div>
+      </header>
 
-        {/* Framer Button Components & Variants Section (Pasted Image Request) */}
-        <div className="flex flex-col gap-10 border-t border-neutral-100 pt-14">
-          <motion.h2 
-            variants={itemVariants} 
-            className="text-neutral-400 font-mono text-[10px] uppercase tracking-widest border-b border-neutral-100 pb-2"
-          >
-            Button Component & Variants Showcase (Framer 'Button' nodeId: ynxsaIxXW)
-          </motion.h2>
-
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Line Link Variants */}
-            <div className="flex flex-col gap-6 p-6 bg-neutral-50 border border-neutral-100 rounded-3xl">
-              <span className="font-mono text-[9px] text-[#0048F9] font-bold uppercase tracking-widest">
-                Line Links (Has Bottom Border & Hover States)
-              </span>
-              
-              <div className="flex flex-col gap-6 py-4">
-                {/* Line Small */}
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[9px] text-neutral-400">Line - Small (nodeId: WjB918Y4I)</span>
-                  <FramerButtonShowcase variantKey="lineSmall" />
+      {/* ---------------- MOBILE SIDEBAR MENU ---------------- */}
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <>
+            {/* Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsSidebarOpen(false)}
+              className="fixed inset-0 bg-black z-50"
+            />
+            {/* Sidebar Container */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={framerAnimations.springSidebar}
+              className="fixed top-0 right-0 bottom-0 w-80 shadow-2xl z-50 p-10 flex flex-col justify-between border-l"
+              style={{
+                backgroundColor: framerColors.white.value,
+                borderColor: framerColors.neutral100.value,
+              }}
+            >
+              <div className="flex flex-col gap-10">
+                {/* Header Row */}
+                <div className="flex justify-between items-center">
+                  <span 
+                    className="font-mono text-[9px] font-black tracking-widest uppercase"
+                    style={{ color: framerColors.primary.value }}
+                  >
+                    {framerNav.sidebarTitle}
+                  </span>
+                  <button 
+                    onClick={() => setIsSidebarOpen(false)}
+                    className="w-8 h-8 rounded-full border flex items-center justify-center text-xs transition-colors cursor-pointer"
+                    style={{
+                      backgroundColor: framerColors.neutral50.value,
+                      borderColor: framerColors.neutral200.value,
+                      color: framerColors.neutral950.value,
+                    }}
+                  >
+                    {framerNav.sidebarCloseIcon}
+                  </button>
                 </div>
-                {/* Line Medium */}
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[9px] text-neutral-400">Line - Medium (nodeId: aFGI9eaSz)</span>
-                  <FramerButtonShowcase variantKey="lineMedium" />
-                </div>
-                {/* Line Big */}
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[9px] text-neutral-400">Line - Big (nodeId: P2MliArYS)</span>
-                  <FramerButtonShowcase variantKey="lineBig" />
-                </div>
+                {/* Links */}
+                <nav className="flex flex-col gap-6">
+                  {framerNav.sidebarLinks.map((link) => (
+                    <button
+                      key={link.id}
+                      onClick={() => handleScrollTo(link.id)}
+                      className="text-left font-medium tracking-tight border-none bg-transparent py-2 text-2xl transition-colors hover:text-[#0048F9] cursor-pointer"
+                      style={{ 
+                        fontFamily: framerTypography.headings.h48.fontFamily,
+                        color: activeMenuTab === link.id ? framerColors.primary.value : framerColors.neutral950.value,
+                      }}
+                    >
+                      {link.label}
+                    </button>
+                  ))}
+                </nav>
               </div>
+
+              {/* Sidebar Footer info */}
+              <div className="flex flex-col gap-4 border-t pt-6" style={{ borderColor: framerColors.neutral100.value }}>
+                <span className="font-mono text-[8px]" style={{ color: framerColors.neutral400.value }}>{framerNav.sidebarFooterLabel}</span>
+                <button
+                  onClick={() => {
+                    setIsSidebarOpen(false);
+                    setIsSpecsPanelOpen(true);
+                  }}
+                  className="w-full text-center py-3 rounded-xl font-mono text-[9px] font-bold uppercase tracking-widest border-none cursor-pointer"
+                  style={{
+                    backgroundColor: framerColors.neutral950.value,
+                    color: framerColors.white.value,
+                  }}
+                >
+                  {framerNav.sidebarSpecsCtaLabel}
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* ---------------- TOP DESIGN SPECIFICATIONS POPUP ---------------- */}
+      <AnimatePresence>
+        {isSpecsPanelOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
+            transition={framerAnimations.springSection}
+            className="fixed top-24 left-6 right-6 md:left-12 md:right-12 lg:left-24 lg:right-24 max-w-[1400px] mx-auto z-40 rounded-3xl p-6 md:p-10 overflow-y-auto max-h-[80vh] flex flex-col gap-10 border shadow-2xl"
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0.95)",
+              borderColor: "rgba(229, 229, 229, 0.6)",
+              backdropFilter: `blur(${framerEffects.blurNav})`,
+            }}
+          >
+            <div className="flex justify-between items-start border-b pb-4" style={{ borderColor: framerColors.neutral100.value }}>
+              <div>
+                <span className="text-[10px] font-mono tracking-widest font-bold uppercase" style={{ color: framerColors.primary.value }}>
+                  {framerSpecsPanel.sectionLabel}
+                </span>
+                <h3 className="text-lg font-bold mt-1" style={{ color: framerColors.neutral900.value }}>
+                  {framerSpecsPanel.panelTitle}
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsSpecsPanelOpen(false)}
+                className="px-3 py-1.5 rounded-full font-mono text-[9px] font-bold uppercase tracking-wider transition-colors border-none cursor-pointer"
+                style={{
+                  backgroundColor: framerColors.neutral100.value,
+                  color: framerColors.neutral900.value,
+                }}
+              >
+                {framerSpecsPanel.closeBtnLabel}
+              </button>
             </div>
 
-            {/* Solid Button Variants */}
-            <div className="flex flex-col gap-6 p-6 bg-neutral-50 border border-neutral-100 rounded-3xl">
-              <span className="font-mono text-[9px] text-[#0048F9] font-bold uppercase tracking-widest">
-                Solid Buttons (Border Radius 12px & Hover States)
-              </span>
-              
-              <div className="flex flex-col gap-6 py-4">
-                {/* White Small */}
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[9px] text-neutral-400">White - Small</span>
-                  <FramerButtonShowcase variantKey="whiteSmall" />
+            {/* Sub-grid of Tokens */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Typography Spec Column */}
+              <div className="flex flex-col gap-4">
+                <span className="font-mono text-[9px] font-bold uppercase tracking-widest border-b pb-2" style={{ color: framerColors.primary.value, borderColor: framerColors.neutral100.value }}>
+                  {framerSpecsPanel.colTypography}
+                </span>
+                <div className="space-y-4">
+                  {Object.entries(framerTypography.headings).map(([key, style]) => (
+                    <div key={key} className="flex flex-col gap-1 border-l-2 pl-3" style={{ borderColor: framerColors.primaryBorder.value }}>
+                      <span className="text-[9px] font-mono" style={{ color: framerColors.neutral400.value }}>{style.name} ({style.tag})</span>
+                      <span className="text-[12px] font-semibold" style={{ color: framerColors.neutral800.value }}>{style.fontSize} · {style.letterSpacing} · {style.fontWeight}</span>
+                    </div>
+                  ))}
                 </div>
-                {/* Black Small */}
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[9px] text-neutral-400">Black - Small</span>
-                  <FramerButtonShowcase variantKey="blackSmall" />
+              </div>
+
+              {/* Color Styles spec Column */}
+              <div className="flex flex-col gap-4">
+                <span className="font-mono text-[9px] font-bold uppercase tracking-widest border-b pb-2" style={{ color: framerColors.primary.value, borderColor: framerColors.neutral100.value }}>
+                  {framerSpecsPanel.colColors}
+                </span>
+                <div className="grid grid-cols-2 gap-3">
+                  {Object.entries(framerColors).map(([key, style]) => (
+                    <div key={key} className="flex items-center gap-2.5 p-2 border rounded-xl" style={{ borderColor: "rgba(229, 229, 229, 0.4)" }}>
+                      <div className="w-8 h-8 rounded-lg border" style={{ backgroundColor: style.value, borderColor: framerColors.neutral200.value }} />
+                      <div className="flex flex-col">
+                        <span className="text-[10px] font-bold leading-tight" style={{ color: framerColors.neutral700.value }}>{style.name}</span>
+                        <span className="font-mono text-[8px] uppercase select-all" style={{ color: framerColors.neutral400.value }}>{style.value}</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                {/* Primary Small */}
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[9px] text-neutral-400">Primary - Small</span>
-                  <FramerButtonShowcase variantKey="primarySmall" />
-                </div>
-                {/* White Big */}
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[9px] text-neutral-400">White - Big</span>
-                  <FramerButtonShowcase variantKey="whiteBig" />
+              </div>
+
+              {/* Spacing & Container Rules Column */}
+              <div className="flex flex-col gap-4">
+                <span className="font-mono text-[9px] font-bold uppercase tracking-widest border-b pb-2" style={{ color: framerColors.primary.value, borderColor: framerColors.neutral100.value }}>
+                  {framerSpecsPanel.colSpacing}
+                </span>
+                <div className="space-y-3.5 text-xs">
+                  {framerSpecsPanel.spacingRows.map((row, idx) => (
+                    <div key={idx} className="flex justify-between border-b pb-1" style={{ borderColor: framerColors.neutral50.value, color: framerColors.neutral600.value }}>
+                      <span className="font-semibold" style={{ color: framerColors.neutral800.value }}>{row.label}</span>
+                      <span className="font-mono" style={{ color: framerColors.primary.value }}>{row.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </motion.div>
-        </div>
+        )}
+      </AnimatePresence>
 
-        {/* Color Palette Showcase Section */}
-        <div className="flex flex-col gap-10 border-t border-neutral-100 pt-14">
-          <motion.h2 
-            variants={itemVariants} 
-            className="text-neutral-400 font-mono text-[10px] uppercase tracking-widest border-b border-neutral-100 pb-2"
-          >
-            Color Palette (Color Styles)
-          </motion.h2>
-
-          <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {Object.entries(framerColors).map(([key, style]) => (
-              <div 
-                key={key} 
-                className="bg-neutral-50 border border-neutral-100 rounded-2xl p-4 flex flex-col gap-3 shadow-sm hover:shadow-md transition-all duration-300"
+      {/* ---------------- 1. HERO SECTION ---------------- */}
+      <FramerSection id="hero" borderBottom={true} hasBackground={true} className="pt-36 pb-20 md:pb-28">
+        <motion.div 
+          className="flex flex-col items-center text-center max-w-5xl mx-auto"
+          style={{ gap: framerSpacing.cardPadding }}
+          variants={framerAnimations.containerVisible}
+          initial="hidden"
+          animate="visible"
+        >
+          {/* Floating springs mini pills */}
+          <motion.div variants={framerAnimations.itemVisible} className="flex flex-wrap justify-center gap-3.5 select-none">
+            {framerHero.pills.map((pill, idx) => (
+              <motion.div
+                key={idx}
+                className="px-4 py-2 rounded-full border text-[10px] font-bold uppercase tracking-wider shadow-sm cursor-default"
+                style={{
+                  backgroundColor: pill.active ? framerColors.neutral950.value : framerColors.white.value,
+                  color: pill.active ? framerColors.white.value : framerColors.neutral500.value,
+                  borderColor: pill.active ? framerColors.neutral900.value : framerColors.neutral200.value,
+                }}
+                whileHover={{ y: -3, scale: 1.03 }}
+                transition={framerAnimations.springPill}
               >
-                <div 
-                  className="w-full h-16 rounded-xl border border-neutral-200/50" 
-                  style={{ backgroundColor: style.value }}
-                />
-                <div className="flex flex-col gap-1">
-                  <span className="font-semibold text-xs text-neutral-800">{style.name}</span>
-                  <span className="font-mono text-[9px] text-neutral-400 uppercase select-all">{style.value}</span>
-                </div>
-              </div>
+                {pill.text}
+              </motion.div>
             ))}
           </motion.div>
-        </div>
 
-        {/* Primary Button Section */}
-        <motion.div 
-          variants={itemVariants} 
-          className="border-t border-neutral-100 pt-14 flex flex-col gap-4"
-        >
-          <span className="font-mono text-[9px] text-neutral-400 uppercase tracking-widest">
-            Menu Button — /Primary Component (nodeId: ePYScSbZ9)
-          </span>
-          <div className="bg-neutral-50 border border-neutral-100 rounded-3xl p-10 flex items-center justify-center relative group">
-            <div className="absolute inset-0 bg-[#0048F9]/1 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl pointer-events-none" />
-            <PrimaryButton />
-          </div>
-        </motion.div>
-
-        {/* ========================================================================= */}
-        {/* FRAMER LAYOUT & SPACING BLUEPRINT SYSTEM */}
-        {/* ========================================================================= */}
-        <motion.div 
-          variants={itemVariants} 
-          className="border-t border-neutral-100 pt-16 mt-8 flex flex-col gap-12"
-        >
-          <div>
-            <span className="text-[10px] font-mono tracking-widest text-[#0048F9] font-bold uppercase">
-              Framer Layout Blueprint & Spacing System
+          {/* Large Header Badge */}
+          <motion.div variants={framerAnimations.itemVisible} className="mt-4">
+            <span 
+              className="font-mono text-[9px] font-extrabold uppercase tracking-[0.3em]"
+              style={{ color: framerColors.primary.value }}
+            >
+              {framerHero.brandLabel}
             </span>
-            <h2 className="text-xl font-medium text-neutral-500 mt-1">
-              Official structural formulas, container limitations, and responsive grid spacing rules.
-            </h2>
-          </div>
+          </motion.div>
 
-          {/* Interactive Spacing Token Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-neutral-50 border border-neutral-100 p-5 rounded-2xl flex flex-col gap-2 shadow-sm">
-              <span className="text-[9px] font-mono text-neutral-400 uppercase">Desktop Padding</span>
-              <span className="font-bold text-neutral-900 text-2xl">100px / 60px</span>
-              <p className="text-[11px] text-neutral-500 leading-normal">Applied to section wrappers. Generates generous whitespace for a premium editorial layout.</p>
-              <code className="text-[9px] font-mono mt-2 bg-neutral-100 px-2 py-1 rounded text-[#0048F9] self-start">py-24 px-16</code>
-            </div>
-
-            <div className="bg-neutral-50 border border-neutral-100 p-5 rounded-2xl flex flex-col gap-2 shadow-sm">
-              <span className="text-[9px] font-mono text-neutral-400 uppercase">Container Limit</span>
-              <span className="font-bold text-neutral-900 text-2xl">1800px Max</span>
-              <p className="text-[11px] text-neutral-500 leading-normal">Defines the horizontal viewport constraint to keep readability optimal on ultrawide screens.</p>
-              <code className="text-[9px] font-mono mt-2 bg-neutral-100 px-2 py-1 rounded text-[#0048F9] self-start">max-w-[1800px]</code>
-            </div>
-
-            <div className="bg-neutral-50 border border-neutral-100 p-5 rounded-2xl flex flex-col gap-2 shadow-sm">
-              <span className="text-[9px] font-mono text-neutral-400 uppercase">Block-Level Gaps</span>
-              <span className="font-bold text-neutral-900 text-2xl">60px / 100px</span>
-              <p className="text-[11px] text-neutral-500 leading-normal">Standard spacing between primary structural divisions and sibling page containers.</p>
-              <code className="text-[9px] font-mono mt-2 bg-neutral-100 px-2 py-1 rounded text-[#0048F9] self-start">gap-16 lg:gap-24</code>
-            </div>
-
-            <div className="bg-neutral-50 border border-neutral-100 p-5 rounded-2xl flex flex-col gap-2 shadow-sm">
-              <span className="text-[9px] font-mono text-neutral-400 uppercase">Text & Tag Gaps</span>
-              <span className="font-bold text-neutral-900 text-2xl">30px</span>
-              <p className="text-[11px] text-neutral-500 leading-normal">Defines internal spacing between Section Badges, main Headings, and supportive descriptions.</p>
-              <code className="text-[9px] font-mono mt-2 bg-neutral-100 px-2 py-1 rounded text-[#0048F9] self-start">gap-7</code>
-            </div>
-          </div>
-
-          {/* Visual Grid Blueprint: 1:3 Column Ratio Showcase */}
-          <div className="bg-neutral-50 border border-neutral-200/40 rounded-3xl p-8 flex flex-col gap-6 relative overflow-hidden">
-            <div className="absolute top-0 right-0 bg-[#0048F9]/5 text-[#0048F9] font-mono text-[8px] uppercase tracking-widest px-3 py-1 rounded-bl-xl border-l border-b border-neutral-200/20">
-              Visual Grid Sandbox (1:3 Grid Ratio)
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] font-mono text-[#0048F9] font-semibold uppercase tracking-wider">
-                Interactive Grid Layout Blueprint
-              </span>
-              <p className="text-xs text-neutral-500 max-w-xl">
-                The standard Framer desktop section utilizes a 4-column responsive grid layout. The left column (25%) acts as an anchor for the Section Badge. The right columns (75%) hold headings and CTAs.
-              </p>
-            </div>
-
-            {/* Simulated Live Blueprint Box */}
-            <div className="border border-dashed border-neutral-300 rounded-2xl p-6 bg-white grid grid-cols-1 lg:grid-cols-4 gap-6 items-start font-mono text-xs">
-              
-              {/* Badge Column (1 Col Span) */}
-              <div className="border border-dashed border-[#0048F9]/30 bg-[#0048F9]/1 rounded-xl p-4 flex flex-col gap-2 h-full">
-                <span className="text-[9px] text-[#0048F9] font-bold uppercase tracking-wider">Column 1 (25% Width)</span>
-                <div className="px-2 py-1 rounded bg-[#0048F9] text-white text-[9px] font-semibold uppercase self-start">
-                  Section Badge
-                </div>
-                <span className="text-[10px] text-neutral-400">Section label anchor</span>
-              </div>
-
-              {/* Main Content Column (3 Cols Span) */}
-              <div className="lg:col-span-3 border border-dashed border-neutral-300 bg-neutral-50/50 rounded-xl p-4 flex flex-col gap-4">
-                <span className="text-[9px] text-neutral-400 font-bold uppercase tracking-wider">Column 2-4 (75% Width)</span>
-                
-                <div className="flex flex-col gap-3">
-                  <div className="h-4 bg-neutral-200 rounded w-2/3" />
-                  <div className="h-4 bg-neutral-200 rounded w-1/2" />
-                </div>
-                
-                <div className="flex flex-col gap-2 pt-2">
-                  <div className="h-2.5 bg-neutral-200/70 rounded w-full" />
-                  <div className="h-2.5 bg-neutral-200/70 rounded w-5/6" />
-                </div>
-
-                <div className="h-9 bg-[#0048F9]/10 border border-[#0048F9]/20 rounded-lg w-1/3 mt-2" />
-              </div>
-            </div>
-
-            {/* Developer Integration Specs */}
-            <div className="flex flex-col gap-3 border-t border-neutral-200/50 pt-6">
-              <span className="text-[9px] font-mono text-neutral-400 uppercase tracking-widest">
-                Developer Integration Code (Tailwind & React)
-              </span>
-              
-              <div className="bg-neutral-900 text-neutral-300 rounded-xl p-4 text-[11px] font-mono overflow-x-auto leading-normal">
-                {`{/* Standard Framer Section Container */}\n`}
-                {`<section className="w-full bg-white py-[100px] px-[60px] flex justify-center border-b border-neutral-100">\n`}
-                {`  <div className="w-full max-w-[1800px] flex flex-col gap-[60px]">\n\n`}
-                {`    {/* Responsive 4-Column Grid Header */}\n`}
-                {`    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-0 items-start">\n`}
-                {`      <div className="col-span-1">\n`}
-                {`        <Badge text="perspectives" />\n`}
-                {`      </div>\n`}
-                {`      <div className="col-span-1 lg:col-span-3 flex flex-col gap-[30px] items-start">\n`}
-                {`        <h2 className="text-5xl lg:text-7xl font-medium tracking-tight">Our perspectives</h2>\n`}
-                {`        <p className="text-lg lg:text-xl text-neutral-600 max-w-[500px]">Stay ahead with actionable insights.</p>\n`}
-                {`        <Button href="/blog" text="All articles" />\n`}
-                {`      </div>\n`}
-                {`    </div>\n\n`}
-                {`  </div>\n`}
-                {`</section>`}
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* ========================================================================= */}
-        {/* CARDS & LISTS SHOWCASE SECTION */}
-        {/* ========================================================================= */}
-        
-        {/* Section Header */}
-        <motion.div 
-          variants={itemVariants} 
-          className="border-t border-neutral-100 pt-16 mt-8"
-        >
-          <span className="text-[10px] font-mono tracking-widest text-[#0048F9] font-bold uppercase">
-            Framer Cards & Lists Component Library
-          </span>
-          <h2 className="text-xl font-medium text-neutral-500 mt-1">
-            Modular layout systems synced from Framer XML with interactive spring dynamics.
-          </h2>
-        </motion.div>
-
-        {/* 1. Services List (ServiceCard nodeId: arC6CNm2o) */}
-        <div className="flex flex-col gap-8">
-          <motion.h3 
-            variants={itemVariants} 
-            className="text-neutral-400 font-mono text-[10px] uppercase tracking-widest border-b border-neutral-100 pb-2"
+          {/* Main Giant Headline */}
+          <motion.h1 
+            variants={framerAnimations.itemVisible}
+            className="font-medium tracking-tighter leading-[1.02] select-none uppercase max-w-4xl"
+            style={{
+              fontFamily: framerTypography.headings.h96.fontFamily,
+              fontWeight: framerTypography.headings.h96.fontWeight,
+              fontSize: "clamp(42px, 8vw, 92px)",
+              letterSpacing: framerTypography.headings.h96.letterSpacing,
+              fontVariationSettings: framerTypography.headings.h96.fontVariationSettings,
+              color: framerColors.neutral950.value,
+            }}
           >
-            Services List Component (nodeId: arC6CNm2o — Horizontal Hover Accordion)
-          </motion.h3>
-          <motion.div variants={itemVariants} className="flex flex-col">
+            {framerHero.headline} <span style={{ color: framerColors.primary.value }}>{framerHero.headlineAccent}</span>
+          </motion.h1>
+
+          {/* Subtitle description */}
+          <motion.p 
+            variants={framerAnimations.itemVisible}
+            className="max-w-2xl leading-relaxed"
+            style={{
+              fontFamily: framerTypography.paragraphs.p24.fontFamily,
+              fontSize: "clamp(16px, 2.5vw, 22px)",
+              fontWeight: framerTypography.paragraphs.p24.fontWeight,
+              fontVariationSettings: framerTypography.paragraphs.p24.fontVariationSettings,
+              color: framerColors.neutral500.value,
+            }}
+          >
+            {framerHero.subtitle}
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div variants={framerAnimations.itemVisible} className="flex flex-col sm:flex-row gap-5 items-center justify-center mt-6">
+            <FramerButtonShowcase variantKey={framerHero.ctaPrimary.variantKey} text={framerHero.ctaPrimary.text} />
+            <FramerButtonShowcase variantKey={framerHero.ctaSecondary.variantKey} text={framerHero.ctaSecondary.text} />
+          </motion.div>
+        </motion.div>
+      </FramerSection>
+
+      {/* ---------------- 2. SERVICES SECTION ---------------- */}
+      <FramerSection id="servizi" borderBottom={true}>
+        <SectionHeader 
+          badge={framerSectionHeaders.servizi.badge} 
+          title={framerSectionHeaders.servizi.title} 
+          subtitle={framerSectionHeaders.servizi.subtitle}
+        />
+        
+        {/* Services List Card Component */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+          <div className="lg:col-span-1 hidden lg:block select-none">
+            {/* Visual spacer showing spacing detail */}
+            <div 
+              className="border border-dashed rounded-2xl p-5 flex flex-col gap-2 font-mono text-[8px] w-fit"
+              style={{
+                borderColor: framerColors.primaryBorder.value,
+                backgroundColor: framerColors.primaryGlow.value,
+                color: framerColors.primary.value,
+              }}
+            >
+              <span>{framerSpecNotes.servizi.title}</span>
+              <span className="font-bold">{framerSpecNotes.servizi.nodeId} {framerSpecNotes.servizi.label}</span>
+              {framerSpecNotes.servizi.lines.map((line, i) => (
+                <span key={i}>{line}</span>
+              ))}
+            </div>
+          </div>
+          <div className="col-span-1 lg:col-span-3 flex flex-col">
             {framerDemoData.services.map((service, idx) => (
               <ServiceCard
                 key={idx}
@@ -576,18 +719,37 @@ export default function CentralizedSandboxPage() {
                 description={service.description}
               />
             ))}
-          </motion.div>
+          </div>
         </div>
+      </FramerSection>
 
-        {/* 2. Projects Grid (ProjectCard nodeId: GJDYW1pCq) */}
-        <div className="flex flex-col gap-10 border-t border-neutral-100 pt-16">
-          <motion.h3 
-            variants={itemVariants} 
-            className="text-neutral-400 font-mono text-[10px] uppercase tracking-widest border-b border-neutral-100 pb-2"
-          >
-            Projects Grid (nodeId: GJDYW1pCq — Image Parallax Scale & Slide-Up Arrow Button)
-          </motion.h3>
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      {/* ---------------- 3. PORTFOLIO SHOWCASE SECTION ---------------- */}
+      <FramerSection id="portfolio" borderBottom={true}>
+        <SectionHeader 
+          badge={framerSectionHeaders.portfolio.badge} 
+          title={framerSectionHeaders.portfolio.title} 
+          subtitle={framerSectionHeaders.portfolio.subtitle}
+        />
+
+        {/* Projects Cards Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-1 hidden lg:block select-none">
+            <div 
+              className="border border-dashed rounded-2xl p-5 flex flex-col gap-2 font-mono text-[8px] w-fit"
+              style={{
+                borderColor: framerColors.primaryBorder.value,
+                backgroundColor: framerColors.primaryGlow.value,
+                color: framerColors.primary.value,
+              }}
+            >
+              <span>{framerSpecNotes.portfolio.title}</span>
+              <span className="font-bold">{framerSpecNotes.portfolio.nodeId} {framerSpecNotes.portfolio.label}</span>
+              {framerSpecNotes.portfolio.lines.map((line, i) => (
+                <span key={i}>{line}</span>
+              ))}
+            </div>
+          </div>
+          <div className="col-span-1 lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
             {framerDemoData.projects.map((project, idx) => (
               <ProjectCard
                 key={idx}
@@ -596,18 +758,37 @@ export default function CentralizedSandboxPage() {
                 categories={project.categories}
               />
             ))}
-          </motion.div>
+          </div>
         </div>
+      </FramerSection>
 
-        {/* 3. Testimonials Grid (TestimonialCard nodeId: XrwYu3XaF) */}
-        <div className="flex flex-col gap-10 border-t border-neutral-100 pt-16">
-          <motion.h3 
-            variants={itemVariants} 
-            className="text-neutral-400 font-mono text-[10px] uppercase tracking-widest border-b border-neutral-100 pb-2"
-          >
-            Testimonial Cards (nodeId: XrwYu3XaF — Clean Background & Bold Typography)
-          </motion.h3>
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* ---------------- 4. TESTIMONIALS SECTION ---------------- */}
+      <FramerSection id="testimonianze" borderBottom={true}>
+        <SectionHeader 
+          badge={framerSectionHeaders.opinioni.badge} 
+          title={framerSectionHeaders.opinioni.title} 
+          subtitle={framerSectionHeaders.opinioni.subtitle}
+        />
+
+        {/* Testimonial Cards Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-1 hidden lg:block select-none">
+            <div 
+              className="border border-dashed rounded-2xl p-5 flex flex-col gap-2 font-mono text-[8px] w-fit"
+              style={{
+                borderColor: framerColors.primaryBorder.value,
+                backgroundColor: framerColors.primaryGlow.value,
+                color: framerColors.primary.value,
+              }}
+            >
+              <span>{framerSpecNotes.opinioni.title}</span>
+              <span className="font-bold">{framerSpecNotes.opinioni.nodeId} {framerSpecNotes.opinioni.label}</span>
+              {framerSpecNotes.opinioni.lines.map((line, i) => (
+                <span key={i}>{line}</span>
+              ))}
+            </div>
+          </div>
+          <div className="col-span-1 lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-8">
             {framerDemoData.testimonials.map((testimonial, idx) => (
               <TestimonialCard
                 key={idx}
@@ -617,18 +798,37 @@ export default function CentralizedSandboxPage() {
                 avatarUrl={testimonial.avatarUrl}
               />
             ))}
-          </motion.div>
+          </div>
         </div>
+      </FramerSection>
 
-        {/* 4. Pricing Cards (PricingCard nodeId: lQuFCcWjD) */}
-        <div className="flex flex-col gap-10 border-t border-neutral-100 pt-16">
-          <motion.h3 
-            variants={itemVariants} 
-            className="text-neutral-400 font-mono text-[10px] uppercase tracking-widest border-b border-neutral-100 pb-2"
-          >
-            Pricing Architecture (nodeId: lQuFCcWjD — Multi-Tier Structured Cards)
-          </motion.h3>
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch pt-4">
+      {/* ---------------- 5. PRICING SECTION ---------------- */}
+      <FramerSection id="prezzi" borderBottom={true}>
+        <SectionHeader 
+          badge={framerSectionHeaders.prezzi.badge} 
+          title={framerSectionHeaders.prezzi.title} 
+          subtitle={framerSectionHeaders.prezzi.subtitle}
+        />
+
+        {/* Pricing Cards Comparison Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-stretch">
+          <div className="lg:col-span-1 hidden lg:block select-none">
+            <div 
+              className="border border-dashed rounded-2xl p-5 flex flex-col gap-2 font-mono text-[8px] w-fit"
+              style={{
+                borderColor: framerColors.primaryBorder.value,
+                backgroundColor: framerColors.primaryGlow.value,
+                color: framerColors.primary.value,
+              }}
+            >
+              <span>{framerSpecNotes.prezzi.title}</span>
+              <span className="font-bold">{framerSpecNotes.prezzi.nodeId} {framerSpecNotes.prezzi.label}</span>
+              {framerSpecNotes.prezzi.lines.map((line, i) => (
+                <span key={i}>{line}</span>
+              ))}
+            </div>
+          </div>
+          <div className="col-span-1 lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch pt-4">
             {framerDemoData.pricing.map((plan, idx) => (
               <PricingCard
                 key={idx}
@@ -642,23 +842,100 @@ export default function CentralizedSandboxPage() {
                 popular={plan.popular}
               />
             ))}
-          </motion.div>
+          </div>
         </div>
+      </FramerSection>
 
-        {/* 5. FAQ Accordion (FAQ Questions nodeId: hBptkB8kb / FaqQuestion nodeId: RFmnU3YMS) */}
-        <div className="flex flex-col gap-10 border-t border-neutral-100 pt-16 pb-12">
-          <motion.h3 
-            variants={itemVariants} 
-            className="text-neutral-400 font-mono text-[10px] uppercase tracking-widest border-b border-neutral-100 pb-2"
-          >
-            Frequently Asked Questions List (nodeId: hBptkB8kb / FaqQuestion nodeId: RFmnU3YMS)
-          </motion.h3>
-          <motion.div variants={itemVariants} className="max-w-3xl mx-auto w-full">
+      {/* ---------------- 6. FAQ SECTION ---------------- */}
+      <FramerSection id="faq" borderBottom={true}>
+        <SectionHeader 
+          badge={framerSectionHeaders.faq.badge} 
+          title={framerSectionHeaders.faq.title} 
+          subtitle={framerSectionHeaders.faq.subtitle}
+        />
+
+        {/* FAQ Accordions Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-1 hidden lg:block select-none">
+            <div 
+              className="border border-dashed rounded-2xl p-5 flex flex-col gap-2 font-mono text-[8px] w-fit"
+              style={{
+                borderColor: framerColors.primaryBorder.value,
+                backgroundColor: framerColors.primaryGlow.value,
+                color: framerColors.primary.value,
+              }}
+            >
+              <span>{framerSpecNotes.faq.title}</span>
+              <span className="font-bold">{framerSpecNotes.faq.nodeId} {framerSpecNotes.faq.label}</span>
+              {framerSpecNotes.faq.lines.map((line, i) => (
+                <span key={i}>{line}</span>
+              ))}
+            </div>
+          </div>
+          <div className="col-span-1 lg:col-span-3 w-full">
             <FaqAccordionList items={framerDemoData.faqs} />
-          </motion.div>
+          </div>
         </div>
+      </FramerSection>
 
-      </motion.div>
+      {/* ---------------- 7. FOOTER SECTION ---------------- */}
+      <footer 
+        className="w-full border-t flex justify-center relative overflow-hidden"
+        style={{
+          paddingTop: framerSpacing.footerPaddingY,
+          paddingBottom: framerSpacing.footerPaddingY,
+          paddingLeft: framerSpacing.sectionPaddingXSm,
+          paddingRight: framerSpacing.sectionPaddingXSm,
+          backgroundColor: framerColors.background.value,
+          borderColor: framerColors.neutral200.value,
+        }}
+      >
+        <div 
+          className="w-full flex flex-col z-10"
+          style={{
+            maxWidth: framerSpacing.containerMaxWidth,
+            gap: "48px",
+          }}
+        >
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 border-b pb-12" style={{ borderColor: "rgba(0, 0, 0, 0.15)" }}>
+            {/* Left side brand */}
+            <div className="flex flex-col gap-3 max-w-md">
+              <span className="font-mono text-[10px] font-black tracking-widest uppercase" style={{ color: framerColors.neutral900.value }}>
+                {framerFooter.brandName}
+              </span>
+              <p 
+                className="text-xs font-medium leading-relaxed"
+                style={{ color: framerColors.neutral500.value }}
+              >
+                {framerFooter.description}
+              </p>
+            </div>
+
+            {/* Right side spec toggle */}
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+              <button
+                onClick={() => setIsSpecsPanelOpen(true)}
+                className="px-5 py-3 rounded-xl font-mono text-[9px] font-bold uppercase tracking-widest border-none cursor-pointer hover:bg-neutral-800 transition-colors"
+                style={{
+                  backgroundColor: framerColors.neutral950.value,
+                  color: framerColors.white.value,
+                }}
+              >
+                {framerFooter.specsCtaLabel}
+              </button>
+            </div>
+          </div>
+
+          {/* Base credentials row */}
+          <div 
+            className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-[10px] font-medium font-mono"
+            style={{ color: framerColors.neutral400.value }}
+          >
+            <span>{framerFooter.copyrightPrefix}{new Date().getFullYear()}{framerFooter.copyrightSuffix}</span>
+            <span>{framerFooter.techLabel}</span>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
