@@ -226,7 +226,8 @@ interface TestimonialCardProps {
 export function TestimonialCard({ quote, name, role, avatarUrl }: TestimonialCardProps) {
   return (
     <div
-      className="w-full flex flex-col justify-between p-10 bg-[#F3F3F1] border border-neutral-200/30 rounded-2xl overflow-hidden min-h-[500px] md:min-h-[600px] hover:shadow-lg transition-all duration-500"
+      className="w-full flex flex-col justify-between p-10 border border-neutral-200/30 rounded-2xl overflow-hidden min-h-[500px] md:min-h-[600px] hover:shadow-lg transition-all duration-500"
+      style={{ backgroundColor: framerColors.secondary.value }}
     >
       {/* Quote Icon */}
       <div className="flex justify-end w-full">

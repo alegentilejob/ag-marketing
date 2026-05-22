@@ -16,17 +16,17 @@
 export const framerColors = {
   background: {
     name: "Background",
-    value: "rgb(243, 243, 241)",
+    value: "#FFFDED",
     cssVar: "--framer-background",
   },
   black: {
     name: "Black",
-    value: "rgb(0, 0, 0)",
+    value: "#000000",
     cssVar: "--framer-black",
   },
   primary: {
     name: "Primary",
-    value: "rgb(0, 72, 249)",
+    value: "#0048F9",
     cssVar: "--framer-primary",
   },
   primaryHover: {
@@ -51,8 +51,13 @@ export const framerColors = {
   },
   white: {
     name: "White",
-    value: "rgb(255, 255, 255)",
+    value: "#ffffff",
     cssVar: "--framer-white",
+  },
+  secondary: {
+    name: "Secondary Background",
+    value: "#FFFDED",
+    cssVar: "--framer-secondary",
   },
   black60: {
     name: "Black 60%",
@@ -529,7 +534,7 @@ export const framerSpecNotes = {
     title:  "TESTIMONIAL SPEC",
     nodeId: "XrwYu3XaF",
     label:  "Quote",
-    lines:  ["Background: #F3F3F1", "Font: Inter Display 40px"],
+    lines:  ["Background: #FFFDED", "Font: Inter Display 40px"],
   },
   prezzi: {
     title:  "TIER ARCHITECTURE",
