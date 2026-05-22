@@ -16,27 +16,71 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const baseUrl = 'https://ag-marketing.vercel.app';
 
-  const translations = {
-    it: {
-      title: "Alessandro Gentile Marketing",
-      description: "Portfolio di Alessandro Gentile, Junior Marketing Strategist specializzato in data-driven strategies e ottimizzazione digitale."
-    },
-    en: {
-      title: "Alessandro Gentile Marketing",
-      description: "Portfolio of Alessandro Gentile, Junior Marketing Strategist specialized in data-driven strategies and digital optimization."
+  // Localized Titles and Descriptions based on path
+  const getPageMeta = (l: string, p: string) => {
+    const isEn = l === 'en';
+
+    // Normalize path for comparison (remove /en/ prefix if present)
+    const cleanPath = p.replace(/^\/en/, '') || '/';
+
+    if (cleanPath === '/' || cleanPath === '') {
+      return {
+        title: "Alessandro Gentile Marketing | Strategist",
+        description: isEn
+          ? "Portfolio of Alessandro Gentile, Junior Marketing Strategist specialized in data-driven strategies."
+          : "Portfolio di Alessandro Gentile, Junior Marketing Strategist specializzato in strategie data-driven."
+      };
     }
+
+    if (cleanPath.includes('chi-sono') || cleanPath.includes('about-me')) {
+      return {
+        title: isEn ? "About Me | Alessandro Gentile Marketing" : "Chi Sono | Alessandro Gentile Marketing",
+        description: isEn ? "Learn more about my background and approach." : "Scopri di più sul mio percorso e il mio approccio."
+      };
+    }
+
+    if (cleanPath.includes('esperienze') || cleanPath.includes('experience')) {
+      return {
+        title: isEn ? "Experience | Alessandro Gentile Marketing" : "Esperienze | Alessandro Gentile Marketing",
+        description: isEn ? "My professional journey and key achievements." : "Il mio percorso professionale e traguardi raggiunti."
+      };
+    }
+
+    if (cleanPath.includes('progetti') || cleanPath.includes('projects')) {
+      return {
+        title: isEn ? "Projects | Alessandro Gentile Marketing" : "Progetti | Alessandro Gentile Marketing",
+        description: isEn ? "A collection of my work and case studies." : "Una raccolta dei miei lavori e case studies."
+      };
+    }
+
+    if (cleanPath.includes('cv')) {
+      return {
+        title: isEn ? "Curriculum Vitae | Alessandro Gentile Marketing" : "Curriculum Vitae | Alessandro Gentile Marketing",
+        description: isEn ? "Professional CV and skills." : "CV professionale e competenze."
+      };
+    }
+
+    return {
+      title: "Alessandro Gentile Marketing",
+      description: isEn
+        ? "Portfolio of Alessandro Gentile, Junior Marketing Strategist."
+        : "Portfolio di Alessandro Gentile, Junior Marketing Strategist."
+    };
   };
 
-  const t = translations[lang as keyof typeof translations] || translations.it;
+  const meta = getPageMeta(lang, path);
 
   const itPath = getLocalizedPath(path, 'it');
   const enPath = getLocalizedPath(path, 'en');
 
   return {
-    title: t.title,
-    description: t.description,
+    title: meta.title,
+    description: meta.description,
+    openGraph: {
+      siteName: 'Alessandro Gentile Marketing',
+    },
     robots: {
-      index: true,
+      index: !path.includes('/progetti/') && !path.includes('/projects/'),
       follow: true,
     },
     alternates: {
@@ -59,13 +103,18 @@ export default async function RootLayout({
   const middlewareLang = headerList.get('x-next-lang');
   const localeCookie = cookieStore.get('NEXT_LOCALE');
   const lang = (middlewareLang || localeCookie?.value || 'it') as string;
+  const path = headerList.get('x-next-path') || '/';
+  const isDesignSystem = path.includes('/design-system-centralizzato');
 
   return (
     <html lang={lang}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet" />
         <Script
           id="gtm-script"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -103,7 +152,7 @@ export default async function RootLayout({
                   "url": "https://ag-marketing.vercel.app",
                   "telephone": "+393667360503",
                   "email": "alegentilejob@gmail.com",
-                  "image": "https://ag-marketing.vercel.app/media/profile/Gemini_Generated_Image_awvuruawvuruawvu.png",
+                  "image": "https://ag-marketing.vercel.app/profile/alessandro-gentile-image-profile.png",
                   "sameAs": [
                     "https://www.linkedin.com/in/alessandro-gentile-a1151a258/"
                   ],
@@ -115,7 +164,7 @@ export default async function RootLayout({
                   "@id": "https://ag-marketing.vercel.app/#service",
                   "name": "Alessandro Gentile Marketing Strategist",
                   "url": "https://ag-marketing.vercel.app",
-                  "image": "https://ag-marketing.vercel.app/media/profile/Gemini_Generated_Image_awvuruawvuruawvu.png",
+                  "image": "https://ag-marketing.vercel.app/profile/alessandro-gentile-image-profile.png",
                   "address": {
                     "@type": "PostalAddress",
                     "addressLocality": "Monza",
@@ -142,7 +191,7 @@ export default async function RootLayout({
         </noscript>
         <LanguageProvider initialLang={lang}>
           {children}
-          <Footer />
+          {!isDesignSystem && <Footer />}
         </LanguageProvider>
       </body>
     </html>

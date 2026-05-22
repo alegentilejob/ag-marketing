@@ -90,9 +90,9 @@ async function syncLanguage(lang: 'it' | 'en') {
       },
       contact: siteConfig.contact,
       theme_config: {
-        primaryColor: "#2563eb",
-        secondaryColor: "#1e40af",
-        fontFamily: "Arial, sans-serif",
+        primaryColor: "#3720E5",
+        secondaryColor: "#2b14ca",
+        fontFamily: "Google Sans Flex, sans-serif",
         darkModeEnabled: true
       }
     }, { onConflict: 'lang' });
@@ -101,7 +101,18 @@ async function syncLanguage(lang: 'it' | 'en') {
 
   // 2. Sync Experiences
   console.log('Syncing experiences...');
-  const items = sections.experience.items.map((item: any, idx: number) => ({
+  interface ExperienceItem {
+    role: string;
+    company: string;
+    period: string;
+    location: string;
+    type: string;
+    introduction: { text: string; image: string };
+    development: { text: string; image: string };
+    conclusion: { text: string; image: string };
+    tags: string[];
+  }
+  const items = sections.experience.items.map((item: ExperienceItem, idx: number) => ({
       lang,
       role: item.role,
       company: item.company,
@@ -124,7 +135,15 @@ async function syncLanguage(lang: 'it' | 'en') {
 
   // 3. Sync Skills
   console.log('Syncing skills...');
-  const skillItems: any[] = [];
+  interface SkillData {
+    lang: string;
+    name: string;
+    type: 'hard' | 'soft' | 'software';
+    sort_order: number;
+    category?: string;
+    icon?: string;
+  }
+  const skillItems: SkillData[] = [];
   
   sections.skills.hard.forEach((name: string, idx: number) => {
     skillItems.push({ lang, name, type: 'hard', sort_order: idx });
@@ -132,7 +151,12 @@ async function syncLanguage(lang: 'it' | 'en') {
   sections.skills.soft.forEach((name: string, idx: number) => {
     skillItems.push({ lang, name, type: 'soft', sort_order: idx });
   });
-  sections.skills.software.forEach((sw: any, idx: number) => {
+  interface SoftwareItem {
+    name: string;
+    category: string;
+    icon: string;
+  }
+  sections.skills.software.forEach((sw: SoftwareItem, idx: number) => {
     skillItems.push({ 
         lang, 
         name: sw.name, 
@@ -149,7 +173,12 @@ async function syncLanguage(lang: 'it' | 'en') {
 
   // 4. Sync Education
   console.log('Syncing education...');
-  const eduItems = sections.about.education.map((edu: any, idx: number) => ({
+  interface EducationItem {
+    institution: string;
+    period: string;
+    location: string;
+  }
+  const eduItems = sections.about.education.map((edu: EducationItem, idx: number) => ({
     lang,
     institution: edu.institution,
     period: edu.period,

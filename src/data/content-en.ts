@@ -1,4 +1,4 @@
-import { Home, User, Briefcase, Grid, Mail } from 'lucide-react';
+import { User, Briefcase, Grid } from 'lucide-react';
 
 export const siteConfig = {
   meta: {
@@ -10,7 +10,7 @@ export const siteConfig = {
     birthdate: "19/06/2003",
     language: "en",
     bio: "Junior Marketing Strategist with a strong data-driven approach. Specialized in web performance analysis and the development of measurable digital strategies, I transform complex insights into concrete actions for brand growth.",
-    profileImage: "/media/profile/Gemini_Generated_Image_awvuruawvuruawvu.png",
+    profileImage: "/profile/alessandro-gentile-image-profile.png",
     url: "https://alessandrogentile.marketing",
     languages: [
       { name: "Italian", level: "Native" },
@@ -55,32 +55,32 @@ export const sections = {
     items: [
       {
         id: "naxa",
-        role: "Marketing Strategist Intern",
-        type: "Curricular Internship - ITS Angelo Rizzoli",
+        role: "Junior SEO | AEO",
+        type: "Extracurricular Internship",
         company: "Naxa",
-        website: "https://www.naxa.it",
-        period: "October 2025 - March 2026",
-        location: "Milan, Italy",
+        website: "https://naxa.ws",
+        period: "November 2025 - May 2026",
+        location: "Bernareggio, Italy",
         introduction: {
-          text: "Experience focused on <strong>digital presence optimization</strong> through <strong>web performance analysis</strong> and <strong>SEO</strong> strategies based on real data.",
+          text: "Naxa is a strategic marketing agency based in Bernareggio, specializing in SEO, AEO, social media, digital campaigns, graphic design, and web development. A multidisciplinary environment where every client is a strategic project built from scratch.<br/><br/>At Naxa, I managed the entire strategic and operational cycle of organic positioning for the agency's clients — from the initial brief to reporting, and from technical analysis to continuous optimization. I did not perform isolated tasks: I worked across the entire value chain, learning to connect every activity to a measurable business objective.",
           image: "/media/experiences/naxa/MG_9908-w-poltu-quatu.jpg"
         },
         development: {
-          text: "I conducted <strong>web performance analysis</strong> (traffic, conversion rate, bounce rate, user engagement) using <strong>Google Analytics</strong> and <strong>Search Console</strong> to identify trends and optimization opportunities. I performed <strong>digital competitor analysis</strong> on search engines, developing a <strong>keyword strategy</strong> and a <strong>content approach</strong> to identify competitive gaps. I elaborated optimization strategies using a methodical approach of <strong>continuous testing, measurement, and iteration</strong>.",
+          text: "Every new client started with a structured brief: understanding objectives, analyzing the target market, mapping services and products offered, and assessing the starting point. From there, we built the strategy.<br/><br/>The <strong>operational process</strong> was divided into clear phases:<ul><li><strong>Traffic and existing positioning analysis:</strong> understanding which keyword clusters and audience segments brought visibility, identifying where opportunities lay and where there were losses.</li><li><strong>Comprehensive technical audit:</strong> checking compliance with Google's latest standards, user experience, and technical architecture. A technically sound website is a prerequisite for any organic strategy.</li><li><strong>Keyword gap and conceptual map:</strong> identifying competitor-occupied clusters and proposing topics aligned with the client's strategic positioning. From here, we built the keyword conceptual map — key and strategic topics, bridging occupied clusters and growth opportunities to develop.</li><li><strong>Answer Engine Optimization (AEO):</strong> in parallel with SEO, we worked on AEO to optimize the site's presence on AI response engines. Experimenting, reporting, and continuously optimizing the formats and content that worked best in this emerging context.</li><li><strong>Optimization and Reporting:</strong> integrating SEO elements into existing copy and creating new strategic content. Reporting via Google Analytics 4 and Looker Studio, monitoring key KPIs — users, engagement rate, bounce rate, first-page keywords, acquired audience segments. Each cycle concluded with planning subsequent iterations.</li></ul>",
           image: "/media/experiences/naxa/andaz-maui-at-wailea-resort-17697889581.jpg"
         },
         conclusion: {
-          text: "This experience allowed me to develop a <strong>systematic approach</strong> to digital optimization and to refine my ability to <strong>read data</strong> in order to make <strong>strategic decisions</strong>.",
+          text: `This experience taught me something that goes beyond technical skills: I learned to work with speed and rigor simultaneously, understanding what it means to work effectively in a team and optimize processes by measuring results.<br/><br/>Key <strong>soft skills developed</strong>:<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 mb-10"><div class="p-6 border border-gray-100 dark:border-gray-800 bg-gray-50/30 dark:bg-gray-900/30 hover:border-blue-600 transition-all rounded-xl flex flex-col gap-4 group"><div class="w-12 h-12 flex items-center justify-center bg-blue-600/10 rounded-lg text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><h4 class="text-[22px] font-bold text-gray-900 dark:text-white mb-2 tracking-tight leading-tight font-sans">Speed & Rigor</h4><p class="text-[16px] text-gray-500 dark:text-gray-400 font-normal leading-relaxed tracking-wide font-sans">Ability to perform in fast-paced environments while maintaining high methodical accuracy on every task.</p></div></div><div class="p-6 border border-gray-100 dark:border-gray-800 bg-gray-50/30 dark:bg-gray-900/30 hover:border-blue-600 transition-all rounded-xl flex flex-col gap-4 group"><div class="w-12 h-12 flex items-center justify-center bg-blue-600/10 rounded-lg text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><div><h4 class="text-[22px] font-bold text-gray-900 dark:text-white mb-2 tracking-tight leading-tight font-sans">Strategic Focus</h4><p class="text-[16px] text-gray-500 dark:text-gray-400 font-normal leading-relaxed tracking-wide font-sans">Recognizing what is truly impactful for the client and optimizing time and resources accordingly.</p></div></div><div class="p-6 border border-gray-100 dark:border-gray-800 bg-gray-50/30 dark:bg-gray-900/30 hover:border-blue-600 transition-all rounded-xl flex flex-col gap-4 group"><div class="w-12 h-12 flex items-center justify-center bg-blue-600/10 rounded-lg text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><h4 class="text-[22px] font-bold text-gray-900 dark:text-white mb-2 tracking-tight leading-tight font-sans">Team Collaboration</h4><p class="text-[16px] text-gray-500 dark:text-gray-400 font-normal leading-relaxed tracking-wide font-sans">Effective teamwork: maintaining clear communication, accessibility, and high reliability.</p></div></div><div class="p-6 border border-gray-100 dark:border-gray-800 bg-gray-50/30 dark:bg-gray-900/30 hover:border-blue-600 transition-all rounded-xl flex flex-col gap-4 group"><div class="w-12 h-12 flex items-center justify-center bg-blue-600/10 rounded-lg text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div><div><h4 class="text-[22px] font-bold text-gray-900 dark:text-white mb-2 tracking-tight leading-tight font-sans">Process Optimization</h4><p class="text-[16px] text-gray-500 dark:text-gray-400 font-normal leading-relaxed tracking-wide font-sans">Continuous performance improvement driven by constant measurement of weekly metrics.</p></div></div></div><strong>Tools used:</strong> Google Analytics 4 · Google Search Console · Looker Studio · SEMrush · SEOZoom · PowerPoint · Excel`,
           image: "/media/experiences/naxa/cantieri-di-pisa-polaris-48-intro.jpg"
         },
-        tags: ["SEO", "SEA", "Marketing Strategy", "Data Analysis", "Content Marketing"]
+        tags: ["SEO", "AEO", "Digital Strategy"]
       },
       {
         id: "fridhem-center",
         role: "Multi-purpose Staff",
         type: "Erasmus +",
         company: "Fridhem Center",
-        website: "https://fridhem.org",
+        website: "https://frid.nu/en/",
         period: "June 2024 - August 2024",
         location: "Stjärnsund, Sweden",
         introduction: {

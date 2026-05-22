@@ -1,0 +1,12 @@
+# REGOLA MASSIMA DI SISTEMA (CRITICAL SYSTEM RULE)
+
+All'apertura della chat e prima di qualunque risposta o modifica al codice, l'IA **DEVE LEGGERE IMMEDIATAMENTE E APPLICARE INTEGRALMENTE** le linee guida grafiche, tipografiche e strutturali definite nel file di istruzioni principale:
+👉 [ai-instructions.md](file:///c:/Users/Scuola/Desktop/my-job-website/ai-instructions.md)
+
+## Istruzioni Mandatorie per l'IA (Mandatory Rules)
+1. **Lettura Prioritaria**: Prima di proporre soluzioni, scrivere righe di codice o suggerire layout visivi, esegui un'azione di lettura/lettura-file su [ai-instructions.md](file:///c:/Users/Scuola/Desktop/my-job-website/ai-instructions.md) se non l'hai già fatto in questa sessione.
+2. **Rispetto Rigido del Design System**: Controlla sempre se le classi, i componenti, i tag di testo (h1, h2, p, bottoni, card, ecc.) sono centralizzati in `globals.css` o nel `/design-system-centralizzato`. È vietato introdurre classi ad-hoc o stili arbitrari non coerenti.
+3. **Spaziature Aurea e Fibonacci**: Qualunque margine, padding o griglia deve seguire la sequenza di Fibonacci ed i rapporti della Sezione Aurea, partendo da moltiplicatori della griglia base di 8px.
+4. **Metodologia THAt**: Applica rigorosamente le tre fasi (Trajectorizing, Homologizing, Attenuating) per qualsiasi sviluppo di elementi grafici e tipografici.
+5. **Niente Placeholder**: Utilizza sempre dati reali, contenuti completi e icone SVG coerenti e di livello premium.
+

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "framer": {
+      "type": "remote",
+      "url": "https://mcp.unframer.co/mcp?id=ce788066ed6270d83b42a00583421b43ac82dbf8883ebc85b62763058c9f1501&secret=xdBxgYjfzZq9FogCZYDMKfgoPIUfhaOz",
+      "enabled": true
+    }
+  }
+}

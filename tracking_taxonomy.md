@@ -184,14 +184,16 @@ Per garantire l'attribuzione corretta del traffico in GA4, utilizzare i seguenti
 | **Post / Commenti** | `/?utm_source=linkedin&utm_medium=social&utm_campaign=post_[slug]` | Sostituire `[slug]` con titolo post |
 | **Messaggi Direct** | `/?utm_source=linkedin&utm_medium=direct_message&utm_campaign=recruiter` | |
 
-### Email & Outreach (CV)
+### Email & Outreach (CV & Cover Letter)
 
 Utilizzare questi link nei documenti (PDF) o nelle email inviate ai recruiter.
 
 | Contesto | URL Suggerito | Note |
 | :--- | :--- | :--- |
-| **CV / Resume (IT)** | `/?utm_source=cv&utm_medium=pdf&utm_campaign=curriculum_vito_it` | Link cliccabile nel PDF |
-| **CV / Resume (EN)** | `/en/?utm_source=cv&utm_medium=pdf&utm_campaign=curriculum_vito_en` | |
+| **CV / Resume (IT)** | `/?utm_source=cv&utm_medium=pdf&utm_campaign=curriculum_vitae_it` | Link cliccabile nel PDF |
+| **CV / Resume (EN)** | `/en/?utm_source=cv&utm_medium=pdf&utm_campaign=curriculum_vitae_en` | |
+| **Cover Letter (IT)** | `/?utm_source=cv&utm_medium=pdf&utm_campaign=cover_letter_it` | |
+| **Cover Letter (EN)** | `/en/?utm_source=cv&utm_medium=pdf&utm_campaign=cover_letter_en` | |
 | **Email Firma** | `/?utm_source=email&utm_medium=signature&utm_campaign=work_mail` | |
 | **Email Personale** | `/?utm_source=email&utm_medium=direct&utm_campaign=outreach` | |
 

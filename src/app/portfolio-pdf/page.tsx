@@ -1,8 +1,29 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React from 'react';
 import { Home, Printer } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+
+interface Software {
+  name: string;
+  category: string;
+}
+
+interface ExperienceItem {
+  id: string;
+  company: string;
+  role: string;
+  period: string;
+  location: string;
+  type: string;
+  website: string;
+  introduction: { text: string; image: string };
+  development: { text: string; image: string };
+  conclusion: { text: string; image: string };
+  tags: string[];
+}
+
 
 export default function PortfolioPDF() {
   const { lang, content } = useLanguage();
@@ -108,18 +129,18 @@ export default function PortfolioPDF() {
                ))}
             </div>
             <div className="grid grid-cols-2 gap-x-8 gap-y-6 content-start">
-               {sections.skills.software.map((sw: any, idx: number) => (
-                 <div key={idx} className="border-b border-gray-100 pb-2 flex flex-col">
-                   <span className="text-[14px] font-bold text-gray-900">{sw.name}</span>
-                   <span className="text-[10px] text-gray-500 uppercase mt-1">{sw.category}</span>
-                 </div>
-               ))}
+                {sections.skills.software.map((sw: Software, idx: number) => (
+                  <div key={idx} className="border-b border-gray-100 pb-2 flex flex-col">
+                    <span className="text-[14px] font-bold text-gray-900">{sw.name}</span>
+                    <span className="text-[10px] text-gray-500 uppercase mt-1">{sw.category}</span>
+                  </div>
+                ))}
             </div>
           </div>
         </section>
 
         {/* EXPERIENCE SLIDES */}
-        {sections.experience.items.map((job: any, jidx: number) => (
+        {sections.experience.items.map((job: ExperienceItem, jidx: number) => (
           <React.Fragment key={job.id}>
             {/* Discovery */}
             <section className="slide-export w-[29.7cm] h-[21cm] bg-white flex relative overflow-hidden box-border print:page-break-after-always">
@@ -232,7 +253,7 @@ export default function PortfolioPDF() {
         {/* CONTACT SLIDE */}
         <section className="slide-export w-[29.7cm] h-[21cm] bg-gray-50 flex flex-col justify-center px-[3cm] py-[2cm] pb-10 relative overflow-hidden box-border print:page-break-after-always">
           <p className="text-[11px] text-blue-600 uppercase tracking-[0.2em] font-bold mb-8">LET'S CONNECT</p>
-          <h2 className="text-[36px] font-bold text-gray-900 mb-16">{lang === 'it' ? 'Iniziamo una conversazione' : 'Let\'s start a conversation'}</h2>
+          <h2 className="text-[36px] font-bold text-gray-900 mb-16">{lang === 'it' ? 'Iniziamo una conversazione' : "Let&apos;s start a conversation"}</h2>
 
           <div className="space-y-10 border-l px-8 border-gray-200">
              <div className="flex flex-col md:flex-row md:gap-20">

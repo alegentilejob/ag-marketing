@@ -11,9 +11,13 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-tech-blue: var(--tech-blue);
-  --font-sans: var(--font-primary);
-  --font-display: var(--font-display);
+  --font-sans: 'Google Sans Flex', var(--font-primary), sans-serif;
+  --font-display: 'Google Sans Flex', var(--font-display), sans-serif;
   --font-mono: var(--font-mono);
+  
+  /* Brand Blue overrides */
+  --color-blue-600: #3720E5;
+  --color-blue-700: #2b14ca;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,7 +31,35 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-primary), sans-serif;
+  font-family: 'Google Sans Flex', var(--font-primary), sans-serif;
+  letter-spacing: -0.02em;
+  @apply text-[16px] md:text-[18px] leading-[1.7] antialiased;
+}
+
+/* Global legibility improvements */
+p {
+  @apply text-gray-800 dark:text-gray-200 transition-colors duration-300;
+}
+
+/* Explicitly scuring common light text classes */
+.text-gray-400 {
+  color: #4b5563 !important; /* text-gray-600 */
+}
+
+.dark .text-gray-400 {
+  color: #d1d5db !important; /* text-gray-300 */
+}
+
+.text-gray-500 {
+  color: #374151 !important; /* text-gray-700 */
+}
+
+.dark .text-gray-500 {
+  color: #d1d5db !important; /* text-gray-300 */
+}
+
+.font-light {
+  font-weight: 400 !important;
 }
 
 @layer base {
@@ -37,69 +69,61 @@ body {
     @apply transition-colors duration-300;
   }
 
-  h1 {
-    @apply text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter;
-  }
-
-  h2 {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tighter;
-  }
-
-  h3 {
-    @apply text-2xl md:text-3xl lg:text-4xl font-bold uppercase tracking-tight;
-  }
-
-  h4 {
-    @apply text-xl md:text-2xl font-bold uppercase tracking-widest;
-  }
-
-  h5 {
-    @apply text-lg font-bold uppercase tracking-widest;
-  }
-
-  h6 {
-    @apply text-base font-bold uppercase tracking-widest;
-  }
+  h1 { @apply text-[40px] md:text-[54px] font-black tracking-tight leading-[1.1]; }
+  h2 { @apply text-[30px] md:text-[36px] font-bold tracking-tight leading-[1.2]; }
+  h3 { @apply text-[24px] md:text-[28px] font-bold tracking-normal leading-[1.3]; }
+  h4 { @apply text-[20px] md:text-[24px] font-bold tracking-normal; }
+  h5 { @apply text-[18px] font-bold tracking-normal; }
+  h6 { @apply text-[16px] font-bold tracking-normal; }
 }
 
 @layer components {
-  /* Primary: High-impact blue, fully rounded */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-4 font-mono font-bold uppercase tracking-[0.2em] text-[10px] md:text-[11px] transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
-    @apply bg-blue-600 text-white px-10 py-5 rounded-full hover:bg-black dark:hover:bg-white dark:hover:text-black shadow-xl hover:shadow-blue-600/20;
+    @apply inline-flex items-center justify-center gap-3 font-sans font-bold tracking-wide text-[16px] min-h-[48px] transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+    @apply bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 shadow-lg hover:shadow-blue-600/30;
   }
 
-  /* Secondary: Black/White technical rectangles */
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-4 font-mono font-bold uppercase tracking-[0.2em] text-[10px] md:text-[11px] transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
-    @apply bg-black dark:bg-white text-white dark:text-black px-10 py-5 rounded-xl hover:bg-blue-600 dark:hover:bg-blue-600 dark:hover:text-white shadow-lg;
+    @apply inline-flex items-center justify-center gap-3 font-sans font-bold tracking-wide text-[16px] min-h-[48px] transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+    @apply bg-transparent text-gray-900 dark:text-white px-8 py-3 rounded-full border-2 border-blue-600 hover:bg-blue-600 hover:text-white;
   }
 
-  /* Tertiary: Outlined/Ghost */
   .btn-tertiary {
-    @apply inline-flex items-center justify-center gap-4 font-mono font-bold uppercase tracking-[0.2em] text-[10px] md:text-[11px] transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
-    @apply border-2 border-gray-100 dark:border-gray-800 text-gray-900 dark:text-white px-10 py-5 rounded-xl hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/10;
+    @apply inline-flex items-center justify-center gap-3 font-sans font-bold tracking-wide text-sm transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+    @apply bg-transparent text-gray-900 dark:text-white px-0 py-2 border-b-2 border-gray-900 dark:border-white hover:text-blue-600 hover:border-blue-600;
   }
 
-  /* Slim variant for inline CTAs */
   .btn-inline {
-    @apply inline-flex items-center gap-4 font-mono font-bold uppercase tracking-[0.3em] text-[10px] pb-2 border-b-2 border-gray-200 dark:border-gray-800 transition-all hover:border-blue-600 hover:text-blue-600;
+    @apply inline-flex items-center gap-3 font-sans font-bold text-sm transition-all hover:text-blue-600;
   }
 }
 
-/* Tech Grid Background Utility */
 .bg-grid {
   background-size: 50px 50px;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
 }
 
 .dark .bg-grid {
   background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
 }
 
-/* Hide Vercel/Next.js Dev Toolbars/Indicators */
+/* Global Overrides */
+.uppercase {
+  text-transform: none !important;
+}
+
+.normal-case {
+  text-transform: none !important;
+}
+
+.tracking-widest,
+.tracking-\[0\.3em\],
+.tracking-\[0\.4em\] {
+  letter-spacing: 0.02em !important;
+}
+
 [data-vercel-toolbar],
 #nextjs__container_build_error_label,
 .nextjs-toast-errors-parent {

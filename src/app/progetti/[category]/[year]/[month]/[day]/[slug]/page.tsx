@@ -1,12 +1,13 @@
 "use client";
 import React from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, notFound } from 'next/navigation';
 import { projectsIt, projectsEn } from '@/data/projects';
 import { useLanguage } from '@/context/LanguageContext';
 import Header from '@/components/Header';
 import { FadeIn, RevealText } from '@/components/animations';
 import { Calendar, Tag, ArrowRight, Mail, Phone, Linkedin } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { siteConfig } from '@/data/content-it';
 
@@ -15,6 +16,10 @@ export default function ProjectPage() {
   const { lang } = useLanguage();
   
   const category = params.category as string;
+  
+  if (category.toLowerCase() === 'marketing') {
+    return notFound();
+  }
   const year = params.year as string;
   const month = params.month as string;
   const day = params.day as string;
@@ -119,11 +124,14 @@ export default function ProjectPage() {
 
           {/* Featured Image - Prompt layout image */}
           <FadeIn delay={0.4} className="mb-20">
-            <div className="w-full aspect-[16/10] overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-800 shadow-2xl">
-                <img 
+            <div className="w-full aspect-[16/10] overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-800 shadow-2xl relative">
+                <Image 
                     src={project.coverImage} 
                     alt={project.title} 
-                    className="w-full h-full object-cover"
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, 800px"
+                    className="object-cover"
                 />
             </div>
           </FadeIn>
@@ -184,7 +192,15 @@ export default function ProjectPage() {
                   return (
                     <FadeIn key={index} delay={0.1 * index} className="w-full">
                       <div className="group relative w-full rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800">
-                          <img src={block.data.src} alt={block.data.caption} className="w-full aspect-video object-cover transition-transform duration-700 group-hover:scale-105" />
+                          <div className="relative aspect-video w-full overflow-hidden">
+                            <Image 
+                              src={block.data.src} 
+                              alt={block.data.caption || project.title} 
+                              fill
+                              sizes="(max-width: 768px) 100vw, 800px"
+                              className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                            />
+                          </div>
                           {block.data.caption && (
                             <div className="p-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
                                 <p className="text-[11px] uppercase tracking-widest font-bold text-gray-400 text-center">

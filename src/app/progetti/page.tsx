@@ -5,6 +5,7 @@ import { FadeIn, RevealText } from '@/components/animations';
 import { projectsIt, projectsEn } from '@/data/projects';
 import { useLanguage } from '@/context/LanguageContext';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Tag } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { getLocalizedPath } from '@/utils/navigation';
@@ -15,11 +16,21 @@ export default function ProjectsHub() {
 
   // Group projects by category
   const groups = projects.reduce((acc, project) => {
+    if (project.category.toLowerCase() === 'marketing') return acc;
     const cat = project.category.toUpperCase();
     if (!acc[cat]) acc[cat] = [];
     acc[cat].push(project);
     return acc;
   }, {} as Record<string, typeof projects>);
+
+  // Sort projects within each category by date (ascending)
+  Object.keys(groups).forEach(cat => {
+    groups[cat].sort((a, b) => {
+      const dateA = `${a.year}-${a.month}-${a.day}`;
+      const dateB = `${b.year}-${b.month}-${b.day}`;
+      return dateA.localeCompare(dateB);
+    });
+  });
 
   // Ensure 'WOLLY' is first if it exists
   const sortedCategories = Object.keys(groups).sort((a, b) => {
@@ -90,9 +101,11 @@ export default function ProjectsHub() {
 
                   {/* Right Side: Hero Image */}
                   <div className="flex-1 h-[400px] md:h-auto overflow-hidden relative">
-                    <img 
+                    <Image 
                       src={firstProject.coverImage} 
                       alt={category} 
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-blue-600/10 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity" />

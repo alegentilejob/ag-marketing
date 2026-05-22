@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 import { ArrowUpRight, Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter, usePathname } from "next/navigation";
@@ -11,7 +13,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
   const { lang, setLang, content } = useLanguage();
   const router = useRouter();
   const pathname = usePathname();
-  const { navigation, siteConfig, sections } = content;
+  const { navigation, sections } = content;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -30,15 +32,21 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
       });
     }
 
-    setLang(newLang);
+    // We don't call setLang(newLang) immediately here to avoid a "flash" of 404 
+    // on dynamic blog/project pages where the slug must match the language.
+    // The LanguageProvider will sync with the new pathname after router.push completes.
 
     // Use the navigation utility to get the correct target path
     const targetPath = getLocalizedPath(pathname, newLang);
 
     // Special handling for dynamic projects/blog slugs if not matched by simple replacement
-    if (pathname.includes('/progetti/') || pathname.includes('/projects/')) {
-      const parts = pathname.split('/');
-      const currentSlug = parts[parts.length - 1] || parts[parts.length - 2];
+    const isDynamicRoute = pathname.includes('/progetti/') ||
+      pathname.includes('/projects/') ||
+      pathname.includes('/blog/');
+
+    if (isDynamicRoute) {
+      const parts = pathname.split('/').filter(Boolean);
+      const currentSlug = parts[parts.length - 1];
 
       const allProjects = [...projectsIt, ...projectsEn];
       const currentProject = allProjects.find(p => p.slug === currentSlug);
@@ -48,6 +56,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
         const targetProject = targetProjects.find(p => p.id === currentProject.id);
 
         if (targetProject) {
+          // Replace only the slug part to preserve the category/year/month/day structure
           const newPath = targetPath.replace(currentSlug, targetProject.slug);
           router.push(newPath);
           return;
@@ -58,7 +67,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
     router.push(targetPath);
   };
 
-  const projects = lang === 'it' ? projectsIt : projectsEn;
+  const projects = (lang === 'it' ? projectsIt : projectsEn).filter(p => p.category.toLowerCase() !== 'marketing');
   const experienceItems = sections.experience.items;
 
   const handleMouseEnter = (menuName: string) => {
@@ -87,7 +96,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
 
         <div className="flex items-center gap-4">
           <Link href={lang === 'en' ? "/en/" : "/"} id="nav_logo_header" className="flex items-center gap-2 group">
-            <span className="text-4xl md:text-5xl font-black tracking-tighter uppercase text-gray-900 dark:text-white transition-all group-hover:text-blue-600">
+            <span className="text-3xl md:text-4xl font-black tracking-tight text-gray-900 dark:text-white transition-all group-hover:text-blue-600">
               agm<span className="text-blue-600">.</span>
             </span>
           </Link>
@@ -111,11 +120,11 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                 <Link
                   href={item.href}
                   id={`nav_link_${item.key}_header`}
-                  className={`flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.2em] transition-all hover:text-blue-600 
-                    ${isActive ? 'text-blue-600' : 'text-gray-400'}`}
+                  className={`flex items-center gap-1.5 text-sm font-semibold transition-all hover:text-blue-600 
+                    ${isActive ? 'text-blue-600' : 'text-gray-500 dark:text-gray-400'}`}
                 >
                   {item.name}
-                  {hasDropdown && <ChevronDown size={12} className={`transition-transform duration-300 ${openDropdown === item.name ? 'rotate-180' : ''}`} />}
+                  {hasDropdown && <ChevronDown size={14} className={`transition-transform duration-300 ${openDropdown === item.name ? 'rotate-180' : ''}`} />}
                 </Link>
 
                 <AnimatePresence>
@@ -136,7 +145,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                               className="group flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
                               onClick={() => setOpenDropdown(null)}
                             >
-                              <span className="text-[11px] font-bold uppercase tracking-widest text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors">
+                              <span className="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors">
                                 {cat}
                               </span>
                               <ArrowRight size={10} className="text-gray-300 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
@@ -150,7 +159,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                               className="group flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
                               onClick={() => setOpenDropdown(null)}
                             >
-                              <span className="text-[11px] font-bold uppercase tracking-widest text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors">
+                              <span className="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors">
                                 {job.company}
                               </span>
                               <ArrowRight size={10} className="text-gray-300 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
@@ -172,7 +181,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
           <button
             id="nav_lang_switch"
             onClick={handleLanguageChange}
-            className="text-[11px] font-bold uppercase tracking-widest text-gray-400 hover:text-blue-600 transition-colors"
+            className="text-sm font-semibold text-gray-400 hover:text-blue-600 transition-colors"
             aria-label="Toggle language"
           >
             {lang === 'it' ? 'EN' : 'IT'}
@@ -183,16 +192,17 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
             id="cta_contact_header"
             href="#contact"
             onClick={scrollToContact}
-            className="hidden md:flex btn-primary !py-2.5 !px-6"
+            className="hidden md:inline-flex btn-primary !py-2.5 !px-6 !text-sm"
           >
             <span>{lang === 'it' ? 'Contatti' : 'Contact'}</span>
-            <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight size={14} />
           </Link>
 
           {/* Mobile Menu Toggle */}
           <button
             className="md:hidden p-2 text-gray-900 dark:text-white"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -222,8 +232,8 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                       href={item.href}
                       id={`nav_link_${item.key}_mobile`}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`text-xl font-bold uppercase tracking-[0.2em] transition-colors
-                        ${isActive ? 'text-blue-600' : 'text-gray-400'}`}
+                      className={`text-xl font-bold transition-colors
+                        ${isActive ? 'text-blue-600' : 'text-gray-500 dark:text-gray-400'}`}
                     >
                       {item.name}
                     </Link>
@@ -231,6 +241,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                       <button
                         onClick={() => setOpenDropdown(isOpen ? null : item.name)}
                         className="p-2 text-gray-400"
+                        aria-label={isOpen ? "Close dropdown" : "Open dropdown"}
                       >
                         <ChevronDown size={20} className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
                       </button>
@@ -254,7 +265,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                                 className="flex items-center justify-between"
                                 onClick={() => setIsMobileMenuOpen(false)}
                               >
-                                <span className="text-[12px] font-bold uppercase tracking-widest text-gray-600 dark:text-gray-300">
+                                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                                   {cat}
                                 </span>
                                 <ArrowRight size={12} className="text-blue-600" />
@@ -268,7 +279,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                                 className="flex items-center justify-between"
                                 onClick={() => setIsMobileMenuOpen(false)}
                               >
-                                <span className="text-[12px] font-bold uppercase tracking-widest text-gray-600 dark:text-gray-300">
+                                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                                   {job.company}
                                 </span>
                                 <ArrowRight size={12} className="text-blue-600" />
@@ -292,17 +303,6 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
             >
               {lang === 'it' ? 'Contattami' : 'Contact Me'}
             </Link>
-
-            <button
-              onClick={() => {
-                handleLanguageChange();
-                setIsMobileMenuOpen(false);
-              }}
-              className="mt-2 text-center text-xs font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-blue-600 transition-colors py-4 border border-gray-100 dark:border-gray-800"
-              aria-label="Toggle language"
-            >
-              {lang === 'it' ? 'Switch to English' : 'Passa in Italiano'}
-            </button>
           </motion.div>
         )}
       </AnimatePresence>

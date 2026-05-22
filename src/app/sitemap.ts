@@ -10,7 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { it: '/', en: '/en/' },
     { it: '/chi-sono', en: '/en/about-me' },
     { it: '/esperienze', en: '/en/experience' },
-    { it: '/progetti', en: '/en/projects' },
     { it: '/skills', en: '/en/skills' },
     { it: '/blog', en: '/en/blog' },
     { it: '/cv', en: '/en/cv' },
@@ -48,23 +47,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]);
 
-  // 3. Project Detail Pages (Italian)
-  const projectItSitemaps = projectsIt.map((project) => ({
-    url: `${baseUrl}/progetti/${project.category}/${project.year}/${project.month}/${project.day}/${project.slug}`,
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }));
-
-  // 4. Project Detail Pages (English)
-  const projectEnSitemaps = projectsEn.map((project) => ({
-    url: `${baseUrl}/en/projects/${project.category}/${project.year}/${project.month}/${project.day}/${project.slug}`,
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }));
-
-  // 5. Blog Detail Pages (Mirror of projects but with /blog prefix)
   const blogItSitemaps = projectsIt.filter(p => !p.category.includes('wolly')).map((project) => ({
     url: `${baseUrl}/blog/${project.category}/${project.year}/${project.month}/${project.day}/${project.slug}`,
     lastModified: currentDate,
@@ -79,30 +61,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  // 6. Category Hubs (for projects/blog)
-  const categories = Array.from(new Set([...projectsIt, ...projectsEn].map(p => p.category.toLowerCase())));
-  const hubSitemaps = categories.flatMap(cat => [
-      {
-          url: `${baseUrl}/progetti/${cat}`,
-          lastModified: currentDate,
-          changeFrequency: 'monthly' as const,
-          priority: 0.5,
-      },
-      {
-          url: `${baseUrl}/en/projects/${cat}`,
-          lastModified: currentDate,
-          changeFrequency: 'monthly' as const,
-          priority: 0.5,
-      }
-  ]);
-
   return [
     ...staticSitemaps,
     ...experienceSitemaps,
-    ...projectItSitemaps,
-    ...projectEnSitemaps,
     ...blogItSitemaps,
     ...blogEnSitemaps,
-    ...hubSitemaps
   ];
 }
