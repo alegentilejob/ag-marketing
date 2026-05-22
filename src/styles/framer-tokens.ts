@@ -84,6 +84,26 @@ export const framerColors = {
     value: "rgb(115, 115, 115)",
     cssVar: "--framer-neutral-500",
   },
+  neutral600: {
+    name: "Neutral 600",
+    value: "rgb(82, 82, 82)",
+    cssVar: "--framer-neutral-600",
+  },
+  neutral700: {
+    name: "Neutral 700",
+    value: "rgb(64, 64, 64)",
+    cssVar: "--framer-neutral-700",
+  },
+  neutral800: {
+    name: "Neutral 800",
+    value: "rgb(38, 38, 38)",
+    cssVar: "--framer-neutral-800",
+  },
+  neutral900: {
+    name: "Neutral 900",
+    value: "rgb(23, 23, 23)",
+    cssVar: "--framer-neutral-900",
+  },
   neutral950: {
     name: "Neutral 950",
     value: "rgb(10, 10, 10)",
