@@ -3,6 +3,7 @@ import React from 'react';
 import PageLayout from '@/components/PageLayout';
 import { useLanguage } from '@/context/LanguageContext';
 import { CheckCircle2, Terminal, Palette, BarChart3, Cloud, Share2, MonitorSpeaker } from 'lucide-react';
+import { StandardH1 } from '@/components/Typography';
 
 export default function SkillsPage() {
   const { lang, content } = useLanguage();
@@ -22,9 +23,14 @@ export default function SkillsPage() {
   return (
     <PageLayout>
       <header className="mb-24">
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 translate-x-[-4px] uppercase text-gray-900 dark:text-white">
-          {sections.skills.title} <span className="text-blue-600">.</span>
-        </h1>
+        <StandardH1
+          lines={[
+            <>
+              {sections.skills.title} <span className="text-blue-600">.</span>
+            </>
+          ]}
+          className="mb-8 translate-x-[-4px] uppercase"
+        />
         <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-2xl leading-relaxed font-normal">
           {lang === 'it' 
             ? 'Un set di competenze tecniche e trasversali focalizzate sull\'ottimizzazione dei processi digitali e della brand identity.'

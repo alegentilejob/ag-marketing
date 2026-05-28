@@ -9,10 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     { it: '/', en: '/en/' },
     { it: '/chi-sono', en: '/en/about-me' },
-    { it: '/esperienze', en: '/en/experience' },
-    { it: '/skills', en: '/en/skills' },
     { it: '/blog', en: '/en/blog' },
-    { it: '/cv', en: '/en/cv' },
   ];
 
   const staticSitemaps = staticPages.flatMap((page) => [
@@ -27,23 +24,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: page.en === '/en/' ? 1 : 0.8,
-    },
-  ]);
-
-  // 2. Experience Detail Pages
-  const experienceIds = ['naxa', 'fridhem-center', 'anularis'];
-  const experienceSitemaps = experienceIds.flatMap((id) => [
-    {
-      url: `${baseUrl}/esperienze/${id}`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/en/experience/${id}`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
     },
   ]);
 
@@ -63,7 +43,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticSitemaps,
-    ...experienceSitemaps,
     ...blogItSitemaps,
     ...blogEnSitemaps,
   ];

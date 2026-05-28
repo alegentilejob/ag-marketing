@@ -1,7 +1,8 @@
 "use client";
-import React from 'react';
-import { Mail, Linkedin, Phone } from 'lucide-react';
+import React, { useMemo } from 'react';
+import { Linkedin, Phone, Mail } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import RevealText from '@/components/RevealText';
 
 const Footer = () => {
     const { lang, content } = useLanguage();
@@ -19,57 +20,105 @@ const Footer = () => {
         }
     };
 
-    return (
-        <footer id="contact" className="w-full bg-white dark:bg-[#111] border-t border-gray-100 dark:border-gray-800 py-24 transition-colors">
-            <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24">
-                <div className="flex flex-col items-center text-center gap-16">
-                    <div className="space-y-6">
-                        <h3 className="whitespace-nowrap text-gray-900 dark:text-white">
-                            {lang === 'it' ? 'Ti interessa contattarmi? ' : 'Interested in contacting me? '}
-                            <span className="text-blue-600 block md:inline underline underline-offset-8">
-                                {lang === 'it' ? 'Clicca qui' : 'Click here'}
-                            </span>
-                        </h3>
-                        <p className="text-gray-700 dark:text-gray-300 text-lg md:text-xl font-normal max-w-2xl mx-auto leading-relaxed">
-                            {lang === 'it'
-                                ? "Stai valutando il mio profilo per il tuo team? Contattami direttamente per un colloquio conoscitivo o connettiti con me su LinkedIn."
-                                : "Evaluating my profile for your team? Contact me directly for a screening interview or connect with me on LinkedIn."}
-                        </p>
-                    </div>
+    // Predefined scatter positions for the pixel effect around the text
+    const pixelPositions = useMemo(() => [
+        { top: '15%', left: '8%', size: 'w-4 h-4 md:w-6 md:h-6' },
+        { top: '25%', right: '12%', size: 'w-6 h-6 md:w-8 md:h-8' },
+        { top: '65%', left: '18%', size: 'w-5 h-5 md:w-7 md:h-7' },
+        { top: '75%', right: '20%', size: 'w-4 h-4 md:w-5 md:h-5' },
+        { bottom: '15%', left: '28%', size: 'w-6 h-6 md:w-8 md:h-8' },
+        { bottom: '25%', right: '6%', size: 'w-5 h-5 md:w-6 md:h-6' },
+        { top: '45%', left: '5%', size: 'w-4 h-4 md:w-5 md:h-5' },
+        { bottom: '40%', right: '15%', size: 'w-6 h-6 md:w-8 md:h-8' },
+    ], []);
 
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8">
+    return (
+        <footer id="contact" className="relative w-full bg-blue-600 border-none py-28 transition-colors overflow-hidden select-none">
+            
+            {/* Absolute scattered pixels (light blue with border) */}
+            {pixelPositions.map((pos, idx) => (
+                <div 
+                    key={idx}
+                    className={`absolute bg-blue-400/25 border border-white/5 pointer-events-none rounded-none ${pos.size}`}
+                    style={{
+                        top: pos.top || 'auto',
+                        bottom: pos.bottom || 'auto',
+                        left: pos.left || 'auto',
+                        right: pos.right || 'auto',
+                    }}
+                />
+            ))}
+
+            <div className="max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
+                <div className="flex flex-col items-center text-center gap-12">
+                    
+                    {/* Centered Main Tagline */}
+                    <RevealText
+                        lines={[lang === 'it' ? 'Iniziamo qualcosa di grande assieme' : 'Let\'s start something great together']}
+                        lineClassName="text-white font-medium font-sans text-center tracking-tight leading-tight text-[clamp(28px,4.5vw,56px)] max-w-4xl uppercase"
+                    />
+
+                    {/* Email button with mail icon on the left & rounded corners */}
+                    <div className="flex flex-col items-center gap-6 w-full max-w-md">
                         <a
                             id="lnk_email"
                             href={`mailto:${siteConfig.contact.email}`}
                             onClick={() => trackContactClick('email', siteConfig.contact.email)}
-                            className="btn-secondary w-full md:w-auto"
+                            className="w-full flex items-center justify-center gap-3 bg-white hover:bg-white/95 text-blue-600 font-sans text-sm md:text-base font-bold uppercase tracking-wider py-4 px-8 shadow-lg active:scale-95 hover:scale-102 transition-all rounded-full overflow-hidden"
                         >
-                            <span>{siteConfig.contact.email}</span>
-                            <Mail size={18} />
+                            <RevealText
+                                lines={[
+                                    <span key="email-content" className="flex items-center gap-3">
+                                        <Mail size={18} className="shrink-0" />
+                                        <span>{siteConfig.contact.email}</span>
+                                    </span>
+                                ]}
+                                lineClassName="font-bold text-blue-600 uppercase flex items-center justify-center"
+                                stagger={0}
+                            />
                         </a>
 
-                        <a
-                            id="lnk_linkedin"
-                            href={siteConfig.contact.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => trackContactClick('linkedin', siteConfig.contact.linkedin)}
-                            className="btn-secondary w-full md:w-auto"
-                        >
-                            <span>LinkedIn</span>
-                            <Linkedin size={18} />
-                        </a>
-
-                        <a
-                            id="lnk_phone"
-                            href={`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`}
-                            onClick={() => trackContactClick('phone', siteConfig.contact.phone)}
-                            className="btn-secondary w-full md:w-auto"
-                        >
-                            <span>{siteConfig.contact.phone}</span>
-                            <Phone size={18} />
-                        </a>
+                        {/* Secondary contacts (LinkedIn & Phone) kept subtle to preserve GTM tracking */}
+                        <div className="flex items-center justify-center gap-6 mt-2">
+                            <a
+                                id="lnk_linkedin"
+                                href={siteConfig.contact.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => trackContactClick('linkedin', siteConfig.contact.linkedin)}
+                                className="text-xs font-semibold uppercase tracking-widest text-blue-200 hover:text-white transition-colors flex items-center gap-1.5"
+                            >
+                                <RevealText
+                                    lines={[
+                                        <span key="linkedin-content" className="flex items-center gap-1.5">
+                                            <Linkedin size={14} className="shrink-0" />
+                                            <span>LinkedIn</span>
+                                        </span>
+                                    ]}
+                                    lineClassName="text-xs font-semibold uppercase tracking-widest text-blue-200 group-hover:text-white flex items-center"
+                                    stagger={0}
+                                />
+                            </a>
+                            <a
+                                id="lnk_phone"
+                                href={`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`}
+                                onClick={() => trackContactClick('phone', siteConfig.contact.phone)}
+                                className="text-xs font-semibold uppercase tracking-widest text-blue-200 hover:text-white transition-colors flex items-center gap-1.5"
+                            >
+                                <RevealText
+                                    lines={[
+                                        <span key="phone-content" className="flex items-center gap-1.5">
+                                            <Phone size={14} className="shrink-0" />
+                                            <span>{siteConfig.contact.phone}</span>
+                                        </span>
+                                    ]}
+                                    lineClassName="text-xs font-semibold uppercase tracking-widest text-blue-200 group-hover:text-white flex items-center"
+                                    stagger={0}
+                                />
+                            </a>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </footer>

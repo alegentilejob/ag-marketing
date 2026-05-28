@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { framerColors, framerTypography } from '@/styles/framer-tokens';
+import { StandardH2 } from '@/components/Typography';
 
 // Standard Framer-like Spring Animations
 const transitionSpring = {
@@ -26,32 +27,22 @@ export function ServiceCard({ index, title, description }: ServiceCardProps) {
 
   return (
     <motion.div
-      className="w-full border-b border-neutral-100 cursor-pointer select-none relative overflow-hidden"
+      className="w-full border-b border-neutral-100 dark:border-neutral-800 cursor-pointer select-none relative overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       animate={{
         backgroundColor: isHovered ? framerColors.primary.value : "rgba(255, 255, 255, 0)",
-        borderRadius: isHovered ? "12px" : "0px",
-        padding: isHovered ? "28px 24px" : "24px 0px",
+        borderRadius: "0px",
+        padding: isHovered ? "28px 24px" : "24px 24px",
       }}
       transition={transitionSpring}
     >
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 relative z-10">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 relative z-10 min-h-[56px]">
         
-        {/* Left Side: Number Index & Service Title */}
-        <div className="flex items-center gap-8 md:gap-16 flex-1 min-w-0">
-          <motion.span
-            className="font-mono text-lg font-medium shrink-0"
-            style={{ fontFamily: '"Onest", sans-serif' }}
-            animate={{
-              color: isHovered ? framerColors.white.value : "rgba(0, 0, 0, 0.3)"
-            }}
-            transition={{ duration: 0.2 }}
-          >
-            {index}
-          </motion.span>
+        {/* Left Side: Service Title Only */}
+        <div className="flex items-center justify-center flex-1 min-w-0 text-center">
           <motion.h3
-            className="font-medium whitespace-normal break-words"
+            className="font-medium whitespace-normal break-words text-neutral-900 dark:text-white transition-colors duration-200 text-center mx-auto"
             style={{
               fontFamily: framerTypography.headings.h48.fontFamily,
               fontWeight: framerTypography.headings.h48.fontWeight,
@@ -60,7 +51,7 @@ export function ServiceCard({ index, title, description }: ServiceCardProps) {
               fontVariationSettings: '"opsz" 32',
             }}
             animate={{
-              color: isHovered ? framerColors.white.value : framerColors.black.value
+              color: isHovered ? framerColors.white.value : undefined
             }}
             transition={{ duration: 0.2 }}
           >
@@ -68,10 +59,10 @@ export function ServiceCard({ index, title, description }: ServiceCardProps) {
           </motion.h3>
         </div>
 
-        {/* Middle: Expanding Description Block */}
-        <div className="flex-[1.5] max-w-xl">
+        {/* Middle: Expanding Description Block - Vertically Centered */}
+        <div className="flex-[1.5] max-w-xl flex items-center">
           <motion.p
-            className="text-sm font-medium leading-relaxed"
+            className="text-sm font-medium leading-relaxed text-neutral-600 dark:text-neutral-300 transition-colors duration-200 my-auto text-center md:text-left"
             style={{
               fontFamily: framerTypography.paragraphs.p16.fontFamily,
               fontVariationSettings: '"opsz" 14',
@@ -80,7 +71,7 @@ export function ServiceCard({ index, title, description }: ServiceCardProps) {
             animate={{
               opacity: isHovered ? 1 : 0,
               height: isHovered ? "auto" : 0,
-              color: isHovered ? "rgba(255, 255, 255, 0.9)" : "rgba(0, 0, 0, 0)"
+              color: isHovered ? "rgba(255, 255, 255, 0.9)" : undefined
             }}
             transition={transitionSpring}
           >
@@ -88,26 +79,20 @@ export function ServiceCard({ index, title, description }: ServiceCardProps) {
           </motion.p>
         </div>
 
-        {/* Right Side: Animated SVG Action Circle */}
-        <motion.div
-          className="w-10 h-10 rounded-full border flex items-center justify-center shrink-0 self-end md:self-center"
-          animate={{
-            borderColor: isHovered ? "rgba(255, 255, 255, 0.3)" : "rgba(0, 0, 0, 0.15)",
-            backgroundColor: isHovered ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.02)",
-            rotate: isHovered ? 45 : 0
-          }}
-          transition={transitionSpring}
-        >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <motion.path
-              d="M7 1V13M1 7H13"
-              stroke={isHovered ? framerColors.white.value : framerColors.black.value}
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </motion.div>
+        {/* Right Side: Number Index & Animated SVG Action Circle - Aligned on the Right */}
+        <div className="flex items-center gap-6 shrink-0 self-end md:self-center">
+          {/* Index Number Right-Aligned */}
+          <motion.span
+            className="font-mono text-lg font-bold shrink-0 text-neutral-400 dark:text-neutral-500 transition-colors duration-200"
+            style={{ fontFamily: '"Onest", sans-serif' }}
+            animate={{
+              color: isHovered ? framerColors.white.value : undefined
+            }}
+            transition={{ duration: 0.2 }}
+          >
+            {index}
+          </motion.span>
+        </div>
 
       </div>
     </motion.div>
@@ -566,6 +551,108 @@ export function FaqAccordionList({ items }: FaqAccordionListProps) {
           onToggle={() => setOpenIndex(openIndex === idx ? null : idx)}
         />
       ))}
+    </div>
+  );
+}
+
+/**
+ * 6. ACTIVITIES SECTION (Full screen width, blue background, grid layout)
+ * Left column displays list of activities. Hovering an activity shows its details in the right column.
+ */
+interface ActivityItem {
+  title: string;
+  description: string;
+}
+
+interface ActivitiesSectionProps {
+  activities: ActivityItem[];
+  title?: string;
+  description?: React.ReactNode;
+}
+
+export function ActivitiesSection({ activities, title, description }: ActivitiesSectionProps) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  if (!activities || activities.length === 0) return null;
+
+  return (
+    <div className="not-prose w-[100vw] relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-[#0048F9] text-white py-20 md:py-28 px-6 md:px-12 lg:px-24 select-none overflow-hidden my-16">
+      <div className="max-w-[1400px] mx-auto mb-16 md:mb-24">
+        {title && (
+          <StandardH2
+            text={title}
+            className="mb-6"
+            lineClassName="!text-white"
+          />
+        )}
+        {description && (
+          <div className="text-blue-50 font-light leading-relaxed text-lg max-w-3xl">
+            {description}
+          </div>
+        )}
+      </div>
+      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+        
+        {/* Left Column: List of activities stacked */}
+        <div className="flex flex-col border-t border-white/20">
+          {activities.map((act, index) => {
+            const isHovered = activeIndex === index;
+            const numberStr = `0${index + 1}`;
+            return (
+              <div
+                key={index}
+                className="w-full flex items-center justify-between py-6 md:py-8 border-b border-white/20 cursor-pointer transition-all duration-300 relative"
+                onMouseEnter={() => setActiveIndex(index)}
+                style={{
+                  backgroundColor: isHovered ? "rgba(255, 255, 255, 0.08)" : "transparent",
+                  paddingLeft: isHovered ? "20px" : "0px",
+                  paddingRight: isHovered ? "20px" : "0px",
+                }}
+              >
+                <div className="flex items-center gap-6 md:gap-10 min-w-0">
+                  <span
+                    className={`font-mono text-sm md:text-base tracking-wider transition-opacity duration-300 shrink-0 leading-none self-center ${
+                      isHovered ? "opacity-100 font-bold" : "opacity-50"
+                    }`}
+                  >
+                    {numberStr}
+                  </span>
+                  <h3
+                    className={`text-lg md:text-2xl lg:text-3xl font-medium tracking-tight transition-all duration-300 truncate whitespace-normal break-words leading-none self-center ${
+                      isHovered ? "text-white translate-x-2" : "text-white/60"
+                    }`}
+                    style={{
+                      fontFamily: framerTypography.headings.h48.fontFamily,
+                    }}
+                  >
+                    {act.title}
+                  </h3>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Right Column: Active Activity Detail Panel (Description text only) */}
+        <div className="flex flex-col justify-center min-h-[250px] lg:sticky lg:top-32 self-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className="text-white leading-relaxed font-normal text-lg md:text-xl lg:text-2xl max-w-xl"
+              style={{
+                fontFamily: framerTypography.paragraphs.p20.fontFamily,
+                color: "#ffffff"
+              }}
+              dangerouslySetInnerHTML={{ __html: activities[activeIndex]?.description }}
+            />
+          </AnimatePresence>
+        </div>
+
+      </div>
     </div>
   );
 }

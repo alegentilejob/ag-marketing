@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { primaryFont, displayFont, monoFont } from "@/styles/fonts";
+import { primaryFont, displayFont, monoFont, maisonNeueFont } from "@/styles/fonts";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { cookies, headers } from "next/headers";
@@ -73,6 +73,12 @@ export async function generateMetadata(): Promise<Metadata> {
   const itPath = getLocalizedPath(path, 'it');
   const enPath = getLocalizedPath(path, 'en');
 
+  const cleanPath = path.toLowerCase().replace(/\/$/, '') || '/';
+  const isHome = cleanPath === '/' || cleanPath === '/en';
+  const isChiSono = cleanPath === '/chi-sono' || cleanPath === '/en/about-me';
+  const isBlog = cleanPath === '/blog' || cleanPath.startsWith('/blog/') || cleanPath === '/en/blog' || cleanPath.startsWith('/en/blog/');
+  const shouldIndex = isHome || isChiSono || isBlog;
+
   return {
     title: meta.title,
     description: meta.description,
@@ -80,7 +86,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: 'Alessandro Gentile Marketing',
     },
     robots: {
-      index: !path.includes('/progetti/') && !path.includes('/projects/'),
+      index: shouldIndex,
       follow: true,
     },
     alternates: {
@@ -178,7 +184,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${primaryFont.variable} ${displayFont.variable} ${monoFont.variable} font-sans antialiased bg-white text-black dark:bg-[#111] dark:text-white transition-colors duration-300 min-h-screen bg-grid`}
+        className={`${primaryFont.variable} ${displayFont.variable} ${monoFont.variable} ${maisonNeueFont.variable} font-sans antialiased bg-white text-black dark:bg-[#111] dark:text-white transition-colors duration-300 min-h-screen bg-grid`}
         data-track-language={lang}
       >
         <noscript>

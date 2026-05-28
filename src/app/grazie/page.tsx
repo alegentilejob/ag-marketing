@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { CheckCircle, ArrowLeft, Send } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import Header from '@/components/Header';
+import { StandardH1, StandardH2 } from '@/components/Typography';
 
 export default function ThankYouPage() {
   const { lang } = useLanguage();
@@ -40,13 +41,17 @@ export default function ThankYouPage() {
             </div>
           </div>
 
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-6 text-gray-900 dark:text-white uppercase">
-            {content.title}
-          </h1>
+          <StandardH1
+            lines={[content.title]}
+            className="mb-6 uppercase text-center"
+            lineClassName="text-6xl md:text-8xl font-black tracking-tighter"
+          />
           
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-6">
-            {content.subtitle}
-          </h2>
+          <StandardH2
+            text={content.subtitle}
+            className="mb-6 text-center"
+            lineClassName="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200"
+          />
 
           <p className="text-xl text-gray-500 dark:text-gray-400 mb-12 font-light leading-relaxed">
             {content.description}

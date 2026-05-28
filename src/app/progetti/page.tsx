@@ -2,6 +2,7 @@
 import React from 'react';
 import Header from '@/components/Header';
 import { FadeIn, RevealText } from '@/components/animations';
+import { DisplayH1, DisplayH2, StandardH1, StandardH2 } from '@/components/Typography';
 import { projectsIt, projectsEn } from '@/data/projects';
 import { useLanguage } from '@/context/LanguageContext';
 import Link from 'next/link';
@@ -43,14 +44,17 @@ export default function ProjectsHub() {
     <div className="min-h-screen bg-white dark:bg-[#111] transition-colors duration-300">
       <Header />
       
-      <main className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24 pt-40 pb-24">
+      <main className="max-w-[1400px] mx-auto px-2 md:px-4 pt-40 pb-24">
         <Breadcrumbs />
         <header className="mb-24">
-          <RevealText>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 translate-x-[-4px]">
-              {lang === 'it' ? 'Progetti' : 'Projects'} <span className="text-blue-600">.</span>
-            </h1>
-          </RevealText>
+          <StandardH1
+            lines={[
+              <>
+                {lang === 'it' ? 'Progetti' : 'Projects'} <span className="text-blue-600">.</span>
+              </>
+            ]}
+            className="mb-8 translate-x-[-4px]"
+          />
           <FadeIn delay={0.2}>
             <p className="text-xl md:text-2xl text-gray-500 max-w-2xl leading-relaxed">
               {lang === 'it' 
@@ -82,9 +86,11 @@ export default function ProjectsHub() {
                           {articleCount} {lang === 'it' ? 'CONTRIBUTI' : 'CONTRIBUTIONS'}
                         </span>
                       </div>
-                      <h2 className="text-5xl md:text-8xl font-bold tracking-tighter uppercase mb-8 group-hover:text-blue-600 transition-colors">
-                        {category}
-                      </h2>
+                      <StandardH2
+                        text={category}
+                        className="mb-8"
+                        lineClassName="group-hover:text-blue-600 transition-colors text-5xl md:text-8xl font-bold tracking-tighter"
+                      />
                       <p className="text-xl md:text-2xl text-gray-500 font-light max-w-xl leading-relaxed mb-12">
                         {category === 'WOLLY' 
                           ? (lang === 'it' ? 'Sviluppo e marketing strategy per una fintech AI-powered rivoluzionaria.' : 'Strategy and marketing development for a revolutionary AI-powered fintech.')

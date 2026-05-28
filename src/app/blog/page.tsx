@@ -7,6 +7,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Search, Filter } from 'lucide-react';
 import { getLocalizedPath } from '@/utils/navigation';
+import RevealText from '@/components/RevealText';
+import { StandardH1 } from '@/components/Typography';
 
 export default function BlogPage() {
   const { lang } = useLanguage();
@@ -40,9 +42,14 @@ export default function BlogPage() {
   return (
     <PageLayout>
       <header className="mb-24">
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 translate-x-[-4px] uppercase text-gray-900 dark:text-white">
-          {lang === 'it' ? 'Insights & Blog' : 'Insights & Blog'} <span className="text-blue-600">.</span>
-        </h1>
+        <StandardH1
+          lines={[
+            <>
+              {lang === 'it' ? 'Insights & Blog' : 'Insights & Blog'} <span className="text-blue-600">.</span>
+            </>
+          ]}
+          className="mb-8 translate-x-[-4px] uppercase"
+        />
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
             <div className="flex-1">
                 <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-2xl leading-relaxed font-normal">
@@ -72,42 +79,52 @@ export default function BlogPage() {
       </header>
 
       {/* Blog Feed */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+      <div className="flex flex-col border-t border-gray-200 dark:border-gray-800 w-full mb-12">
         {filteredProjects.map((article, index) => (
           <Link 
             key={article.id}
             href={getLocalizedPath(`/blog/${article.category.toLowerCase()}/${article.year}/${article.month}/${article.day}/${article.slug}`, lang)}
-            className="group block h-full flex flex-col"
+            className="group w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6 py-8 px-4 md:px-6 border-b border-gray-200 dark:border-gray-800 hover:bg-blue-600 transition-all duration-[300ms]"
+            style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
           >
-            <div className="relative aspect-[16/10] overflow-hidden mb-8 bg-gray-100 dark:bg-gray-900 border border-gray-100 dark:border-gray-800">
-              <Image 
-                src={article.coverImage} 
-                alt={article.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover transition-all duration-700 group-hover:scale-105"
-              />
-              <div className="absolute top-4 left-4">
-                <span className="bg-white/90 dark:bg-black/90 backdrop-blur-md px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.3em] border border-gray-100 dark:border-gray-800 text-gray-900 dark:text-white">
-                  {article.category}
-                </span>
+            <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              {/* Left: Square Image */}
+              <div className="relative w-24 h-24 md:w-32 md:h-32 shrink-0 bg-blue-600 overflow-hidden rounded-none">
+                <Image 
+                  src={article.coverImage} 
+                  alt={article.title} 
+                  fill
+                  sizes="(max-width: 768px) 96px, 128px"
+                  className="object-cover transition-transform duration-[400ms] group-hover:scale-90" 
+                  style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
+                />
               </div>
-            </div>
-
-            <div className="flex flex-col flex-1">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-600 mb-4 block">
-                {article.date} — {lang === 'it' ? '5 min lettura' : '5 min read'}
-              </span>
-              <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight mb-4 group-hover:text-blue-600 transition-colors leading-tight text-gray-900 dark:text-white">
-                {article.title}
-              </h3>
-              <p className="text-gray-700 dark:text-gray-300 font-normal line-clamp-3 mb-8 flex-1 leading-relaxed">
-                {article.description}
-              </p>
               
-              <div className="mt-auto flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-900 dark:text-gray-100 group-hover:text-blue-600 transition-colors">
-                <span>{lang === 'it' ? 'Leggi Articolo' : 'Read Article'}</span>
-                <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
+              {/* Center: Title / Intro text */}
+              <div className="flex-1 md:pl-8 text-left">
+                <RevealText 
+                  lines={[article.title]} 
+                  lineClassName="text-lg md:text-xl font-medium tracking-tight text-gray-900 dark:text-white group-hover:text-white! font-maison leading-snug transition-colors" 
+                />
+                <RevealText 
+                  lines={[article.description]} 
+                  lineClassName="text-sm font-medium tracking-tight text-gray-700 dark:text-gray-300 group-hover:text-white/90! leading-relaxed transition-colors line-clamp-2 mt-2" 
+                  delay={0.05} 
+                />
+                <RevealText 
+                  lines={[`${article.category} — ${lang === 'it' ? 'Articolo Blog' : 'Blog Article'}`]} 
+                  lineClassName="text-xs text-gray-400 dark:text-gray-500 group-hover:text-white/70! font-maison mt-2 uppercase tracking-wider transition-colors" 
+                  delay={0.1} 
+                />
+              </div>
+              
+              {/* Right: Date */}
+              <div className="shrink-0 text-left md:text-right md:w-32">
+                <RevealText 
+                  lines={[article.date]} 
+                  lineClassName="text-sm font-medium text-gray-500 dark:text-gray-400 group-hover:text-white! font-maison transition-colors" 
+                  delay={0.15} 
+                />
               </div>
             </div>
           </Link>

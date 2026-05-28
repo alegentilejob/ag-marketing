@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Node xml:\n<Button nodeId=\"kIcImQTgg\">\n  <Primary\n      nodeId=\"XCUq3HXQ7\"\n      position=\"absolute\"\n      width=\"fit-content\"\n      height=\"57px\"\n      top=\"0px\"\n      left=\"0px\"\n      <!-- background color string or project color style path (if starts with /) -->\n      backgroundColor=\"rgb(0, 72, 249)\"\n      borderRadius=\"100px\"\n      overflow=\"clip\"\n      layout=\"stack\"\n      gap=\"10px\"\n      padding=\"18px\"\n      stackDirection=\"horizontal\"\n      stackDistribution=\"center\"\n      stackAlignment=\"center\"\n  >\n    <Contattami\n        nodeId=\"sBX1D83xF\"\n        width=\"fit-content\"\n        height=\"fit-content\"\n        font=\"Inter\"\n    >\n      CONTATTAMI\n    </Contattami>\n  </Primary>\n  <!-- This is a non-primary variant. To see children inside, call getNodeXml again on this nodeId. -->\n  <Secondary\n      nodeId=\"riUrmITVN\"\n      position=\"absolute\"\n      width=\"fit-content\"\n      height=\"57px\"\n      top=\"0px\"\n      left=\"227px\"\n      <!-- background color string or project color style path (if starts with /) -->\n      backgroundColor=\"rgb(227, 227, 227)\"\n      borderRadius=\"29px\"\n      overflow=\"clip\"\n      layout=\"stack\"\n      gap=\"10px\"\n      padding=\"18px\"\n      stackDirection=\"horizontal\"\n      stackDistribution=\"center\"\n      stackAlignment=\"center\"\n   />\n  <!-- This is a non-primary variant. To see children inside, call getNodeXml again on this nodeId. -->\n  <Third\n      nodeId=\"RKk97tbxy\"\n      position=\"absolute\"\n      width=\"fit-content\"\n      height=\"57px\"\n      top=\"0px\"\n      left=\"454px\"\n      borderRadius=\"29px\"\n      overflow=\"clip\"\n      layout=\"stack\"\n      gap=\"10px\"\n      padding=\"18px\"\n      stackDirection=\"horizontal\"\n      stackDistribution=\"center\"\n      stackAlignment=\"center\"\n   />\n</Button>\n"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

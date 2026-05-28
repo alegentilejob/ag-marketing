@@ -10,6 +10,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { siteConfig } from '@/data/content-it';
+import { StandardH1, StandardH2 } from '@/components/Typography';
 
 export default function ProjectPage() {
   const params = useParams();
@@ -88,26 +89,28 @@ export default function ProjectPage() {
       <Header />
       
       <main className="w-full pt-32 pb-24 flex flex-col items-center overflow-x-hidden">
-        {/* Main Article Container */}
-        <article className="w-full max-w-4xl px-6 md:px-0">
-          <Breadcrumbs />
+        {/* Breadcrumbs - Centered in 1400px wrapper */}
+        <div className="w-full max-w-[1400px] px-2 md:px-4 mb-8">
+           <Breadcrumbs />
+        </div>
 
-          {/* Hero Section */}
-          <header className="mb-12">
-            <RevealText>
-              <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight mb-8 leading-[1.1] text-gray-900 dark:text-white uppercase">
-                {project.title}
-              </h1>
-            </RevealText>
-            
-            <FadeIn delay={0.2}>
-              <p className="text-xl md:text-2xl text-gray-500 dark:text-gray-400 leading-relaxed font-light mb-10">
-                {project.description}
-              </p>
-            </FadeIn>
+        {/* Hero Section - 100vh dynamic area, 2 columns (61.8 / 38.2) */}
+        <header className="w-full max-w-[1400px] px-2 md:px-4 lg:min-h-[calc(100vh-192px)] flex flex-col lg:flex-row items-center justify-between gap-12 mb-24">
+           {/* Area Principale: Text 61.8% */}
+           <div className="w-full lg:w-[61.8%] flex flex-col justify-center">
+             <StandardH1
+               lines={[project.title]}
+               className="mb-8 leading-[1.1] uppercase font-display"
+             />
+             
+             <FadeIn delay={0.2}>
+               <p className="text-xl md:text-2xl text-gray-500 dark:text-gray-400 leading-relaxed font-light mb-10">
+                 {project.description}
+               </p>
+             </FadeIn>
 
-            {/* Metadata Row - No Author as requested */}
-            <FadeIn delay={0.3} className="flex flex-wrap items-center justify-between gap-6 border-y border-gray-100 dark:border-gray-800 py-8">
+             {/* Metadata Row */}
+             <FadeIn delay={0.3} className="flex flex-wrap items-center gap-6 border-y border-gray-100 dark:border-gray-800 py-6">
                 <div className="flex items-center gap-3">
                     <span className="px-4 py-1.5 rounded-full border border-gray-100 dark:border-gray-800 text-[10px] font-mono font-bold uppercase tracking-widest text-blue-600">
                         {project.category}
@@ -119,23 +122,26 @@ export default function ProjectPage() {
                         {labels.readTime}
                     </span>
                 </div>
-            </FadeIn>
-          </header>
-
-          {/* Featured Image - Prompt layout image */}
-          <FadeIn delay={0.4} className="mb-20">
-            <div className="w-full aspect-[16/10] overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-800 shadow-2xl relative">
+             </FadeIn>
+           </div>
+           
+           {/* Sidebar: Image 38.2%, Aspect Ratio Aureo 1:1.618, Fitted to viewport */}
+           <div className="w-full lg:w-[38.2%] flex justify-center lg:justify-end items-center h-[60vh] lg:max-h-[calc(100vh-200px)] lg:h-auto overflow-hidden">
+             <FadeIn delay={0.4} className="w-full h-full relative overflow-hidden" style={{ aspectRatio: '1 / 1.618' }}>
                 <Image 
                     src={project.coverImage} 
                     alt={project.title} 
                     fill
                     priority
-                    sizes="(max-width: 768px) 100vw, 800px"
+                    sizes="(max-width: 1024px) 100vw, 800px"
                     className="object-cover"
                 />
-            </div>
-          </FadeIn>
+             </FadeIn>
+           </div>
+        </header>
 
+        {/* Main Article Container - Centered for optimal reading */}
+        <article className="w-full max-w-4xl px-6 md:px-0">
           {/* Content Body - Left aligned in centered container */}
           <div className="space-y-16 text-left">
             {project.content.map((block, index) => {
@@ -143,7 +149,12 @@ export default function ProjectPage() {
                 case 'text':
                   return (
                     <FadeIn key={index} delay={0.1 * index} className="prose prose-xl dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-blue-500 prose-a:font-bold prose-a:underline decoration-blue-500/30 hover:decoration-blue-500 transition-all">
-                      {block.data.title && <h2 className="text-3xl font-bold mb-8 mt-16 text-gray-900 dark:text-white">{block.data.title}</h2>}
+                      {block.data.title && (
+                        <StandardH2
+                          text={block.data.title}
+                          className="mb-8 mt-16 text-gray-900 dark:text-white uppercase"
+                        />
+                      )}
                       {block.data.html ? (
                         <div 
                           className="text-gray-600 dark:text-gray-400 leading-[1.8] font-light [&>p]:mb-8 [&>ul]:list-disc [&>ul]:ml-6 [&>ul]:mb-8 [&>ol]:mb-8 [&>ol]:ml-6 [&>ol]:list-decimal [&>h3]:text-2xl [&>h3]:font-semibold [&>h3]:mb-6 [&>h3]:mt-10 [&>h4]:text-xl [&>h4]:font-semibold [&>h4]:mb-4 [&>h4]:mt-8 [&>strong]:text-gray-900 dark:[&>strong]:text-white [&>strong]:font-bold" 

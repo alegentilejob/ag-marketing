@@ -8,6 +8,8 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getLocalizedPath } from '@/utils/navigation';
+import RevealText from '@/components/RevealText';
+import { StandardH1, StandardH2 } from '@/components/Typography';
 
 export default function CategoryPage() {
   const params = useParams();
@@ -45,9 +47,10 @@ export default function CategoryPage() {
             <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-600 mb-8 block">
               {lang === 'it' ? 'Progetto Case Study' : 'Project Case Study'}
             </span>
-            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-8 uppercase leading-[0.85] text-gray-900 dark:text-white">
-              {categoryTitle}
-            </h1>
+            <StandardH1
+              lines={[categoryTitle]}
+              className="mb-8 uppercase font-display"
+            />
             <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-2xl font-normal leading-relaxed">
               {category === 'wolly' 
                 ? (lang === 'it' ? 'Un ecosistema narrativo e strategico dedicato alla rivoluzione della finanza personale tramite l\'intelligenza artificiale.' : 'A narrative and strategic ecosystem dedicated to the personal finance revolution via artificial intelligence.')
@@ -103,39 +106,47 @@ export default function CategoryPage() {
                       <Link 
                         key={project.id}
                         href={getLocalizedPath(`/progetti/${project.category}/${project.year}/${project.month}/${project.day}/${project.slug}`, lang)}
-                        className="group block"
+                        className="group w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6 py-8 px-4 md:px-6 border-b border-t border-gray-200 dark:border-gray-800 hover:bg-blue-600 transition-all duration-[300ms]"
+                        style={{ transitionTimingFunction: 'var(--ease-expo-root)', marginTop: '-1px' }}
                       >
-                        <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-                          <div className="w-full md:w-1/3 aspect-[16/10] overflow-hidden bg-gray-100 dark:bg-gray-800 relative border border-gray-100 dark:border-gray-800">
+                        <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                          {/* Left: Square Image */}
+                          <div className="relative w-24 h-24 md:w-32 md:h-32 shrink-0 bg-blue-600 overflow-hidden rounded-none">
                             <Image 
                               src={project.coverImage} 
                               alt={project.title} 
                               fill
-                              sizes="(max-width: 768px) 100vw, 33vw"
-                              className="object-cover transition-all duration-700 group-hover:scale-105" 
+                              sizes="(max-width: 768px) 96px, 128px"
+                              className="object-cover transition-transform duration-[400ms] group-hover:scale-90" 
+                              style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
                             />
                           </div>
                           
-                          <div className="flex-1">
-                            <div className="mb-4">
-                              <span className="text-[9px] font-bold uppercase tracking-widest text-blue-600">
-                                 {project.date}
-                              </span>
-                            </div>
-                            
-                            <h3 className="text-2xl md:text-3xl font-bold mb-4 tracking-tight group-hover:text-blue-600 transition-colors text-gray-900 dark:text-white">
-                              {project.title}
-                            </h3>
-                            
-                            <p className="text-base text-gray-700 dark:text-gray-300 font-normal line-clamp-2 mb-6 leading-relaxed max-w-2xl">
-                              {project.description}
-                            </p>
-
-                            <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-gray-900 dark:text-gray-100 group-hover:text-blue-600 transition-colors">
-                              <span>{lang === 'it' ? 'Leggi l\'analisi completa' : 'Explore full analysis'}</span>
-                              <div className="w-8 h-px bg-gray-300 dark:bg-gray-700 transition-all duration-500 group-hover:w-16 group-hover:bg-blue-600" />
-                              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                            </div>
+                          {/* Center: Title / Intro text */}
+                          <div className="flex-1 md:pl-8 text-left">
+                            <RevealText 
+                              lines={[project.title]} 
+                              lineClassName="text-lg md:text-xl font-medium tracking-tight text-gray-900 dark:text-white group-hover:text-white! font-maison leading-snug transition-colors" 
+                            />
+                            <RevealText 
+                              lines={[project.description]} 
+                              lineClassName="text-sm font-medium tracking-tight text-gray-700 dark:text-gray-300 group-hover:text-white/90! leading-relaxed transition-colors line-clamp-2 mt-2" 
+                              delay={0.05} 
+                            />
+                            <RevealText 
+                              lines={[`${project.category} — ${lang === 'it' ? 'Analisi' : 'Analysis'}`]} 
+                              lineClassName="text-xs text-gray-400 dark:text-gray-500 group-hover:text-white/70! font-maison mt-2 uppercase tracking-wider transition-colors" 
+                              delay={0.1} 
+                            />
+                          </div>
+                          
+                          {/* Right: Date */}
+                          <div className="shrink-0 text-left md:text-right md:w-32">
+                            <RevealText 
+                              lines={[project.date]} 
+                              lineClassName="text-sm font-medium text-gray-500 dark:text-gray-400 group-hover:text-white! font-maison transition-colors" 
+                              delay={0.15} 
+                            />
                           </div>
                         </div>
                       </Link>
@@ -172,9 +183,11 @@ export default function CategoryPage() {
                   </div>
                 </div>
                 
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 tracking-tight group-hover:text-blue-600 transition-colors text-gray-900 dark:text-white">
-                  {project.title}
-                </h2>
+                <StandardH2
+                  text={project.title}
+                  className="mb-4 tracking-tight"
+                  lineClassName="group-hover:text-blue-600 transition-colors text-2xl md:text-3xl lg:text-4xl font-bold"
+                />
                 
                 <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 font-normal line-clamp-3 mb-8 leading-relaxed">
                   {project.description}

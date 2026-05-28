@@ -9,6 +9,8 @@ interface PageLayoutProps {
   narrow?: boolean;
   /** Show breadcrumbs (default: true) */
   showBreadcrumbs?: boolean;
+  /** Custom top/bottom padding class. Defaults to 'pt-44 pb-24'. */
+  customPadding?: string;
 }
 
 /**
@@ -16,11 +18,16 @@ interface PageLayoutProps {
  * Provides consistent: Header, background, main padding, optional breadcrumbs.
  * Use `narrow` for article/detail pages, default for hub/list pages.
  */
-export default function PageLayout({ children, narrow = false, showBreadcrumbs = true }: PageLayoutProps) {
+export default function PageLayout({ 
+  children, 
+  narrow = false, 
+  showBreadcrumbs = true,
+  customPadding = 'pt-44 pb-24'
+}: PageLayoutProps) {
   return (
     <div className="min-h-screen bg-white dark:bg-[#111] transition-colors duration-300">
       <Header />
-      <main className={`${narrow ? 'w-full' : 'max-w-[1400px] mx-auto'} px-6 md:px-12 lg:px-24 pt-44 pb-24 transition-colors`}>
+      <main className={`${narrow ? 'w-full' : 'max-w-[1400px] mx-auto'} px-2 md:px-4 ${customPadding} transition-colors`}>
         {narrow ? (
           <div className="max-w-5xl mx-auto">
             {showBreadcrumbs && <Breadcrumbs />}

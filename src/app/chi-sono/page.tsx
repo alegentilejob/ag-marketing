@@ -4,6 +4,7 @@ import Image from 'next/image';
 import PageLayout from '@/components/PageLayout';
 import { useLanguage } from '@/context/LanguageContext';
 import { Mail, MapPin, Calendar } from 'lucide-react';
+import { StandardH1 } from '@/components/Typography';
 
 export default function AboutPage() {
   const { lang, content } = useLanguage();
@@ -58,9 +59,10 @@ export default function AboutPage() {
         {/* Right Column: Bio & Education */}
         <div>
           <header className="mb-14">
-            <h1 className="text-4xl md:text-7xl font-bold tracking-tighter mb-8 uppercase leading-tight text-gray-900 dark:text-white">
-              {sections.about.title}
-            </h1>
+            <StandardH1
+              lines={[sections.about.title]}
+              className="mb-8 uppercase font-display"
+            />
             <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 font-normal leading-relaxed mb-12">
               {sections.about.bio}
             </p>

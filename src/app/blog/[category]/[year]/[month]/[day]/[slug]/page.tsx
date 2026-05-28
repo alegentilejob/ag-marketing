@@ -10,6 +10,7 @@ import { Calendar, Tag, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { siteConfig } from '@/data/content-it';
+import { StandardH1, StandardH2 } from '@/components/Typography';
 
 export default function BlogPostPage() {
   const params = useParams();
@@ -88,11 +89,10 @@ export default function BlogPostPage() {
 
           {/* Hero Section */}
           <header className="mb-12">
-            <RevealText>
-              <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight mb-8 leading-[1.1] text-gray-900 dark:text-white uppercase">
-                {project.title}
-              </h1>
-            </RevealText>
+            <StandardH1
+              lines={[project.title]}
+              className="mb-8 leading-[1.1] uppercase font-display"
+            />
 
             <FadeIn delay={0.2}>
               <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed font-normal mb-10">
@@ -160,7 +160,12 @@ export default function BlogPostPage() {
                 case 'text':
                   return (
                     <FadeIn key={index} delay={0.1 * index} className="prose prose-xl dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-blue-500 prose-a:font-bold prose-a:underline decoration-blue-500/30 hover:decoration-blue-500 transition-all font-normal">
-                      {block.data.title && <h2 className="text-3xl font-display font-bold mb-8 mt-16 text-gray-900 dark:text-white uppercase">{block.data.title}</h2>}
+                      {block.data.title && (
+                        <StandardH2
+                          text={block.data.title}
+                          className="mb-8 mt-16 text-gray-900 dark:text-white uppercase font-display"
+                        />
+                      )}
                       {block.data.html ? (
                         <div
                           className="text-gray-800 dark:text-gray-200 leading-[1.8] font-normal [&>p]:mb-8 [&>ul]:list-disc [&>ul]:ml-6 [&>ul]:mb-8 [&>ol]:mb-8 [&>ol]:ml-6 [&>ol]:list-decimal [&>h3]:text-2xl [&>h3]:font-semibold [&>h3]:mb-6 [&>h3]:mt-10 [&>h4]:text-xl [&>h4]:font-semibold [&>h4]:mb-4 [&>h4]:mt-8 [&>strong]:text-gray-900 dark:[&>strong]:text-white [&>strong]:font-bold"
