@@ -159,12 +159,13 @@ Questi ID sono identici sia in IT che in EN per facilitare il tracciamento aggre
 ```
 
 ### `contact_click`
-Pushato al click sui link di contatto nel Footer. Sostituisce la Thank-you page come conversione principale.
+Pushato al click sui link di contatto. Sostituisce la Thank-you page come conversione principale.
 ```js
 {
   event: 'contact_click',
-  contact_type: 'email' | 'linkedin' | 'phone',
-  contact_value: 'email@example.com' | 'linkedin_url' | 'phone_number',
+  contact_type: 'email' | 'copy_email' | 'linkedin' | 'phone' | 'cv' | 'cover_letter',
+  contact_value: 'email@example.com' | 'linkedin_url' | 'phone_number' | 'filename.pdf',
+  click_location: 'hero' | 'footer',
   page_path: '/chi-sono'
 }
 ```

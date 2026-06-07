@@ -100,7 +100,7 @@ export default function CentralizedSandboxPage() {
       {/* Title */}
       <div className="text-center mb-12">
         <h1 className="text-3xl font-black uppercase tracking-tight text-neutral-900 dark:text-white mb-2 leading-none">
-          Framer Buttons <span className="text-[#0048F9]">.</span>
+          Framer Buttons <span className="text-[#2B13E2]">.</span>
         </h1>
         <p className="text-sm font-mono uppercase tracking-widest text-neutral-400">
           Sincronizzati al 100% da Framer MCP

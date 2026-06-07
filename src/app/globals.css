@@ -21,8 +21,8 @@
   --ease-expo-root: cubic-bezier(0.15, 0.85, 0.35, 1);
   
   /* Brand Blue overrides */
-  --color-blue-600: #3720E5;
-  --color-blue-700: #2b14ca;
+  --color-blue-600: #2B13E2;
+  --color-blue-700: #1D0CA8;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,6 +38,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-primary), 'Google Sans Flex', sans-serif;
   letter-spacing: -0.02em;
+  overflow-x: hidden;
   @apply text-[16px] md:text-[18px] leading-[1.7] antialiased;
 }
 
@@ -80,16 +81,21 @@ p {
   h2 { 
     @apply text-gray-900 dark:text-white font-medium tracking-tight leading-tight font-maison text-[clamp(32px,5vw,56px)]; 
   }
-  h3 { @apply text-[24px] md:text-[28px] font-bold tracking-normal leading-[1.3]; }
-  h4 { @apply text-[20px] md:text-[24px] font-bold tracking-normal; }
-  h5 { @apply text-[18px] font-bold tracking-normal; }
-  h6 { @apply text-[16px] font-bold tracking-normal; }
+  h3 { @apply text-[24px] md:text-[28px] font-semibold tracking-normal leading-[1.3]; }
+  h4 { @apply text-[20px] md:text-[24px] font-semibold tracking-normal; }
+  h5 { @apply text-[18px] font-semibold tracking-normal; }
+  h6 { @apply text-[16px] font-semibold tracking-normal; }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-3 font-sans font-bold tracking-wide text-[16px] min-h-[48px] transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
-    @apply bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 shadow-lg hover:shadow-blue-600/30;
+    @apply inline-flex items-center justify-center gap-3 font-sans font-bold tracking-wide text-[16px] min-h-[48px] disabled:opacity-50 disabled:pointer-events-none;
+    @apply bg-blue-600 text-white px-8 py-3 rounded-full;
+  }
+
+  .btn-primary-white {
+    @apply inline-flex items-center justify-center gap-3 font-sans font-bold tracking-wide text-[16px] min-h-[48px] disabled:opacity-50 disabled:pointer-events-none;
+    @apply bg-white text-blue-600 px-8 py-3 rounded-full;
   }
 
   .btn-secondary {
@@ -98,7 +104,7 @@ p {
   }
 
   .display-h1 {
-    @apply text-gray-900 dark:text-white font-medium font-sans text-[clamp(24px,4.5vw,46px)] tracking-tight leading-tight text-left;
+    @apply text-gray-900 dark:text-white font-medium font-sans text-[clamp(32px,6vw,64px)] tracking-tight leading-tight text-left;
   }
 
   .display-h2 {
@@ -177,7 +183,7 @@ p {
   }
 
   .btn-menu-contact:hover {
-    color: rgb(37 99 235); /* blue-600 */
+    color: var(--color-blue-600); /* blue-600 */
   }
 
   .dark .btn-menu-contact {
@@ -185,7 +191,7 @@ p {
   }
 
   .dark .btn-menu-contact:hover {
-    color: rgb(37 99 235);
+    color: var(--color-blue-600);
   }
 }
 
@@ -209,11 +215,7 @@ p {
   text-transform: none !important;
 }
 
-.tracking-widest,
-.tracking-\[0\.3em\],
-.tracking-\[0\.4em\] {
-  letter-spacing: 0.02em !important;
-}
+
 
 [data-vercel-toolbar],
 #nextjs__container_build_error_label,

@@ -3,7 +3,8 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Header from "../components/Header";
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Mail, Copy, Check } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 import { useLanguage } from "../context/LanguageContext";
 import Link from 'next/link';
@@ -41,7 +42,30 @@ export default function Home() {
   const { siteConfig, sections } = content;
   const projects = lang === 'it' ? projectsIt : projectsEn;
 
+  const trackContactClick = (type: string, value: string, location: string = 'hero') => {
+    if (typeof window !== 'undefined') {
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      (window as any).dataLayer.push({
+        event: 'contact_click',
+        contact_type: type,
+        contact_value: value,
+        click_location: location,
+        page_path: window.location.pathname
+      });
+    }
+  };
+
   const [activeSection, setActiveSection] = useState("home");
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText(siteConfig.contact.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+    trackContactClick('copy_email', siteConfig.contact.email, 'hero');
+  };
 
   // ── Intro animation removed ──
 
@@ -131,7 +155,7 @@ export default function Home() {
         <section id="home" className="relative w-full min-h-[calc(100vh-104px)] flex flex-col justify-center py-20 overflow-hidden bg-white dark:bg-[#111]">
 
           {/* Tagline — only renders (and reveals) once intro is done */}
-          <div className="max-w-[1400px] mx-auto px-4 md:px-8 w-full mb-12">
+          <div className="max-w-[1400px] mx-auto px-4 md:px-8 w-full mb-12 flex flex-col gap-6">
             <DisplayH1
               key="hero-text"
               lines={
@@ -153,12 +177,36 @@ export default function Home() {
               stagger={0.12}
               animateOnMount={true}
             />
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease: [0.15, 0.85, 0.35, 1] }}
+            >
+              <motion.a
+                href={`mailto:${siteConfig.contact.email}`}
+                onClick={() => trackContactClick('email', siteConfig.contact.email, 'hero')}
+                className="btn-primary w-fit flex items-center justify-between gap-4 mt-10 cursor-pointer pl-4 pr-3"
+              >
+                <span>{lang === 'it' ? 'Scrivi mail' : 'Write email'}</span>
+                <span
+                  onClick={handleCopy}
+                  role="button"
+                  tabIndex={0}
+                  title={lang === 'it' ? 'Copia email' : 'Copy email'}
+                  className="p-1.5 rounded-full border border-white/30 hover:bg-white/10 active:bg-white/20 transition-all flex items-center justify-center text-white shrink-0 cursor-pointer pointer-events-auto"
+                >
+                  {copied ? <Check size={14} /> : <Copy size={14} />}
+                </span>
+              </motion.a>
+            </motion.div>
           </div>
 
           {/* Carousel — visible only after intro, with a subtle fade-in */}
-          <div
-            className="w-full overflow-hidden flex select-none pointer-events-none transition-opacity duration-500"
-            style={{ opacity: 1 }}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.15, 0.85, 0.35, 1] }}
+            className="w-full overflow-hidden flex select-none pointer-events-none"
           >
             <div className="flex gap-8 whitespace-nowrap animate-marquee-rtl shrink-0 min-w-full">
               {Array.from({ length: 3 }).map((_, loopIdx) => (
@@ -180,14 +228,14 @@ export default function Home() {
                 </React.Fragment>
               ))}
             </div>
-          </div>
+          </motion.div>
 
         </section>
 
         {/* Esperienze Lavorative */}
         <section id="esperienze" className="py-[104px] border-t border-gray-100 dark:border-gray-800">
           <div className="max-w-[1400px] mx-auto px-2 md:px-4">
-            <div className="mb-16 flex flex-col gap-4">
+            <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
               <RevealText
                 lines={[sections.experience.title]}
                 lineClassName="text-gray-900 dark:text-gray-100 font-medium tracking-tight leading-tight font-maison text-[clamp(32px,5vw,56px)]"
@@ -197,42 +245,51 @@ export default function Home() {
                 id="cta_exp_scopri"
                 text={lang === 'it' ? 'Scopri di più' : 'Learn more'}
                 variant="default"
+                className="shrink-0"
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 text-left">
-              {sections.experience.items.map((job: any) => (
-                <Link
+              {sections.experience.items.map((job: any, idx: number) => (
+                <motion.div
                   key={job.id}
-                  href={getLocalizedPath(`/esperienze/${job.id}`, lang)}
-                  id={`cta_exp_item_${job.id}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-10%" }}
+                  transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.15, 0.85, 0.35, 1] }}
                   className="group block"
                 >
-                  {/* Container aspect ratio, overflow hidden, brand blue background underneath */}
-                  <div className="relative aspect-[4/5] overflow-hidden mb-6 bg-blue-600 rounded-none">
-                    <Image
-                      src={job.introduction.image}
-                      alt={job.company}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-[400ms] group-hover:scale-90"
-                      style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
+                  <Link
+                    href={getLocalizedPath(`/esperienze/${job.id}`, lang)}
+                    id={`cta_exp_item_${job.id}`}
+                    className="block cursor-pointer"
+                  >
+                    {/* Container aspect ratio, overflow hidden, brand blue background underneath */}
+                    <div className="relative aspect-[4/5] overflow-hidden mb-6 bg-blue-600 rounded-none">
+                      <Image
+                        src={job.introduction.image}
+                        alt={job.company}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover transition-transform duration-[400ms] group-hover:scale-95"
+                        style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
+                      />
+                    </div>
+                    <RevealText
+                      lines={[job.company]}
+                      lineClassName="text-[22px] font-normal tracking-tight mb-2 leading-tight text-gray-900 dark:text-white font-maison"
                     />
-                  </div>
-                  <RevealText
-                    lines={[job.company]}
-                    lineClassName="text-[22px] font-normal tracking-tight mb-2 leading-tight text-gray-900 dark:text-white font-maison"
-                  />
-                  <RevealText
-                    lines={[job.role]}
-                    lineClassName="text-[14px] text-gray-500 dark:text-gray-400 font-normal uppercase tracking-[0.2em] mb-1 font-maison"
-                    delay={0.05}
-                  />
-                  <RevealText
-                    lines={[job.period]}
-                    lineClassName="text-[10px] font-maison font-normal uppercase tracking-[0.2em] text-gray-400 block mt-2"
-                    delay={0.1}
-                  />
-                </Link>
+                    <RevealText
+                      lines={[job.role]}
+                      lineClassName="text-[14px] text-gray-500 dark:text-gray-400 font-normal uppercase tracking-[0.08em] mb-1 font-maison"
+                      delay={0.05}
+                    />
+                    <RevealText
+                      lines={[job.period]}
+                      lineClassName="text-[10px] font-maison font-normal uppercase tracking-[0.08em] text-gray-400 block mt-2"
+                      delay={0.1}
+                    />
+                  </Link>
+                </motion.div>
               ))}
             </div>
 
@@ -333,11 +390,11 @@ export default function Home() {
         </section>
 
         {/* Latest Case Studies Section */}
-        <section className="w-full bg-white dark:bg-[#111] py-[120px] border-t border-gray-300 dark:border-gray-700">
+        <section className="w-full bg-white dark:bg-[#111] py-[104px] border-t border-gray-300 dark:border-gray-700">
           
           {/* Header inside the grid max-w container */}
           <div className="max-w-[1400px] mx-auto px-2 md:px-4">
-            <div className="mb-16 flex flex-col gap-4">
+            <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
               <StandardH2
                 lines={[lang === 'it' ? 'Ultimi Case Studies' : 'Latest Case Studies']}
               />
@@ -346,6 +403,7 @@ export default function Home() {
                 id="cta_projects_scopri"
                 text={lang === 'it' ? 'Scopri di più' : 'Learn more'}
                 variant="default"
+                className="shrink-0"
               />
             </div>
           </div>
@@ -353,55 +411,67 @@ export default function Home() {
           {/* List Rows at absolute w-full - edge-to-edge */}
           <div className="flex flex-col border-t border-gray-300 dark:border-gray-700 w-full">
             {latestProjects.map((project: any, index: number) => (
-               <Link
+              <motion.div
                 key={project.id}
-                href={getLocalizedPath(`/progetti/${project.category}/${project.year}/${project.month}/${project.day}/${project.slug}`, lang)}
-                id={`cta_project_card_${project.id}`}
-                className="group w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6 py-8 px-4 md:px-12 border-b border-gray-300 dark:border-gray-700 hover:bg-blue-600 transition-all duration-[300ms]"
-                style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.15, 0.85, 0.35, 1] }}
+                className="w-full"
               >
-                
-                {/* Horizontal inner boundary constraint (to keep layout contents aligned with page edges but bg full width) */}
-                <div className="max-w-[1400px] mx-auto w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <Link
+                  href={getLocalizedPath(`/progetti/${project.category}/${project.year}/${project.month}/${project.day}/${project.slug}`, lang)}
+                  id={`cta_project_card_${project.id}`}
+                  className="group w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6 py-8 px-4 md:px-10 border-b border-gray-300 dark:border-gray-700 hover:bg-blue-600 transition-all duration-[300ms]"
+                  style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
+                >
                   
-                  {/* Left: Square Image */}
-                  <div className="relative w-24 h-24 md:w-32 md:h-32 shrink-0 bg-blue-600 overflow-hidden rounded-none">
-                    <Image
-                      src={project.coverImage}
-                      alt={project.title}
-                      fill
-                      priority={index < 3}
-                      sizes="(max-width: 768px) 96px, 128px"
-                      className="object-cover transition-transform duration-[400ms] group-hover:scale-90"
-                      style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
-                    />
+                  {/* Horizontal inner boundary constraint (to keep layout contents aligned with page edges but bg full width) */}
+                  <div className="max-w-[1400px] mx-auto w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                    
+                    {/* Left: Square Image */}
+                    <div className="relative w-24 h-24 md:w-32 md:h-32 shrink-0 bg-blue-600 overflow-hidden rounded-none">
+                      <Image
+                        src={project.coverImage}
+                        alt={project.title}
+                        fill
+                        priority={index < 3}
+                        sizes="(max-width: 768px) 96px, 128px"
+                        className="object-cover transition-transform duration-[400ms] group-hover:scale-95"
+                        style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
+                      />
+                    </div>
+
+                    {/* Center: Title / Intro text */}
+                    <div className="flex-1 md:pl-10 text-left">
+                      <RevealText
+                        lines={[project.title]}
+                        lineClassName="text-lg md:text-xl font-medium tracking-tight text-gray-900 dark:text-white group-hover:text-white! font-maison leading-snug transition-colors"
+                      />
+                      <RevealText
+                        lines={[`${project.category} — ${lang === 'it' ? 'Analisi' : 'Analysis'}`]}
+                        lineClassName="text-xs text-gray-400 dark:text-gray-500 group-hover:text-white! font-maison mt-1 uppercase tracking-wider transition-colors"
+                        delay={0.05}
+                      />
+                    </div>
+
+                    {/* Right: Date & Arrow */}
+                    <div className="flex items-center gap-6 shrink-0 text-left md:text-right">
+                      <RevealText
+                        lines={[project.date]}
+                        lineClassName="text-sm font-medium text-gray-500 dark:text-gray-400 group-hover:text-white! font-maison transition-colors"
+                        delay={0.1}
+                      />
+                      <ArrowUpRight 
+                        size={20} 
+                        className="text-gray-400 dark:text-gray-500 group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1" 
+                      />
+                    </div>
+
                   </div>
 
-                  {/* Center: Title / Intro text */}
-                  <div className="flex-1 md:pl-12 text-left">
-                    <RevealText
-                      lines={[project.title]}
-                      lineClassName="text-lg md:text-xl font-medium tracking-tight text-gray-900 dark:text-white group-hover:text-white! font-maison leading-snug transition-colors"
-                    />
-                    <RevealText
-                      lines={[`${project.category} — ${lang === 'it' ? 'Analisi' : 'Analysis'}`]}
-                      lineClassName="text-xs text-gray-400 dark:text-gray-500 group-hover:text-white! font-maison mt-1 uppercase tracking-wider transition-colors"
-                      delay={0.05}
-                    />
-                  </div>
-
-                  {/* Right: Date */}
-                  <div className="shrink-0 text-left md:text-right">
-                    <RevealText
-                      lines={[project.date]}
-                      lineClassName="text-sm font-medium text-gray-500 dark:text-gray-400 group-hover:text-white! font-maison transition-colors"
-                      delay={0.1}
-                    />
-                  </div>
-
-                </div>
-
-              </Link>
+                </Link>
+              </motion.div>
             ))}
           </div>
 

@@ -27,23 +27,32 @@ Per impostare il valore:
 - Compila il campo **"Azienda"** (o `COMPANY`)
 - In invio Brevo sostituisce automaticamente ogni `{{ contact.COMPANY }}` con il valore reale
 
-### 3. UTM applicati
+### 3. Tracciamento UTM dei Click (utm_content)
 
-Tutti i link del template usano solo:
+Per poter tracciare esattamente **quale bottone o link** viene cliccato all'interno dell'email (ad esempio: per capire se i lettori cliccano sul CV in alto o in basso), abbiamo aggiunto il parametro `utm_content` direttamente nel codice HTML dei template.
 
-```
-utm_medium=cold_outreach&utm_campaign=get_interview
-```
+Brevo manterrà questo parametro e aggiungerà dinamicamente gli altri parametri standard della campagna (`utm_source`, `utm_medium`, `utm_campaign`, `utm_id`).
 
-| Sezione | Link tracciato |
-|---------|---------------|
-| Chi sono | `/chi-sono` |
-| Esperienza Naxa | `/esperienze/naxa` |
-| Esperienza Anularis | `/esperienze/anularis` |
-| Tutte le esperienze | `/esperienze` |
-| Progetto Wolly | `/progetti/wolly` |
-| LinkedIn | `linkedin.com/in/...` |
-| Portfolio | `ag-marketing.vercel.app` |
+Ecco i valori di `utm_content` utilizzati nei vari link:
+
+| Sezione / Elemento | Link con utm_content | Scopo |
+|--------------------|----------------------|-------|
+| **Hero CV** | `/media/AlessandroGentile_CV.pdf?utm_content=hero_cv` | Visualizzazione CV dall'Hero (solo template LeanTil) |
+| **Hero Cover Letter** | `/media/AlessandroGentile_LetteraDiPresentazione.pdf?utm_content=hero_cover_letter` | Visualizzazione Cover Letter dall'Hero (solo template LeanTil) |
+| **Skills Link** | `/skills?utm_content=skills_link` | Link "Vedi tutte le skill" |
+| **Esperienza Naxa** | `/esperienze/naxa?utm_content=exp_naxa` | Card dell'esperienza Naxa |
+| **Esperienza Naxa Arrow** | `/esperienze/naxa?utm_content=exp_naxa_arrow` | Freccia angolare della card Naxa |
+| **Esperienza Anularis** | `/esperienze/anularis?utm_content=exp_anularis` | Card dell'esperienza Anularis |
+| **Esperienza Anularis Arrow** | `/esperienze/anularis?utm_content=exp_anularis_arrow` | Freccia angolare della card Anularis |
+| **Esperienza Fridhem** | `/esperienze/fridhem-center?utm_content=exp_fridhem` | Card dell'esperienza Fridhem Center |
+| **Esperienza Fridhem Arrow** | `/esperienze/fridhem-center?utm_content=exp_fridhem_arrow` | Freccia angolare della card Fridhem Center |
+| **Tutte le esperienze** | `/esperienze?utm_content=all_experiences` | Link "Vedi tutte le esperienze" |
+| **Progetto Wolly** | `/progetti/wolly?utm_content=wolly_project` | Link al caso studio Wolly |
+| **Footer CV** | `/media/AlessandroGentile_CV.pdf?utm_content=footer_cv` | Pulsante principale CV nel footer |
+| **Footer Cover Letter** | `/media/AlessandroGentile_LetteraDiPresentazione.pdf?utm_content=footer_cover_letter` | Pulsante Cover Letter nel footer (solo template LeanTil) |
+| **Footer Website Link** | `/?utm_content=footer_website` | Link testuale "Visita il mio sito web" |
+| **Footer CV Link** | `/media/AlessandroGentile_CV.pdf?utm_content=footer_cv_link` | Link testuale "Scarica CV" |
+| **Footer Cover Letter Link** | `/media/AlessandroGentile_LetteraDiPresentazione.pdf?utm_content=footer_cover_letter_link` | Link testuale "Lettera di Presentazione" (solo template LeanTil) |
 
 ### 4. CTA email
 Il bottone principale apre una email pre-compilata:

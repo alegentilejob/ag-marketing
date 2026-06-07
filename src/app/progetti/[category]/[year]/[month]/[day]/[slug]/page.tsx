@@ -3,12 +3,11 @@ import React from 'react';
 import { useParams, notFound } from 'next/navigation';
 import { projectsIt, projectsEn } from '@/data/projects';
 import { useLanguage } from '@/context/LanguageContext';
-import Header from '@/components/Header';
+import PageLayout from '@/components/PageLayout';
 import { FadeIn, RevealText } from '@/components/animations';
 import { Calendar, Tag, ArrowRight, Mail, Phone, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Breadcrumbs from '@/components/Breadcrumbs';
 import { siteConfig } from '@/data/content-it';
 import { StandardH1, StandardH2 } from '@/components/Typography';
 
@@ -38,6 +37,8 @@ export default function ProjectPage() {
     p.day === day && 
     p.slug === slug
   );
+
+
 
   // If we found a project but it's in the wrong language, 
   // we can use it anyway, but we should use the content from that project.
@@ -85,79 +86,62 @@ export default function ProjectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#111] transition-colors duration-300">
-      <Header />
-      
-      <main className="w-full pt-32 pb-24 flex flex-col items-center overflow-x-hidden">
-        {/* Breadcrumbs - Centered in 1400px wrapper */}
-        <div className="w-full max-w-[1400px] px-2 md:px-4 mb-8">
-           <Breadcrumbs />
-        </div>
+    <PageLayout customPadding="pt-[104px] pb-[104px]">
 
-        {/* Hero Section - 100vh dynamic area, 2 columns (61.8 / 38.2) */}
-        <header className="w-full max-w-[1400px] px-2 md:px-4 lg:min-h-[calc(100vh-192px)] flex flex-col lg:flex-row items-center justify-between gap-12 mb-24">
-           {/* Area Principale: Text 61.8% */}
-           <div className="w-full lg:w-[61.8%] flex flex-col justify-center">
-             <StandardH1
-               lines={[project.title]}
-               className="mb-8 leading-[1.1] uppercase font-display"
-             />
-             
-             <FadeIn delay={0.2}>
-               <p className="text-xl md:text-2xl text-gray-500 dark:text-gray-400 leading-relaxed font-light mb-10">
-                 {project.description}
-               </p>
-             </FadeIn>
+        {/* Hero Section - Stacked for full-width alignment */}
+        <header className="w-full max-w-4xl mx-auto px-6 md:px-0 mb-12">
+            <h1 className="mb-8 leading-[1.1] uppercase font-display">
+              <StandardH1
+                lines={[project.title]}
+                className=""
+              />
+            </h1>
+            
+            <FadeIn delay={0.2}>
+              <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed font-normal mb-10">
+                {project.description}
+              </p>
+            </FadeIn>
 
-             {/* Metadata Row */}
-             <FadeIn delay={0.3} className="flex flex-wrap items-center gap-6 border-y border-gray-100 dark:border-gray-800 py-6">
-                <div className="flex items-center gap-3">
-                    <span className="px-4 py-1.5 rounded-full border border-gray-100 dark:border-gray-800 text-[10px] font-mono font-bold uppercase tracking-widest text-blue-600">
-                        {project.category}
-                    </span>
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gray-400">
-                        {project.date}
-                    </span>
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gray-400 border-l border-gray-100 dark:border-gray-800 pl-3">
-                        {labels.readTime}
-                    </span>
-                </div>
-             </FadeIn>
-           </div>
-           
-           {/* Sidebar: Image 38.2%, Aspect Ratio Aureo 1:1.618, Fitted to viewport */}
-           <div className="w-full lg:w-[38.2%] flex justify-center lg:justify-end items-center h-[60vh] lg:max-h-[calc(100vh-200px)] lg:h-auto overflow-hidden">
-             <FadeIn delay={0.4} className="w-full h-full relative overflow-hidden" style={{ aspectRatio: '1 / 1.618' }}>
-                <Image 
-                    src={project.coverImage} 
-                    alt={project.title} 
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 800px"
-                    className="object-cover"
-                />
-             </FadeIn>
-           </div>
+            {/* Metadata Row */}
+            <FadeIn delay={0.3} className="flex flex-wrap items-center gap-6 border-y border-gray-100 dark:border-gray-800 py-6 mb-12">
+               <div className="flex items-center gap-3">
+                   <span className="px-4 py-1.5 rounded-full border border-gray-100 dark:border-gray-800 text-[10px] font-maison font-bold uppercase tracking-[0.08em] text-blue-600">
+                       {project.category}
+                   </span>
+                   <span className="text-[10px] font-maison font-bold uppercase tracking-[0.08em] text-gray-400">
+                       {project.date}
+                   </span>
+                   <span className="text-[10px] font-maison font-bold uppercase tracking-[0.08em] text-gray-400 border-l border-gray-100 dark:border-gray-800 pl-3">
+                       {labels.readTime}
+                   </span>
+               </div>
+            </FadeIn>
         </header>
 
+
+
         {/* Main Article Container - Centered for optimal reading */}
-        <article className="w-full max-w-4xl px-6 md:px-0">
+        <article className="w-full max-w-4xl mx-auto px-6 md:px-0">
           {/* Content Body - Left aligned in centered container */}
           <div className="space-y-16 text-left">
             {project.content.map((block, index) => {
               switch (block.type) {
                 case 'text':
                   return (
-                    <FadeIn key={index} delay={0.1 * index} className="prose prose-xl dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-blue-500 prose-a:font-bold prose-a:underline decoration-blue-500/30 hover:decoration-blue-500 transition-all">
+                    <FadeIn key={index} delay={0.1 * index} className="prose prose-xl dark:prose-invert max-w-none prose-headings:font-semibold prose-a:text-blue-600 prose-a:font-bold prose-a:underline decoration-blue-600/30 hover:decoration-blue-600 transition-all">
                       {block.data.title && (
-                        <StandardH2
-                          text={block.data.title}
-                          className="mb-8 mt-16 text-gray-900 dark:text-white uppercase"
-                        />
+                        <h2 className="mb-8 mt-16 text-gray-900 dark:text-white uppercase">
+                          <StandardH2
+                            text={block.data.title}
+                            className=""
+                            size="small"
+                          />
+                        </h2>
                       )}
                       {block.data.html ? (
                         <div 
-                          className="text-gray-600 dark:text-gray-400 leading-[1.8] font-light [&>p]:mb-8 [&>ul]:list-disc [&>ul]:ml-6 [&>ul]:mb-8 [&>ol]:mb-8 [&>ol]:ml-6 [&>ol]:list-decimal [&>h3]:text-2xl [&>h3]:font-semibold [&>h3]:mb-6 [&>h3]:mt-10 [&>h4]:text-xl [&>h4]:font-semibold [&>h4]:mb-4 [&>h4]:mt-8 [&>strong]:text-gray-900 dark:[&>strong]:text-white [&>strong]:font-bold" 
+                          className="text-gray-600 dark:text-gray-400 leading-[1.8] font-light [&>p]:mb-8 [&>ul]:list-disc [&>ul]:ml-6 [&>ul]:mb-8 [&>ol]:mb-8 [&>ol]:ml-6 [&>ol]:list-decimal [&>h3]:text-2xl [&>h3]:font-medium [&>h3]:mb-6 [&>h3]:mt-10 [&>h4]:text-xl [&>h4]:font-medium [&>h4]:mb-4 [&>h4]:mt-8 [&>strong]:text-gray-900 dark:[&>strong]:text-white [&>strong]:font-bold" 
                           dangerouslySetInnerHTML={{ 
                             __html: block.data.html.replace(/<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1/g, (match: string, quote: string, url: string) => {
                               if (url.startsWith('http')) {
@@ -199,11 +183,19 @@ export default function ProjectPage() {
                        </table>
                     </FadeIn>
                   );
-                case 'image':
+                 case 'image':
                   return (
                     <FadeIn key={index} delay={0.1 * index} className="w-full">
-                      <div className="group relative w-full rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800">
-                          <div className="relative aspect-video w-full overflow-hidden">
+                      <div className={`group relative w-full overflow-hidden border border-gray-100 dark:border-gray-800 ${
+                        block.data.src.includes('wolly prototype') || block.data.src.includes('processed_')
+                          ? 'max-w-md mx-auto shadow-lg'
+                          : ''
+                      }`}>
+                          <div className={`relative overflow-hidden ${
+                            block.data.src.includes('wolly prototype') || block.data.src.includes('processed_')
+                              ? 'aspect-[1440/2960]'
+                              : 'aspect-video'
+                          }`}>
                             <Image 
                               src={block.data.src} 
                               alt={block.data.caption || project.title} 
@@ -222,14 +214,30 @@ export default function ProjectPage() {
                       </div>
                     </FadeIn>
                   );
+                case 'gallery':
+                  return (
+                    <FadeIn key={index} delay={0.1 * index} className="w-full">
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 my-12">
+                        {block.data.images.map((img: { src: string; alt?: string }, i: number) => (
+                          <div key={i} className="relative overflow-hidden aspect-[3/4] w-full">
+                            <Image 
+                              src={img.src} 
+                              alt={img.alt || project.title} 
+                              fill
+                              sizes="(max-width: 768px) 50vw, 300px"
+                              className="object-cover" 
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </FadeIn>
+                  );
                 default:
                   return null;
               }
             })}
           </div>
-
         </article>
-      </main>
-    </div>
+    </PageLayout>
   );
 }

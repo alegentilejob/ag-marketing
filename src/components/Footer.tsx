@@ -1,20 +1,33 @@
 "use client";
-import React, { useMemo } from 'react';
-import { Linkedin, Phone, Mail } from 'lucide-react';
+import React, { useMemo, useState } from 'react';
+import { Linkedin, Phone, Mail, FileText, Copy, Check } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import RevealText from '@/components/RevealText';
 
 const Footer = () => {
     const { lang, content } = useLanguage();
     const { siteConfig } = content;
+    const [copied, setCopied] = useState(false);
 
-    const trackContactClick = (type: string, value: string) => {
+    const handleCopy = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        navigator.clipboard.writeText(siteConfig.contact.email);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+        
+        // Track the copy event as well if needed, or trigger trackContactClick
+        trackContactClick('copy_email', siteConfig.contact.email, 'footer');
+    };
+
+    const trackContactClick = (type: string, value: string, location: string = 'footer') => {
         if (typeof window !== 'undefined') {
             (window as any).dataLayer = (window as any).dataLayer || [];
             (window as any).dataLayer.push({
                 event: 'contact_click',
                 contact_type: type,
                 contact_value: value,
+                click_location: location,
                 page_path: window.location.pathname
             });
         }
@@ -63,17 +76,25 @@ const Footer = () => {
                         <a
                             id="lnk_email"
                             href={`mailto:${siteConfig.contact.email}`}
-                            onClick={() => trackContactClick('email', siteConfig.contact.email)}
-                            className="w-full flex items-center justify-center gap-3 bg-white hover:bg-white/95 text-blue-600 font-sans text-sm md:text-base font-bold uppercase tracking-wider py-4 px-8 shadow-lg active:scale-95 hover:scale-102 transition-all rounded-full overflow-hidden"
+                            onClick={() => trackContactClick('email', siteConfig.contact.email, 'footer')}
+                            className="btn-primary-white w-fit overflow-hidden pl-4 pr-3"
                         >
                             <RevealText
                                 lines={[
-                                    <span key="email-content" className="flex items-center gap-3">
-                                        <Mail size={18} className="shrink-0" />
-                                        <span>{siteConfig.contact.email}</span>
+                                    <span key="email-content" className="flex items-center justify-between gap-4 w-full">
+                                        <span>{lang === 'it' ? 'Scrivi mail' : 'Write email'}</span>
+                                        <span
+                                            onClick={handleCopy}
+                                            role="button"
+                                            tabIndex={0}
+                                            title={lang === 'it' ? 'Copia email' : 'Copy email'}
+                                            className="p-1.5 rounded-full border border-blue-600/30 hover:bg-blue-600/10 active:bg-blue-600/20 transition-all flex items-center justify-center text-blue-600 shrink-0 cursor-pointer pointer-events-auto"
+                                        >
+                                            {copied ? <Check size={14} /> : <Copy size={14} />}
+                                        </span>
                                     </span>
                                 ]}
-                                lineClassName="font-bold text-blue-600 uppercase flex items-center justify-center"
+                                lineClassName="font-bold text-blue-600 uppercase flex items-center justify-center w-full"
                                 stagger={0}
                             />
                         </a>
@@ -110,6 +131,48 @@ const Footer = () => {
                                         <span key="phone-content" className="flex items-center gap-1.5">
                                             <Phone size={14} className="shrink-0" />
                                             <span>{siteConfig.contact.phone}</span>
+                                        </span>
+                                    ]}
+                                    lineClassName="text-xs font-semibold uppercase tracking-widest text-blue-200 group-hover:text-white flex items-center"
+                                    stagger={0}
+                                />
+                            </a>
+                        </div>
+
+                        {/* Documents section (CV & Cover Letter) */}
+                        <div className="flex items-center justify-center flex-wrap gap-x-6 gap-y-3 mt-3">
+                            <a
+                                id="lnk_cv"
+                                href={lang === 'it' ? '/media/AlessandroGentile_CV.pdf' : '/media/AlessandroGentile_Resume.pdf'}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => trackContactClick('cv', lang === 'it' ? 'AlessandroGentile_CV.pdf' : 'AlessandroGentile_Resume.pdf')}
+                                className="text-xs font-semibold uppercase tracking-widest text-blue-200 hover:text-white transition-colors flex items-center gap-1.5"
+                            >
+                                <RevealText
+                                    lines={[
+                                        <span key="cv-content" className="flex items-center gap-1.5">
+                                            <FileText size={14} className="shrink-0" />
+                                            <span>{lang === 'it' ? 'CV (PDF)' : 'Resume (PDF)'}</span>
+                                        </span>
+                                    ]}
+                                    lineClassName="text-xs font-semibold uppercase tracking-widest text-blue-200 group-hover:text-white flex items-center"
+                                    stagger={0}
+                                />
+                            </a>
+                            <a
+                                id="lnk_cover_letter"
+                                href={lang === 'it' ? '/media/AlessandroGentile_LetteraDiPresentazione.pdf' : '/media/AlessandroGentile_CoverLetter.pdf'}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => trackContactClick('cover_letter', lang === 'it' ? 'AlessandroGentile_LetteraDiPresentazione.pdf' : 'AlessandroGentile_CoverLetter.pdf')}
+                                className="text-xs font-semibold uppercase tracking-widest text-blue-200 hover:text-white transition-colors flex items-center gap-1.5"
+                            >
+                                <RevealText
+                                    lines={[
+                                        <span key="cl-content" className="flex items-center gap-1.5">
+                                            <FileText size={14} className="shrink-0" />
+                                            <span>{lang === 'it' ? 'Lettera di Presentazione (PDF)' : 'Cover Letter (PDF)'}</span>
                                         </span>
                                     ]}
                                     lineClassName="text-xs font-semibold uppercase tracking-widest text-blue-200 group-hover:text-white flex items-center"

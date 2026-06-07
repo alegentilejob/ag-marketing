@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-05T12:03:00Z",
+  "title": "Design System: Alessandro Gentile Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Digital Ultramarine",
+        "canonical": "oklch(45% 0.29 285)",
+        "tonalRamp": [
+          "oklch(15% 0.1 285)",
+          "oklch(25% 0.18 285)",
+          "oklch(35% 0.24 285)",
+          "oklch(45% 0.29 285)",
+          "oklch(55% 0.24 285)",
+          "oklch(65% 0.18 285)",
+          "oklch(75% 0.12 285)",
+          "oklch(95% 0.02 285)"
+        ]
+      },
+      "neutral-bg": {
+        "role": "neutral",
+        "displayName": "Silent Canvas",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": [
+          "oklch(10% 0 0)",
+          "oklch(20% 0 0)",
+          "oklch(40% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(80% 0 0)",
+          "oklch(90% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(100% 0 0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display H1",
+        "purpose": "Hero and main page display headers only."
+      },
+      "body": {
+        "displayName": "Body Paragraphs",
+        "purpose": "General readable text, constrained to 65-75ch."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-expo-root",
+        "value": "cubic-bezier(0.15, 0.85, 0.35, 1)",
+        "purpose": "Fast-start, slow-end easing curve for premium editorial feel."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary call-to-action button, pill-shaped.",
+      "html": "<button class=\"ds-btn-primary\">Write email</button>",
+      "css": ".ds-btn-primary { background-color: #2B13E2; color: #ffffff; font-family: sans-serif; font-weight: 700; font-size: 16px; padding: 12px 32px; border-radius: 9999px; border: none; min-height: 48px; cursor: pointer; transition: background-color 0.2s ease-in-out; } .ds-btn-primary:hover { background-color: #1D0CA8; }"
+    },
+    {
+      "name": "Experience Card",
+      "kind": "card",
+      "refersTo": "card-container",
+      "description": "A flat, square container for job experiences.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-img-wrapper\"><div class=\"ds-card-img\"></div></div><h3 class=\"ds-card-title\">Company Name</h3><p class=\"ds-card-desc\">Role Description</p></div>",
+      "css": ".ds-card { background: transparent; border: none; border-radius: 0; padding: 0; display: flex; flex-direction: column; text-align: left; } .ds-card-img-wrapper { relative; aspect-ratio: 4/5; overflow: hidden; background-color: #2B13E2; margin-bottom: 24px; } .ds-card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s cubic-bezier(0.15, 0.85, 0.35, 1); } .ds-card:hover .ds-card-img { transform: scale(0.95); } .ds-card-title { font-size: 22px; font-weight: 400; color: #171717; margin-bottom: 8px; } .ds-card-desc { font-size: 14px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.2em; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Restrained Editorial",
+    "overview": "This system represents a high-end editorial and typographic visual language. It prioritizes generous whitespace, sharp geometric divisions, and absolute clarity. The design centers on the growth marketing identity—blending analytical precision with elegant, print-like layout structures.",
+    "keyCharacteristics": [
+      "Asymmetric 61.8% / 38.2% splits using the Golden Ratio.",
+      "Complete removal of rounded cards and shadows (rounded-none).",
+      "Deep black ink, pure white canvas, and a single Ultramarine accent.",
+      "Spacings defined strictly using Fibonacci intervals."
+    ],
+    "rules": [
+      {
+        "name": "The Rarity Doctrine",
+        "body": "The accent color (Digital Ultramarine) must not be used decoratively. It is reserved for primary CTAs and interactive indicators. Its rarity is the point.",
+        "section": "colors"
+      },
+      {
+        "name": "The Line Length Guard",
+        "body": "Paragraph text must never span full-screen on desktop. Wrap paragraphs in width-constrained columns (max-w-[65ch]) to keep line length within optimal readability bounds.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Shadows are completely prohibited on cards, buttons, and sections. Layout division is handled via 1px borders (#e5e7eb) and tonal contrast.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do constrain paragraphs to max-w-prose or max-w-[65ch].",
+      "Do use relative Fibonacci spacing (8px, 16px, 24px, 40px, 64px, 104px, 168px) for layout margins.",
+      "Do keep card borders at exactly 1px solid with no drop shadows."
+    ],
+    "donts": [
+      "Don't use border-left or border-right greater than 1px as a colored accent stripe.",
+      "Don't use neon background gradients or text gradients.",
+      "Don't exceed 64px (6rem) for display header sizes.",
+      "Don't use rounded corners (border-radius > 0px) on experience cards or project images.",
+      "Don't include tiny uppercase tracked eyebrows above sections."
+    ]
+  }
+}

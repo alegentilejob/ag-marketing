@@ -56,14 +56,14 @@ export const sections = {
     items: [
       {
         id: "naxa",
-        role: "Junior SEO | AEO",
+        role: "Junior web performance and SEO",
         type: "Stage Extracurricolare",
         company: "Naxa",
         website: "https://naxa.ws",
         period: "Novembre 2025 - Maggio 2026",
         location: "Bernareggio, Italia",
         introduction: {
-          text: "Naxa è un'agenzia di marketing strategico con sede a Bernareggio, specializzata in SEO, AEO, social media, campagne digitali, grafica e sviluppo web. Un contesto multidisciplinare dove ogni cliente è un progetto strategico da costruire da zero.<br/><br/>In Naxa ho gestito l'intero ciclo strategico e operativo del posizionamento organico per i clienti dell'agenzia — dal brief iniziale alla reportistica, dall'analisi tecnica all'ottimizzazione continua. Non ho eseguito task isolati: ho lavorato sull'intera filiera, imparando a connettere ogni attività a un obiettivo di business misurabile.",
+          text: "Naxa è un'agenzia di marketing strategico con sede a Bernareggio, specializzata in SEO, AEO, social media, campagne digitali, grafica e sviluppo web. Opera come un contesto multidisciplinare in cui ogni cliente rappresenta un progetto su misura da ideare, ottimizzare e posizionare online.<br/><br/>Durante lo stage ho gestito l'<strong>analisi del traffico organico</strong>, l'esecuzione di <strong>audit SEO tecnici e completi</strong>, lo studio approfondito di <strong>keyword gap e mappe concettuali</strong>, l'ottimizzazione per i motori di risposta AI tramite <strong>AEO</strong> e il monitoraggio continuo con reportistica su <strong>Looker Studio</strong>.",
           image: "/media/experiences/naxa/MG_9908-w-poltu-quatu.jpg"
         },
         development: {
@@ -78,14 +78,14 @@ export const sections = {
       },
       {
         id: "fridhem-center",
-        role: "Staff Multi-purpose",
+        role: "Social Media Manager",
         type: "Erasmus +",
         company: "Fridhem Center",
         website: "https://frid.nu/en/",
         period: "Giugno 2024 - Agosto 2024",
         location: "Stjärnsund, Svezia",
         introduction: {
-          text: "Esperienza internazionale in un contesto <strong>cross-culturale</strong>, focalizzata sulla <strong>gestione strategica dei contenuti social</strong> per un centro culturale svedese.",
+          text: "Fridhem Center è un centro culturale svedese situato a Stjärnsund, dedicato alla promozione di eventi multiculturali, ospitalità internazionale e progetti di scambio comunitario. Rappresenta un punto di incontro importante per artisti, volontari e visitatori provenienti da ogni parte del mondo.<br/><br/>In questo contesto mi sono occupato della <strong>gestione strategica dei canali social</strong>, della misurazione costante di <strong>reach, engagement e growth rate</strong>, della creazione di <strong>piani di content marketing</strong> e del supporto alla promozione di eventi internazionali, lavorando in un team basato sull'<strong>adattabilità cross-culturale</strong>.",
           image: "/media/experiences/fridhem/Tavola disegno 1@2x.png"
         },
         development: {
@@ -107,7 +107,7 @@ export const sections = {
         period: "Febbraio 2025 - Aprile 2025",
         location: "Milano, Italia",
         introduction: {
-          text: "Anularis è un'azienda artigianale milanese specializzata nella creazione di anelli sportivi commemorativi ad alto valore — oggetti unici, fatti a mano, con l'ambizione di posizionarsi nel mondo del lusso artigianale internazionale.<br/><br/>In questo contesto ho ricoperto il ruolo di <strong>unico marketer in-house</strong>, operando come un vero e proprio <strong>junior brand & growth strategist d'agenzia</strong>: ho ascoltato gli obiettivi del datore di lavoro, tradotto le necessità aziendali in un brief strutturato e pianificato le attività per priorità. La sfida principale? Colmare il forte divario tra l'obiettivo di posizionamento nel lusso e una comunicazione che non rifletteva ancora questa identità.",
+          text: "Anularis è un'azienda artigianale milanese specializzata nella creazione di anelli sportivi commemorativi ad alto valore — oggetti unici, fatti a mano, con l'ambizione di posizionarsi nel mondo del lusso artigianale internazionale. Un brand che unisce la tradizione orafa italiana con la celebrazione sportiva.<br/><br/>Nel ruolo di unico marketer in-house ho gestito la <strong>brand strategy e il riallineamento dell'identità visiva</strong> del sito e dei canali social, pianificato <strong>ricerche di mercato ed espansione internazionale B2B</strong> per il mercato Esports in Medio Oriente, e progettato flussi di <strong>growth hacking e marketing automation</strong> su LinkedIn.",
           image: "/media/experiences/anularis/FotoAnularis.png"
         },
         development: {

@@ -316,7 +316,7 @@ export function PricingCard({
     >
       {/* Decorative Glow for Popular Plan */}
       {popular && (
-        <div className="absolute -inset-px rounded-[24px] bg-gradient-to-tr from-[#0048F9]/20 to-transparent opacity-50 blur-[8px] pointer-events-none -z-10" />
+        <div className="absolute -inset-px rounded-[24px] bg-gradient-to-tr from-blue-600/20 to-transparent opacity-50 blur-[8px] pointer-events-none -z-10" />
       )}
 
       {/* Header Info */}
@@ -326,13 +326,13 @@ export function PricingCard({
         <div className="flex items-center justify-between">
           <span
             className={`font-semibold text-sm uppercase tracking-wider ${
-              popular ? "text-[#0048F9]" : "text-neutral-400"
+              popular ? "text-blue-600" : "text-neutral-400"
             }`}
           >
             {planTitle}
           </span>
           {popular && (
-            <span className="px-3 py-1 text-[9px] font-bold bg-[#0048F9] text-white rounded-full uppercase tracking-wider">
+            <span className="px-3 py-1 text-[9px] font-bold bg-blue-600 text-white rounded-full uppercase tracking-wider">
               Most Popular
             </span>
           )}
@@ -381,7 +381,7 @@ export function PricingCard({
           <ul className="flex flex-col gap-3.5">
             {features.map((feature, i) => (
               <li key={i} className="flex items-start gap-3">
-                <span className={`rounded-full p-1 shrink-0 ${popular ? "bg-[#0048F9]/10 text-[#0048F9]" : "bg-neutral-100 text-neutral-800"}`}>
+                <span className={`rounded-full p-1 shrink-0 ${popular ? "bg-blue-600/10 text-blue-600" : "bg-neutral-100 text-neutral-800"}`}>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
@@ -459,7 +459,7 @@ export function FaqAccordionItem({ question, answer, isOpen, onToggle }: FaqAcco
         className="w-full flex items-center justify-between gap-6 py-8 text-left cursor-pointer focus:outline-none select-none group"
       >
         <span
-          className="font-medium text-neutral-900 group-hover:text-[#0048F9] transition-colors duration-300"
+          className="font-medium text-neutral-900 group-hover:text-blue-600 transition-colors duration-300"
           style={{
             fontFamily: framerTypography.paragraphs.p20.fontFamily,
             fontWeight: 500,
@@ -476,8 +476,8 @@ export function FaqAccordionItem({ question, answer, isOpen, onToggle }: FaqAcco
           className="w-10 h-10 rounded-full border border-neutral-200/60 bg-neutral-50 flex items-center justify-center shrink-0"
           animate={{
             rotate: isOpen ? 45 : 0,
-            backgroundColor: isOpen ? "rgb(0, 72, 249)" : "rgb(250, 250, 250)",
-            borderColor: isOpen ? "rgb(0, 72, 249)" : "rgba(0, 0, 0, 0.1)",
+            backgroundColor: isOpen ? "rgb(43, 19, 226)" : "rgb(250, 250, 250)",
+            borderColor: isOpen ? "rgb(43, 19, 226)" : "rgba(0, 0, 0, 0.1)",
           }}
           transition={transitionSpring}
         >
@@ -568,15 +568,18 @@ interface ActivitiesSectionProps {
   activities: ActivityItem[];
   title?: string;
   description?: React.ReactNode;
+  noTopMargin?: boolean;
 }
 
-export function ActivitiesSection({ activities, title, description }: ActivitiesSectionProps) {
+export function ActivitiesSection({ activities, title, description, noTopMargin = false }: ActivitiesSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   if (!activities || activities.length === 0) return null;
 
   return (
-    <div className="not-prose w-[100vw] relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-[#0048F9] text-white py-20 md:py-28 px-6 md:px-12 lg:px-24 select-none overflow-hidden my-16">
+    <div className={`not-prose w-[100vw] relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-blue-600 text-white py-20 md:py-28 px-6 md:px-12 lg:px-24 select-none overflow-hidden ${
+      noTopMargin ? 'mt-0 mb-16' : 'my-16'
+    }`}>
       <div className="max-w-[1400px] mx-auto mb-16 md:mb-24">
         {title && (
           <StandardH2

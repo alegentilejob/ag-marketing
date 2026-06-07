@@ -42,14 +42,14 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-12 p-8 bg-gray-50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800">
-            <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-blue-600 mb-6">
+            <h3 className="text-xs font-bold uppercase tracking-[0.08em] text-blue-600 mb-6">
               {lang === 'it' ? 'Lingue' : 'Languages'}
             </h3>
             <div className="space-y-4">
               {siteConfig.meta.languages.map((l: any) => (
                 <div key={l.name} className="flex justify-between items-center">
-                  <span className="text-sm font-bold uppercase tracking-widest text-gray-900 dark:text-white">{l.name}</span>
-                  <span className="text-xs text-gray-600 dark:text-gray-400 font-medium uppercase tracking-widest">{l.level}</span>
+                  <span className="text-sm font-bold uppercase tracking-[0.08em] text-gray-900 dark:text-white">{l.name}</span>
+                  <span className="text-xs text-gray-600 dark:text-gray-400 font-medium uppercase tracking-[0.08em]">{l.level}</span>
                 </div>
               ))}
             </div>
@@ -69,18 +69,18 @@ export default function AboutPage() {
           </header>
 
           <section className="mb-16">
-            <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-blue-600 mb-10 border-b border-gray-100 dark:border-gray-800 pb-4">
+            <h3 className="text-xs font-bold uppercase tracking-[0.08em] text-blue-600 mb-10 border-b border-gray-100 dark:border-gray-800 pb-4">
               {lang === 'it' ? 'Background Accademico' : 'Academic Background'}
             </h3>
             <div className="space-y-10">
               {sections.about.education.map((edu: any, index: number) => (
-                <div key={index} className="relative pl-8 border-l-2 border-gray-100 dark:border-gray-800">
-                  <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-blue-600" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 block mb-2">{edu.period}</span>
-                  <h4 className="text-lg font-bold mb-2 uppercase tracking-tight text-gray-900 dark:text-white">{edu.institution}</h4>
+                <div key={index} className="relative pl-8 border-l border-gray-100 dark:border-gray-800">
+                  <div className="absolute -left-[9px] top-0.5 w-4.5 h-4.5 rounded-full bg-blue-600 border border-white dark:border-gray-900" />
+                  <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-gray-600 dark:text-gray-400 block mb-2">{edu.period}</span>
+                  <h4 className="text-lg font-bold mb-2 uppercase tracking-[0.02em] text-gray-900 dark:text-white">{edu.institution}</h4>
                   <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                     <MapPin size={12} />
-                    <span className="text-xs font-medium uppercase tracking-widest">{edu.location}</span>
+                    <span className="text-xs font-medium uppercase tracking-[0.08em]">{edu.location}</span>
                   </div>
                 </div>
               ))}
@@ -88,7 +88,7 @@ export default function AboutPage() {
           </section>
 
           <section>
-            <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-blue-600 mb-6">
+            <h3 className="text-xs font-bold uppercase tracking-[0.08em] text-blue-600 mb-6">
               {lang === 'it' ? 'Vision Strategica' : 'Strategic Vision'}
             </h3>
             <p className="text-lg text-gray-700 dark:text-gray-300 font-normal leading-relaxed">

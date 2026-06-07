@@ -42,7 +42,7 @@ export default function ExperienceHub() {
             {/* Left Side: Info - Golden Ratio 61.8% */}
             <div className="w-full md:w-[61.8%] p-8 md:p-12 lg:p-16 flex flex-col justify-between z-10">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-600">
+                <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-blue-600">
                   {job.period}
                 </span>
                 <StandardH2
@@ -50,17 +50,17 @@ export default function ExperienceHub() {
                   className="mb-2 mt-4"
                   lineClassName="group-hover:text-blue-600 transition-colors"
                 />
-                <h3 className="text-lg md:text-xl font-medium text-gray-600 dark:text-gray-400 mb-8 uppercase tracking-widest">
+                <h3 className="text-lg md:text-xl font-medium text-gray-600 dark:text-gray-400 mb-8 uppercase tracking-[0.08em]">
                   {job.role}
                 </h3>
 
                 <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-12">
                   <MapPin size={14} />
-                  <span className="text-xs font-medium uppercase tracking-widest">{job.location}</span>
+                  <span className="text-xs font-medium uppercase tracking-[0.08em]">{job.location}</span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] text-gray-900 dark:text-white mt-auto">
+              <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-[0.08em] text-gray-900 dark:text-white mt-auto">
                 <span>{lang === 'it' ? 'Vedi Dettagli' : 'View Details'}</span>
                 <div className="w-12 h-0.5 bg-blue-600 transition-all duration-500 group-hover:w-24" />
                 <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />

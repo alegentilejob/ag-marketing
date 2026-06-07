@@ -1,13 +1,18 @@
 # REGOLA MASSIMA DI SISTEMA (CRITICAL SYSTEM RULE)
 
-All'apertura della chat e prima di qualunque risposta o modifica al codice, l'IA **DEVE LEGGERE IMMEDIATAMENTE E APPLICARE INTEGRALMENTE** le linee guida grafiche, tipografiche, strutturali e di layout definite nei file di istruzioni principali:
-👉 [ai-instructions.md](file:///c:/Users/Scuola/Desktop/my-job-website/ai-instructions.md)
-👉 [skill_layoutguidelines.md](file:///c:/Users/Scuola/Desktop/my-job-website/skill_layoutguidelines.md)
+All'apertura della chat e prima di qualunque risposta o modifica al codice, l'IA **DEVE LEGGERE IMMEDIATAMENTE E APPLICARE INTEGRALMENTE** le linee guida, i principi di design e le regole di sviluppo definite nei seguenti file di istruzione (utilizzando percorsi relativi per la massima portabilità):
+👉 [ai-instructions.md](./ai-instructions.md)
+👉 [skill_layoutguidelines.md](./skill_layoutguidelines.md)
+👉 [frontend-design.md](./.ai-skills/frontend-design.md)
+👉 [design-taste-frontend](./.agents/skills/design-taste-frontend/SKILL.md)
+👉 [design-motion-principles](./.agents/skills/design-motion-principles/SKILL.md)
+👉 [impeccable](./.agents/skills/impeccable/SKILL.md)
 
 ## Istruzioni Mandatorie per l'IA (Mandatory Rules)
-1. **Lettura Prioritaria**: Prima di proporre soluzioni, scrivere righe di codice o suggerire layout visivi, esegui un'azione di lettura/lettura-file su [ai-instructions.md](file:///c:/Users/Scuola/Desktop/my-job-website/ai-instructions.md) e su [skill_layoutguidelines.md](file:///c:/Users/Scuola/Desktop/my-job-website/skill_layoutguidelines.md) se non l'hai già fatto in questa sessione.
+1. **Lettura Prioritaria**: Prima di proporre soluzioni, scrivere righe di codice o suggerire layout visivi, esegui un'azione di lettura/lettura-file su tutti i file di istruzione sopra elencati se non l'hai già fatto in questa sessione.
 2. **Rispetto Rigido del Design System**: Controlla sempre se le classi, i componenti, i tag di testo (h1, h2, p, bottoni, card, ecc.) sono centralizzati in `globals.css` o nel `/design-system-centralizzato`. È vietato introdurre classi ad-hoc o stili arbitrari non coerenti.
-3. **Geometrie e Spaziature Auree (Fibonacci)**: Qualunque margine, padding, griglia o proporzione di layout deve seguire la sequenza di Fibonacci, i rapporti della Sezione Aurea (1:1.618) e la visibilità completa della Hero Section in viewport (above the fold) come dettagliato in `skill_layoutguidelines.md`.
-4. **Metodologia THAt**: Applica rigorosamente le tre fasi (Trajectorizing, Homologizing, Attenuating) per qualsiasi sviluppo di elementi grafici e tipografici.
-5. **Niente Placeholder**: Utilizza sempre dati reali, contenuti completi e icone SVG coerenti e di livello premium.
+3. **Geometrie e Spaziature Auree (Fibonacci)**: Qualunque margine, padding, griglia o proporzione di layout deve seguire la sequenza di Fibonacci, i rapporti della Sezione Aurea (1:1.618) e la visibilità completa della Hero Section in viewport (above the fold) come dettagliato in `skill_layoutguidelines.md` e `design-taste-frontend`.
+4. **Motion e Animazioni**: Applica le linee guida di `design-motion-principles` per realizzare transizioni fluide, micro-interazioni ed evitare comportamenti superflui o eccessivi.
+5. **Rifinitura e Qualità (Anti-Slop)**: Segui i principi di `impeccable` per prevenire anti-pattern estetici o strutturali tipici dei generatori automatici.
+6. **Niente Placeholder**: Utilizza sempre dati reali, contenuti completi e icone SVG coerenti e di livello premium.
 

@@ -1,9 +1,9 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import PageLayout from '@/components/PageLayout';
 import { useLanguage } from '@/context/LanguageContext';
-import { MapPin, Globe } from 'lucide-react';
+import { MapPin, Globe, Mail, Copy, Check } from 'lucide-react';
 import Image from 'next/image';
 import { ServiceCard, ActivitiesSection } from '@/components/framer-components';
 import RevealText from '@/components/RevealText';
@@ -11,10 +11,45 @@ import SoftwareLogo from '@/components/SoftwareLogo';
 import { motion } from 'framer-motion';
 import { StandardH1, StandardH2 } from '@/components/Typography';
 
+const clientLogos = [
+  "/media/NaxaClienti_gelsia.png",
+  "/media/NaxaClienti_eugin.png",
+  "/media/NaxaClienti_rivamobili.png",
+  "/media/NaxaClienti_resstende.png",
+  "/media/NaxaClienti_omcazzaniga.webp",
+  "/media/NaxaClienti__EZ.png",
+  "/media/NaxaClienti_costacurta.png",
+  "/media/NaxaClienti_reflexx.png"
+];
+
 export default function ExperienceDetailPage() {
   const { id } = useParams();
   const { lang, content } = useLanguage();
-  const { sections } = content;
+  const { siteConfig, sections } = content;
+
+  const trackContactClick = (type: string, value: string, location: string = 'hero') => {
+    if (typeof window !== 'undefined') {
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      (window as any).dataLayer.push({
+        event: 'contact_click',
+        contact_type: type,
+        contact_value: value,
+        click_location: location,
+        page_path: window.location.pathname
+      });
+    }
+  };
+
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText(siteConfig.contact.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+    trackContactClick('copy_email', siteConfig.contact.email, 'hero');
+  };
 
   const job = sections.experience.items.find((item: any) => item.id === id);
 
@@ -127,18 +162,20 @@ export default function ExperienceDetailPage() {
   );
 
   return (
-    <PageLayout customPadding="pt-28 pb-16">
+    <PageLayout customPadding="pt-[104px] pb-[104px]">
       <article className="max-w-[1400px] mx-auto">
         {/* Hero Section - 100vh dynamic viewport area: Header(80px) + Page padding-top(112px) + Breadcrumbs(64px) = 256px space above */}
         <header 
-          className="lg:min-h-[calc(100vh-260px)] flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16 mb-16 pt-4"
+          className={`lg:min-h-[calc(100vh-260px)] flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16 pt-4 ${
+            job.id === 'naxa' ? 'mb-12' : 'mb-[104px]'
+          }`}
         >
           {/* Left Column: Text Content - Golden Ratio 61.8% */}
           <div className="w-full lg:w-[61.8%] flex flex-col justify-center text-left">
             <div className="flex flex-wrap items-center gap-4 text-blue-600 mb-4">
               <RevealText 
                 lines={[job.period]} 
-                lineClassName="text-[10px] font-bold uppercase tracking-[0.4em]"
+                lineClassName="text-[10px] font-bold uppercase tracking-[0.08em]"
                 delay={0}
               />
             </div>
@@ -151,17 +188,40 @@ export default function ExperienceDetailPage() {
 
             <RevealText
               lines={[job.role]}
-              lineClassName="text-xl md:text-2xl font-normal text-gray-600 dark:text-gray-400 uppercase tracking-widest mb-6"
+              lineClassName="text-xl md:text-2xl font-normal text-gray-600 dark:text-gray-400 uppercase tracking-[0.08em] mb-6"
               delay={0.2}
             />
 
             <div className="flex flex-wrap gap-2 mb-6">
               {job.tags.map((tag: string) => (
-                <span key={tag} className="text-[9px] font-bold uppercase tracking-widest bg-blue-600/5 dark:bg-blue-600/10 text-blue-600 px-3 py-1.5 border border-blue-600/10">
+                <span key={tag} className="text-[9px] font-bold uppercase tracking-[0.08em] bg-blue-600/5 dark:bg-blue-600/10 text-blue-600 px-3 py-1.5 border border-blue-600/10">
                   {tag}
                 </span>
               ))}
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3, ease: [0.15, 0.85, 0.35, 1] }}
+            >
+              <a
+                href={`mailto:${siteConfig.contact.email}`}
+                onClick={() => trackContactClick('email', siteConfig.contact.email, 'hero')}
+                className="btn-primary w-fit flex items-center justify-between gap-4 mb-8 cursor-pointer pl-4 pr-3"
+              >
+                <span>{lang === 'it' ? 'Scrivi mail' : 'Write email'}</span>
+                <span
+                  onClick={handleCopy}
+                  role="button"
+                  tabIndex={0}
+                  title={lang === 'it' ? 'Copia email' : 'Copy email'}
+                  className="p-1.5 rounded-full border border-white/30 hover:bg-white/10 active:bg-white/20 transition-all flex items-center justify-center text-white shrink-0 cursor-pointer pointer-events-auto"
+                >
+                  {copied ? <Check size={14} /> : <Copy size={14} />}
+                </span>
+              </a>
+            </motion.div>
 
             {/* Introduction text in hero section */}
             <div 
@@ -172,11 +232,11 @@ export default function ExperienceDetailPage() {
             <div className="flex flex-wrap gap-6 items-center border-t border-gray-100 dark:border-gray-800 pt-5">
               <div className="flex items-center gap-3 text-gray-900 dark:text-white">
                 <MapPin size={16} className="text-blue-600 shrink-0" />
-                <span className="text-xs font-bold uppercase tracking-widest">{job.location}</span>
+                <span className="text-xs font-bold uppercase tracking-[0.08em]">{job.location}</span>
               </div>
               <a href={job.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-900 dark:text-white hover:text-blue-600 transition-colors">
                 <Globe size={16} className="text-blue-600 shrink-0" />
-                <span className="text-xs font-bold uppercase tracking-widest underline underline-offset-4">
+                <span className="text-xs font-bold uppercase tracking-[0.08em] underline underline-offset-4">
                   {lang === 'it' ? 'Sito Ufficiale' : 'Official Website'}
                 </span>
               </a>
@@ -201,13 +261,39 @@ export default function ExperienceDetailPage() {
           </div>
         </header>
 
+        {/* Client Logos Marquee Strip for Naxa */}
+        {job.id === 'naxa' && (
+          <div className="w-[100vw] relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-gray-50 dark:bg-neutral-900 border-y border-gray-100 dark:border-gray-800 py-6 overflow-hidden mb-0">
+            <div className="w-full overflow-hidden flex select-none pointer-events-none">
+              <div className="flex gap-16 whitespace-nowrap animate-marquee-rtl shrink-0 min-w-full items-center">
+                {Array.from({ length: 3 }).map((_, loopIdx) => (
+                  <React.Fragment key={loopIdx}>
+                    {clientLogos.map((src, idx) => (
+                      <div key={`${loopIdx}-${idx}`} className="relative h-10 w-32 shrink-0 flex items-center justify-center">
+                        <Image
+                          src={src}
+                          alt="Naxa Client Logo"
+                          fill
+                          sizes="128px"
+                          className="object-contain filter grayscale brightness-50 contrast-125 dark:brightness-150 dark:contrast-75 opacity-70"
+                        />
+                      </div>
+                    ))}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Main Content Container - Matches Hero Section margins (max-w-[1400px]) */}
         <div className="max-w-[1400px] mx-auto">
-          <div className="prose prose-lg prose-blue dark:prose-invert max-w-none text-left mb-24">
+          <div className="prose prose-lg prose-blue dark:prose-invert max-w-none text-left mb-[104px]">
             {/* Key Project & Development Section */}
-            <div className="mb-20">
+            <div className="mb-[104px]">
               {activitiesMap[job.id] ? (
                 <ActivitiesSection 
+                  noTopMargin={job.id === 'naxa'}
                   activities={activitiesMap[job.id]} 
                   title={lang === 'it' ? 'Progetto e Sviluppo chiave' : 'Key Project & Development'}
                   description={lang === 'it' 
@@ -394,7 +480,7 @@ function SoftwareCard({ item, lang }: { item: SoftwareItem; lang: string }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       animate={{
-        backgroundColor: isHovered ? "#0048F9" : "rgba(249, 250, 251, 0.5)",
+        backgroundColor: isHovered ? "#2B13E2" : "rgba(249, 250, 251, 0.5)",
       }}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
@@ -412,7 +498,7 @@ function SoftwareCard({ item, lang }: { item: SoftwareItem; lang: string }) {
           noBg={true}
           className="w-14 h-14 md:w-18 md:h-18"
         />
-        <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider font-maison text-gray-400 dark:text-gray-500 text-center">
+        <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.08em] font-maison text-gray-400 dark:text-gray-500 text-center">
           {item.name}
         </span>
       </motion.div>
@@ -428,7 +514,7 @@ function SoftwareCard({ item, lang }: { item: SoftwareItem; lang: string }) {
         transition={{ duration: 0.3, ease: "easeOut", delay: isHovered ? 0.05 : 0 }}
       >
         <h4 
-          className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] font-maison mb-2 md:mb-3"
+          className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.08em] font-maison mb-2 md:mb-3"
           style={{ color: '#ffffff' }}
         >
           {item.name}
@@ -452,7 +538,7 @@ function SoftwareSection({ jobId, lang }: { jobId: string; lang: string }) {
   if (!items || items.length === 0) return null;
 
   return (
-    <div className="mt-24 mb-20 text-left">
+    <div className="mt-[104px] mb-16 text-left">
       <StandardH2
         lines={[lang === 'it' ? 'Software & Strumenti Utilizzati' : 'Software & Tools Utilized']}
         className="mb-8"

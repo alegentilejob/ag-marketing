@@ -55,14 +55,14 @@ export const sections = {
     items: [
       {
         id: "naxa",
-        role: "Junior SEO | AEO",
+        role: "Junior web performance and SEO",
         type: "Extracurricular Internship",
         company: "Naxa",
         website: "https://naxa.ws",
         period: "November 2025 - May 2026",
         location: "Bernareggio, Italy",
         introduction: {
-          text: "Naxa is a strategic marketing agency based in Bernareggio, specializing in SEO, AEO, social media, digital campaigns, graphic design, and web development. A multidisciplinary environment where every client is a strategic project built from scratch.<br/><br/>At Naxa, I managed the entire strategic and operational cycle of organic positioning for the agency's clients — from the initial brief to reporting, and from technical analysis to continuous optimization. I did not perform isolated tasks: I worked across the entire value chain, learning to connect every activity to a measurable business objective.",
+          text: "Naxa is a strategic marketing agency based in Bernareggio, specializing in SEO, AEO, social media, digital campaigns, graphic design, and web development. It operates as a multidisciplinary environment where every client is a custom-made project to design, optimize, and position online.<br/><br/>During the internship, I managed the <strong>organic traffic analysis</strong>, the execution of complex <strong>technical SEO audits</strong>, the detailed study of <strong>keyword gaps and conceptual maps</strong>, content optimization for AI search engines via <strong>AEO</strong>, and continuous monitoring with <strong>Looker Studio</strong> reporting.",
           image: "/media/experiences/naxa/MG_9908-w-poltu-quatu.jpg"
         },
         development: {
@@ -77,14 +77,14 @@ export const sections = {
       },
       {
         id: "fridhem-center",
-        role: "Multi-purpose Staff",
+        role: "Social Media Manager",
         type: "Erasmus +",
         company: "Fridhem Center",
         website: "https://frid.nu/en/",
         period: "June 2024 - August 2024",
         location: "Stjärnsund, Sweden",
         introduction: {
-          text: "International experience in a <strong>cross-cultural</strong> context, focused on <strong>strategic social content management</strong> for a Swedish cultural center.",
+          text: "Fridhem Center is a Swedish cultural center located in Stjärnsund, dedicated to promoting multicultural events, international hospitality, and community exchange projects. It stands as a key meeting point for artists, volunteers, and visitors coming together from all over the world.<br/><br/>In this context, I was responsible for the <strong>strategic management of social channels</strong>, the continuous tracking of <strong>reach, engagement, and growth rate</strong>, the creation of <strong>content marketing plans</strong>, and supporting international events, working within a team built on <strong>cross-cultural adaptability</strong>.",
           image: "/media/experiences/fridhem/Tavola disegno 1@2x.png"
         },
         development: {
@@ -106,7 +106,7 @@ export const sections = {
         period: "February 2025 - April 2025",
         location: "Milan, Italy",
         introduction: {
-          text: "Anularis is a Milanese artisanal company specialised in crafting high-value commemorative sports rings — unique, handmade objects with the ambition of establishing themselves in the world of international artisanal luxury.<br/><br/>In this context I served as the company's <strong>sole in-house marketer</strong>, operating as a true <strong>junior brand & growth strategist</strong>: I listened to the owner's objectives, translated business needs into a structured brief, and planned activities by priority. The core challenge? Bridging a major gap between the luxury positioning goal and a brand communication that did not yet reflect that identity.",
+          text: "Anularis is a Milanese artisanal company specializing in crafting high-value commemorative sports rings — unique, handmade objects aiming to establish themselves in the international artisanal luxury market. A brand that merges Italian goldsmith tradition with athletic victory celebrations.<br/><br/>As the sole in-house marketer, I managed the <strong>brand strategy and visual identity realignment</strong> of the site and social channels, planned <strong>market research and B2B international expansion</strong> for the Esports market in the Middle East, and designed <strong>growth hacking and marketing automation</strong> flows on LinkedIn.",
           image: "/media/experiences/anularis/FotoAnularis.png"
         },
         development: {

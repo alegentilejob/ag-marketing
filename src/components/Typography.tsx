@@ -18,6 +18,7 @@ interface DisplayHeadingProps {
   delay?: number;
   stagger?: number;
   animateOnMount?: boolean;
+  size?: 'default' | 'small' | 'large';
 }
 
 /**
@@ -36,7 +37,7 @@ export function DisplayH1({
   animateOnMount = true
 }: DisplayHeadingProps) {
   // Base classes for Display H1
-  const baseLineClass = "text-gray-900 dark:text-white font-medium font-sans text-[clamp(24px,4.5vw,46px)] tracking-tight leading-tight text-left display-h1";
+  const baseLineClass = "text-gray-900 dark:text-white font-medium font-sans text-[clamp(32px,6vw,64px)] tracking-tight leading-tight text-left display-h1";
   const combinedLineClass = `${baseLineClass} ${lineClassName}`.trim();
 
   // If pre-split lines are provided, use RevealText
@@ -131,10 +132,12 @@ export function StandardH2({
   lineClassName = "",
   delay = 0,
   stagger = 0.12,
-  animateOnMount = false
+  animateOnMount = false,
+  size = 'default'
 }: DisplayHeadingProps) {
   // Base classes for Standard H2 — mirrors "Esperienze Lavorative" section heading in homepage
-  const baseLineClass = "text-gray-900 dark:text-white font-medium tracking-tight leading-tight font-maison text-[clamp(32px,5vw,56px)] standard-h2";
+  const sizeClass = size === 'small' ? 'text-[clamp(24px,3vw,36px)]' : 'text-[clamp(32px,5vw,56px)]';
+  const baseLineClass = `text-gray-900 dark:text-white font-medium tracking-tight leading-tight font-maison ${sizeClass} standard-h2`;
   const combinedLineClass = `${baseLineClass} ${lineClassName}`.trim();
 
   // If pre-split lines are provided, use RevealText

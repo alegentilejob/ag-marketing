@@ -16,6 +16,25 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/cv',
+        destination: '/media/AlessandroGentile_CV.pdf',
+        permanent: false,
+      },
+      {
+        source: '/en/cv',
+        destination: '/media/AlessandroGentile_Resume.pdf',
+        permanent: false,
+      },
+      {
+        source: '/leantil',
+        destination: '/media/AlessandroGentile_LetteraDiPresentazione.pdf',
+        permanent: false,
+      },
+    ];
+  },
   async headers() {
     return [
       {

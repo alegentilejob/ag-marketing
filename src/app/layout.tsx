@@ -184,7 +184,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${primaryFont.variable} ${displayFont.variable} ${monoFont.variable} ${maisonNeueFont.variable} font-sans antialiased bg-white text-black dark:bg-[#111] dark:text-white transition-colors duration-300 min-h-screen bg-grid`}
+        className={`${primaryFont.variable} ${displayFont.variable} ${monoFont.variable} ${maisonNeueFont.variable} font-sans antialiased bg-white text-black dark:bg-[#111] dark:text-white transition-colors duration-300 min-h-screen bg-grid overflow-x-hidden`}
         data-track-language={lang}
       >
         <noscript>

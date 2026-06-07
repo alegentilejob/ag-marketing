@@ -53,7 +53,7 @@ export default function PortfolioPDF() {
            id="btn_back_to_site_portfolio"
            data-track-category="navigation"
            data-track-label="portfolio_exit_to_home"
-           className="flex items-center gap-2 text-gray-400 hover:text-white font-bold uppercase tracking-[0.2em] text-[11px] transition-colors"
+           className="flex items-center gap-2 text-gray-400 hover:text-white font-bold uppercase tracking-[0.08em] text-[11px] transition-colors"
         >
           <Home size={16} />
           <span>{lang === 'it' ? 'Torna al Sito' : 'Back to Site'}</span>
@@ -63,7 +63,7 @@ export default function PortfolioPDF() {
           id="btn_export_portfolio_pdf"
           data-track-category="conversion"
           data-track-label="portfolio_pdf_export_click"
-          className="flex items-center gap-3 bg-blue-600 text-white px-10 py-5 font-bold uppercase tracking-[0.3em] text-[11px] shadow-2xl hover:bg-white hover:text-blue-600 transition-all"
+          className="flex items-center gap-3 bg-blue-600 text-white px-10 py-5 font-bold uppercase tracking-[0.08em] text-[11px] shadow-2xl hover:bg-white hover:text-blue-600 transition-all"
         >
           <Printer size={18} />
           <span>{lang === 'it' ? 'Esporta Portfolio PDF' : 'Export Portfolio PDF'}</span>
@@ -75,7 +75,7 @@ export default function PortfolioPDF() {
         {/* SLIDE 1: COVER */}
         <section className="slide-export w-[29.7cm] h-[21cm] bg-white flex relative overflow-hidden box-border print:page-break-after-always">
           <div className="w-[55%] flex flex-col justify-center px-16 py-12">
-            <p className="text-[11px] text-blue-600 uppercase tracking-[0.2em] font-bold mb-4 whitespace-nowrap">{siteConfig.meta.role}</p>
+            <p className="text-[11px] text-blue-600 uppercase tracking-[0.08em] font-bold mb-4 whitespace-nowrap">{siteConfig.meta.role}</p>
             <h1 className="text-[52px] font-bold leading-tight text-gray-900 mb-6">
               {siteConfig.meta.name}
             </h1>
@@ -85,15 +85,15 @@ export default function PortfolioPDF() {
             
             <div className="mt-auto space-y-4 text-[12px] text-gray-500">
               <div>
-                <span className="block text-[11px] uppercase tracking-[0.2em] text-blue-600 font-bold mb-1">Email</span>
+                <span className="block text-[11px] uppercase tracking-[0.08em] text-blue-600 font-bold mb-1">Email</span>
                 <a href={`mailto:${siteConfig.contact.email}`} className="hover:text-blue-600 transition-colors uppercase">{siteConfig.contact.email}</a>
               </div>
               <div>
-                <span className="block text-[11px] uppercase tracking-[0.2em] text-blue-600 font-bold mb-1">Phone</span>
+                <span className="block text-[11px] uppercase tracking-[0.08em] text-blue-600 font-bold mb-1">Phone</span>
                 <a href={`tel:${siteConfig.contact.phone}`} className="hover:text-blue-600 transition-colors">{siteConfig.contact.phone}</a>
               </div>
               <div>
-                <span className="block text-[11px] uppercase tracking-[0.2em] text-blue-600 font-bold mb-1">Location</span>
+                <span className="block text-[11px] uppercase tracking-[0.08em] text-blue-600 font-bold mb-1">Location</span>
                 {siteConfig.meta.location}
               </div>
             </div>
@@ -110,15 +110,15 @@ export default function PortfolioPDF() {
 
         {/* SLIDE 2: ABOUT */}
         <section className="slide-export w-[29.7cm] h-[21cm] bg-white flex flex-col justify-center px-[3cm] py-[2cm] relative overflow-hidden box-border print:page-break-after-always">
-          <p className="text-[11px] text-blue-600 uppercase tracking-[0.2em] font-bold mb-12">01 / {lang === 'it' ? 'VISIONE STRATEGICA' : 'STRATEGIC VISION'}</p>
-          <div className="border-l-4 border-blue-600 pl-8">
+          <p className="text-[11px] text-blue-600 uppercase tracking-[0.08em] font-bold mb-12">01 / {lang === 'it' ? 'VISIONE STRATEGICA' : 'STRATEGIC VISION'}</p>
+          <div className="border-l border-blue-600 pl-8">
             <p className="text-[18px] leading-[1.7] text-gray-800 font-medium" dangerouslySetInnerHTML={{ __html: sections.about.bio }} />
           </div>
         </section>
 
         {/* SLIDE 3: SKILLS */}
         <section className="slide-export w-[29.7cm] h-[21cm] bg-white flex flex-col justify-center px-[3cm] py-[2cm] relative overflow-hidden box-border print:page-break-after-always">
-          <p className="text-[11px] text-blue-600 uppercase tracking-[0.2em] font-bold mb-12">02 / SKILLSET & ARSENAL</p>
+          <p className="text-[11px] text-blue-600 uppercase tracking-[0.08em] font-bold mb-12">02 / SKILLSET & ARSENAL</p>
           <div className="grid grid-cols-2 gap-20">
             <div className="space-y-4">
                {sections.skills.hard.map((skill, idx) => (
@@ -154,7 +154,7 @@ export default function PortfolioPDF() {
                   />
                 )}
                 <div className="relative z-10 w-full">
-                  <p className="text-[11px] text-blue-500 uppercase tracking-[0.2em] font-bold mb-6">0{jidx + 1} / DISCOVERY</p>
+                  <p className="text-[11px] text-blue-600 uppercase tracking-[0.08em] font-bold mb-6">0{jidx + 1} / DISCOVERY</p>
                   <a href={job.website} target="_blank" className="group flex flex-col gap-6">
                      <div className="w-24 h-24 bg-white/10 backdrop-blur-sm border border-white/20 overflow-hidden">
                         {job.introduction.image && (
@@ -166,7 +166,7 @@ export default function PortfolioPDF() {
                           />
                         )}
                      </div>
-                     <h3 className="text-[48px] font-bold leading-tight text-white uppercase tracking-tighter group-hover:text-blue-500 transition-colors">
+                     <h3 className="text-[48px] font-bold leading-tight text-white uppercase tracking-[0.02em] group-hover:text-blue-600 transition-colors">
                        {job.company}
                      </h3>
                   </a>
@@ -179,7 +179,7 @@ export default function PortfolioPDF() {
                   <p>{job.location} | {job.type}</p>
                 </div>
                 <div>
-                  <p className="text-[11px] text-blue-600 uppercase tracking-[0.2em] font-bold mb-4">Market Intelligence</p>
+                  <p className="text-[11px] text-blue-600 uppercase tracking-[0.08em] font-bold mb-4">Market Intelligence</p>
                   <p className="text-[16px] leading-[1.7] text-gray-600 line-clamp-5" dangerouslySetInnerHTML={{ __html: job.introduction.text }} />
                 </div>
               </div>
@@ -188,7 +188,7 @@ export default function PortfolioPDF() {
             {/* Execution */}
             <section className="slide-export w-[29.7cm] h-[21cm] bg-[#fcfcfc] flex flex-col justify-center px-[3cm] py-[2cm] relative overflow-hidden box-border print:page-break-after-always">
               <header className="mb-12">
-                <p className="text-[11px] text-blue-600 uppercase tracking-[0.2em] font-bold mb-2">0{jidx + 1} / EXECUTION</p>
+                <p className="text-[11px] text-blue-600 uppercase tracking-[0.08em] font-bold mb-2">0{jidx + 1} / EXECUTION</p>
                 <h3 className="text-[36px] font-bold text-gray-900"><a href={job.website} target="_blank" className="hover:text-blue-600 transition-colors">{job.company}</a> — {lang === 'it' ? 'Operatività' : 'Execution'}</h3>
               </header>
               <div className="flex flex-row gap-16">
@@ -222,7 +222,7 @@ export default function PortfolioPDF() {
 
             {/* Conclusion */}
             <section className="slide-export w-[29.7cm] h-[21cm] bg-white flex flex-col justify-center px-[3cm] py-[2cm] relative overflow-hidden box-border print:page-break-after-always">
-              <p className="text-[11px] text-blue-600 uppercase tracking-[0.2em] font-bold mb-12">0{jidx + 1} / IMPACT 03/03</p>
+              <p className="text-[11px] text-blue-600 uppercase tracking-[0.08em] font-bold mb-12">0{jidx + 1} / IMPACT 03/03</p>
               
               <div className="max-w-6xl grid grid-cols-2 gap-16 items-center">
                 <div className="space-y-16">
@@ -252,26 +252,26 @@ export default function PortfolioPDF() {
 
         {/* CONTACT SLIDE */}
         <section className="slide-export w-[29.7cm] h-[21cm] bg-gray-50 flex flex-col justify-center px-[3cm] py-[2cm] pb-10 relative overflow-hidden box-border print:page-break-after-always">
-          <p className="text-[11px] text-blue-600 uppercase tracking-[0.2em] font-bold mb-8">LET'S CONNECT</p>
+          <p className="text-[11px] text-blue-600 uppercase tracking-[0.08em] font-bold mb-8">LET'S CONNECT</p>
           <h2 className="text-[36px] font-bold text-gray-900 mb-16">{lang === 'it' ? 'Iniziamo una conversazione' : "Let&apos;s start a conversation"}</h2>
 
-          <div className="space-y-10 border-l px-8 border-gray-200">
+          <div className="space-y-10 border-l-[1px] px-8 border-gray-200">
              <div className="flex flex-col md:flex-row md:gap-20">
                <div>
-                  <span className="block text-[11px] uppercase tracking-[0.2em] text-gray-400 font-bold mb-2">{lang === 'it' ? 'Email Diretta' : 'Direct Email'}</span>
+                  <span className="block text-[11px] uppercase tracking-[0.08em] text-gray-400 font-bold mb-2">{lang === 'it' ? 'Email Diretta' : 'Direct Email'}</span>
                   <a href={`mailto:${siteConfig.contact.email}`} className="text-[24px] font-medium text-blue-600 lowercase hover:underline">
                      {siteConfig.contact.email}
                   </a>
                </div>
                <div>
-                  <span className="block text-[11px] uppercase tracking-[0.2em] text-gray-400 font-bold mb-2">{lang === 'it' ? 'Recapito Telefonico' : 'Phone Number'}</span>
+                  <span className="block text-[11px] uppercase tracking-[0.08em] text-gray-400 font-bold mb-2">{lang === 'it' ? 'Recapito Telefonico' : 'Phone Number'}</span>
                   <a href={`tel:${siteConfig.contact.phone}`} className="text-[24px] font-medium text-blue-600 lowercase hover:underline">
                      {siteConfig.contact.phone}
                   </a>
                </div>
              </div>
               <div>
-                <span className="block text-[11px] uppercase tracking-[0.2em] text-gray-400 font-bold mb-2">Social Professional</span>
+                <span className="block text-[11px] uppercase tracking-[0.08em] text-gray-400 font-bold mb-2">Social Professional</span>
                 <a href={siteConfig.contact.linkedin} target="_blank" className="text-[24px] font-medium text-gray-800 lowercase hover:underline">
                   {siteConfig.contact.linkedin.replace('https://www.linkedin.com/in/', '').replace('https://linkedin.com/in/', '').replace('/', '')}
                 </a>

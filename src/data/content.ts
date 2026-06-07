@@ -51,7 +51,7 @@ export const sections = {
     items: [
       {
         id: "naxa",
-        role: "Junior SEO | AEO",
+        role: "Junior web performance and SEO",
         type: "Stage Extracurricolare",
         company: "Naxa",
         website: "https://naxa.ws",

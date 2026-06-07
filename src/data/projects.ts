@@ -715,6 +715,145 @@ export const projectsIt: Project[] = [
         }
       }
     ]
+  },
+  {
+    id: "wolly-kpi-tracking",
+    category: "wolly",
+    subcategory: "data-analysis",
+    year: "2026",
+    month: "06",
+    day: "03",
+    slug: "tracciamento-e-analisi-dei-principali-kpi",
+    title: "Tracciamento e analisi dei principali KPI",
+    description: "La fase di impostazione per tracciare e analizzare il comportamento degli utenti, le prestazioni dell'infrastruttura e i costi vivi delle API AI di Wolly.",
+    date: "3 Giugno 2026",
+    coverImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2426&auto=format&fit=crop",
+    content: [
+      {
+        type: 'text',
+        data: {
+          html: "<p>Una delle fasi fondamentali nel lancio di un nuovo prodotto o di una piattaforma digitale è il tracciamento e l’analisi del comportamento degli utenti, nonché delle prestazioni generali e del corretto funzionamento tecnico. Le ricerche di mercato e i test preliminari possono permetterci di indirizzare il prodotto e di sviluppare i primi prototipi; tuttavia, solo l’analisi dei reali comportamenti d’uso sul campo può rilevare le effettive preferenze, i pattern di utilizzo e le aree di miglioramento prioritario.</p><p>Wolly, ad esempio, utilizza tre modalità differenti per la registrazione delle spese. Qual è la più utilizzata? Quanto tempo impiega l'applicazione per elaborare un singolo inserimento? Quanto costa un utente su base mensile? Sono tutte domande cruciali che necessitano di risposte basate su dati quantitativi presi da utenti reali. Dato che manca poco al lancio della prima demo privata (dedicata a una cerchia ristretta di tester), era fondamentale capire fin da ora cosa tracciare e come farlo dal punto di vista infrastrutturale.</p><p><em>*Nota: l'applicazione cerca di avvicinarsi fin da ora agli standard di privacy basandosi su ciò che viene tracciato realmente: i dati finanziari sono conservati in locale sul dispositivo, non viene effettuata profilazione o marketing, Firebase Analytics è disabilitato in questa beta e vengono raccolti solo dati strettamente necessari all'autenticazione (email tramite Google OAuth/Supabase) e all'elaborazione temporanea dei log AI.*</em></p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Obiettivi di analisi",
+          html: "<p>La prima fase ha riguardato la definizione di obiettivi chiari di analisi: cosa serve sapere davvero? Quali punti strategici occorre definire? Cosa è fondamentale comprendere durante la prima demo privata? La definizione degli obiettivi è cruciale. Devono essere domande mirate, misurabili e, in sostanza, conformi ai criteri SMART (Specific, Measurable, Achievable, Relevant, Time-bound):</p><ul><li><strong>Quali tool di parsing utilizzano le persone:</strong> Questo dato è fondamentale per capire quale modalità specifica (tra quelle offerte) gli utenti preferiscono per registrare le nuove transazioni finanziarie. Isolare questo comportamento permetterà, in una fase successiva dello sviluppo, di ottimizzare i flussi principali, migliorando sia le prestazioni infrastrutturali sia l’usabilità dell’interfaccia (UX).</li><li><strong>Che tool di analisi utilizzano:</strong> È necessario capire se, per analizzare le proprie spese, le persone preferiscono interagire tramite testo scritto o tramite comandi vocali. Identificare la modalità principale serve non solo a ottimizzare l’esperienza utente, ma anche a comprendere quali siano gli strumenti nativi dell'applicazione ritenuti più utili e accessibili.</li><li><strong>Le persone chiedono consigli finanziari o analisi dello storico?</strong> In questa fase, anche alla luce della <a href='/progetti/wolly/2026/04/21/user-research-validazione-problema-e-ai-trust' target='_self'><strong>primary research</strong></a>, si è notato come le persone desiderino principalmente una panoramica chiara e immediata delle proprie spese (un'overview), piuttosto che consigli proattivi o un tutor finanziario personale. Nonostante ciò, l'obiettivo è verificare se Wolly possa evolvere in futuro verso la consulenza automatizzata o se gli utenti non mostrino interesse per questa funzionalità.</li><li><strong>Qual è il costo di un utente?</strong> Per garantire la sostenibilità economica del progetto e definire con precisione il prezzo del futuro abbonamento, occorre calcolare quanto costa un utente ogni mese. Essendo l’utilizzo dei servizi di Intelligenza Artificiale basato su una modalità <em>pay-as-you-go</em> (pagamento al consumo), i costi variabili per utente sono legati alle chiamate API. È quindi indispensabile tracciare il costo esatto di ogni singola operazione per non inficiare i margini.</li><li><strong>Quali pagine gli utenti utilizzano di più?</strong> Mappare il comportamento di navigazione all’interno dell'applicazione permette di individuare le sezioni e le feature più visitate. Nonostante l’app sia progettata per compiere la maggior parte delle azioni accedendo direttamente alle funzioni AI (riducendo la navigazione classica), occorre capire quali pagine di riepilogo o di impostazione catturano maggiormente l’interesse dell’utente.</li></ul>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Tool di tracciamento utilizzati e stack di analisi",
+          html: "<p>Definiti gli obiettivi, è stato necessario individuare gli strumenti utili per le analisi e stabilire dove e come centralizzare i dati, così da poterli visualizzare e gestire in modo semplice, chiaro e veloce.</p><ul><li><strong>Google Analytics:</strong> Sebbene inizialmente configurato tramite <a href='https://firebase.google.com/products/analytics' target='_blank'><strong>Google Firebase</strong></a> per poter monitorare metriche aggregate come sessioni o schermate, Firebase Analytics è stato <strong>disabilitato in questa versione beta</strong> per avvicinarci fin da subito ai massimi standard di privacy e minimizzazione dei dati.</li><li><strong>Supabase:</strong> Utilizzato per memorizzare in modo totalmente anonimo esclusivamente i log tecnici e le metriche di backend legati all'uso dell'Intelligenza Artificiale, essenziali per monitorare l'andamento dei costi vivi e dei token consumati. Non vengono registrati né il testo delle domande, né i parametri o gli identificativi personali.</li><li><strong>Looker Studio:</strong> Utilizzato come piattaforma centralizzata per supervisionare esclusivamente l'andamento aggregato dei costi variabili e dei log tecnici archiviati su Supabase, garantendo una supervisione chiara e sicura in un'unica schermata.</li></ul>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Metriche di comportamento analizzate",
+          html: "<p>Definiti gli obiettivi e gli strumenti, si è passati alla selezione delle metriche effettive. È fondamentale definire KPI chiari e di valore, che restituiscano informazioni rilevanti evitando il rischio di perdersi in metriche di vanità o dati ridondanti.</p><h3>Google Analytics (Disabilitato)</h3><p>Nessuna metrica di comportamento utente, navigazione o tracciamento dell'utilizzo dettagliato (come utenti unici, visualizzazioni di schermate o durata media delle sessioni) viene attualmente raccolta tramite Google Analytics, essendo questo disattivato nella versione beta.</p><h3>Supabase (Log AI Anonimi)</h3><p>Su Supabase vengono memorizzati esclusivamente i log tecnici e i metadati anonimi legati alle chiamate AI, fondamentali per tenere traccia dei costi e garantire le performance dell'infrastruttura:</p><ul><li><strong>Costo di ogni chiamata AI:</strong> Calcola l'esborso monetario associato a ogni singola richiesta inviata ai modelli di linguaggio per monitorare la sostenibilità finanziaria.</li><li><strong>Data di creazione della chiamata:</strong> Registra il timestamp dell'operazione per analizzare i flussi di utilizzo nel tempo.</li><li><strong>Versione dell'app:</strong> Traccia la build dell'applicazione per isolare problemi tecnici o anomalie legati a specifici rilasci.</li><li><strong>Token utilizzati (input, elaborazione, output):</strong> Misura il consumo di token per monitorare i costi di servizio legati alle risposte dell'IA.</li><li><strong>Durata dell'operazione:</strong> Registra la latenza di risposta del sistema per assicurare un'esperienza fluida.</li></ul>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Conclusione e riflessioni",
+          html: "<p>Integrare l’infrastruttura di analisi in questa fase embrionale dell’applicazione si è rivelato un passo fondamentale: ci permetterà di orientare lo sviluppo del prodotto basandoci sui dati e di concentrare le risorse di sviluppo esclusivamente sulle funzionalità che generano reale valore per l’utente. Nel prossimo articolo mostrerò nel dettaglio come ho configurato la dashboard su Looker Studio per ottenere un’analisi dei dati chiara, efficiente e immediatamente azionabile.</p>"
+        }
+      }
+    ]
+  },
+  {
+    id: "wolly-prototype-v001",
+    category: "wolly",
+    subcategory: "product-design",
+    year: "2026",
+    month: "06",
+    day: "07",
+    slug: "prototipizzazione-prima-versione-v001",
+    title: "Sviluppo del primo prototipo funzionante (Wolly v0.0.1)",
+    description: "Lanciare un'applicazione in un mercato saturo richiede una strategia chiara: non serve reinventare la ruota, ma farla girare meglio. Il mio obiettivo con Wolly v0.0.1 è stato gettare le basi di un'applicazione snella, focalizzata sulla gestione offline delle transazioni, per poi innestare in modo modulare un potente layer di Intelligenza Artificiale.",
+    date: "7 Giugno 2026",
+    coverImage: "/media/projects/wolly/wolly prototype/processed_Wolly_home.png",
+    content: [
+      {
+        type: 'text',
+        data: {
+          html: "<p>Lanciare un'applicazione in un mercato saturo come quello della finanza personale richiede una strategia chiara: non serve reinventare la ruota, ma farla girare meglio. Il mio obiettivo con Wolly v0.0.1 è stato gettare le basi di un'applicazione snella, focalizzata sulla gestione offline delle transazioni, per poi innestare in modo modulare un potente layer di Intelligenza Artificiale.</p><p>Questo articolo riassume la struttura logica e le scelte di UX/UI del primo prototipo funzionante. Ciascuna di queste aree sarà approfondita in articoli dedicati per analizzarne i dettagli implementativi.</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Prototipo di base",
+          html: "<p>L'obiettivo primario di Wolly v0.0.1 era validare un'applicazione snella, rapida e offline-first. Prima di far comunicare l'app con modelli AI complessi, è stato fondamentale implementare la <a href=\"/progetti/wolly/2026/04/26/costruire-la-demo-di-base-prima-dellarchitettura-ai\"><strong>stabilità di base della gestione finanziaria tradizionale</strong></a>. </p><h3>Core Engine & Database Locale</h3><p>Ho sviluppato un motore di transazione offline per l'inserimento e la categorizzazione manuale rapida di spese ed entrate. Tutti i dati sono memorizzati direttamente sul dispositivo dell'utente tramite SQLite/AsyncStorage, garantendo latenza zero e riservatezza assoluta. In questa prima fase locale si colloca anche il sistema contestuale di segnalazione anomalie (Anomaly Reporter) per monitorare lo stato operativo senza intaccare la privacy.</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Schermate",
+          html: "<p>L'interfaccia grafica restituisce all'utente una sintesi immediata del suo patrimonio e delle sue abitudini di consumo. Ho progettato e sviluppato quattro visualizzazioni verticali principali basate su grafici dinamici:</p><h3>Visualizzazioni dei Flussi</h3><ul><li><strong>Flusso di Cassa:</strong> Confronto diretto tra entrate e uscite mensili.</li><li><strong>Guadagni e Spese:</strong> Schede incentrate sul monitoraggio dei redditi e sull'aggregazione delle uscite per categorie.</li><li><strong>Net Worth:</strong> Stato complessivo del patrimonio accumulato al netto dei costi sostenuti.</li></ul>"
+        }
+      },
+      {
+        type: 'gallery',
+        data: {
+          images: [
+            { src: "/media/projects/wolly/wolly prototype/processed_Wolly_home.png", alt: "Dashboard principale" },
+            { src: "/media/projects/wolly/wolly prototype/processed_Wolly_ai_chat.png", alt: "Chat con Assistente AI" },
+            { src: "/media/projects/wolly/wolly prototype/processed_wolly_fotocamera.png", alt: "OCR fotocamera scontrini" },
+            { src: "/media/projects/wolly/wolly prototype/processed_Wolly_pagina_transazione.png", alt: "Dettaglio transazione accordion" },
+            { src: "/media/projects/wolly/wolly prototype/processed_Wolly_pagina_spese.png", alt: "Storico e categorie" },
+            { src: "/media/projects/wolly/wolly prototype/processed_Wolly_pagina_abbonamenti.png", alt: "Abbonamenti ricorrenti" }
+          ]
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Layer di parsing AI",
+          html: "<p>La transizione offline-online avviene in modo trasparente e non distruttivo. Se la rete manca, l'app opera normalmente; in presenza di connessione, si innesta il layer AI per eliminare ogni frizione nell'inserimento dei dati.</p><h3>API esterne ed arricchimento semantico</h3><p>Collegando l'app a <strong>Groq API</strong> (per l'inferenza linguistica ad altissima velocità) e a <strong>Google Vision API</strong> (per il parsing visivo degli scontrini cartacei), l'applicazione cattura ed arricchisce ogni transazione. L'AI interpreta il contesto sociale (amici, famiglia), geografico (vacanze, trasferte), canali d'acquisto (online o fisico) e tag. Riconosce inoltre abbonamenti ricorrenti e uscite future programmate.</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Analisi AI",
+          html: "<p>Risolto l'inserimento dei dati, ho ripensato la fase di analisi eliminando i filtri di ricerca complessi. L'obiettivo è permettere all'utente di dialogare direttamente con il proprio storico finanziario.</p><h3>Query e Widget Just-in-Time (JIT)</h3><p>L'utente può porre domande in linguaggio naturale (es. \"Quanto ho speso l'ultimo mese con gli amici nei negozi online?\"). Il motore interpreta l'intento ed evoca template grafici preimpostati (JIT Widgets per totali, distribuzioni, liste o timeline) popolandoli dinamicamente con i dati estratti dal database locale.</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Menu e navigazione",
+          html: "<p>Il pannello di navigazione principale (Tab Bar) è stato strutturato per garantire un accesso fulmineo alle nuove funzioni AI, mantenendo un'usabilità familiare.</p><h3>Menu centralizzato multifunzione</h3><p>La Tab Bar a 5 icone ruota attorno al pulsante AI centrale. Per evitare di affollare lo schermo di bottoni, ho progettato un sistema a gesture multifunzione: click singolo per avviare il campo di testo AI, doppio click per la fotocamera OCR e pressione prolungata (Hold) per registrare l'audio (con un ring circolare SVG che visualizza il timer e gesture verso l'alto per annullare).</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Tracciamento",
+          html: "<p>Trattandosi di informazioni finanziarie sensibili, la conformità e la sicurezza architetturale sono state prioritarie fin dal primo giorno di sviluppo.</p><h3>GDPR e Monitoraggio KPI</h3><p>Ho implementato log tecnici anonimi su Supabase per monitorare token e costi vivi API, garantendo conformità GDPR totale. Se desideri approfondire lo stack di tracciamento e la tecnologia utilizzata, puoi leggere l'<a href=\"/progetti/wolly/2026/06/03/tracciamento-e-analisi-dei-principali-kpi\"><strong>articolo dedicato alla strategia e ai KPI di tracciamento</strong></a>. Infine, ho previsto guardrail lato codice per filtrare richieste non pertinenti e limiti di token per prevenire abusi ed evitare picchi di costo imprevisti.</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Punti fondamentali dell'app",
+          html: "<p>A completamento dello sviluppo iniziale, ho strutturato i flussi d'accesso, il sistema di onboarding e le politiche di trattamento dati per coniugare semplicità operativa e sicurezza.</p><h3>Onboarding e Accessi</h3><p>L'onboarding iniziale è stato ridotto al minimo indispensabile per abbattere la barriera d'ingresso. L'accesso è gestito in modo sicuro tramite Google Login (OAuth), garantendo controlli d'accesso affidabili e limitando l'inserimento di credenziali proprietarie. Tutte le preferenze iniziali e la configurazione dell'utente vengono impostate in background durante il primo avvio.</p><h3>Privacy Policy</h3><p>I dati personali e finanziari sono protetti alla radice: la base dati risiede localmente sul dispositivo dell'utente. La trasmissione dati avviene esclusivamente in presenza del layer AI per l'arricchimento semantico, seguendo rigide policy di riservatezza in linea con la conformità GDPR, senza alcuna forma di tracciamento o profilazione commerciale.</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Prossimi Passi",
+          html: "<p>Il prossimo passo fondamentale sarà la pubblicazione di una versione demo accessibile al pubblico. Successivamente, verranno definite le ultime specifiche tecniche e i dettagli della brand identity dell'applicazione, ponendo le basi per il rilascio della prima versione ufficiale stabile.</p>"
+        }
+      }
+    ]
   }
 ];
 
@@ -1413,6 +1552,145 @@ export const projectsEn: Project[] = [
         data: {
           title: "Next Steps",
           html: "<ul><li><strong>Mood Board Construction:</strong> Creating a visual track comparing Headspace's narrative with Things 3's architecture.</li><li><strong>10-Second Test:</strong> Validating wireframes to ensure the \"soft\" aesthetic doesn't interfere with speed of use.</li><li><strong>Visual Beta Test:</strong> Presenting the two registers (Warm/Enveloping vs Direct/Essential) to testers to define the accent color.</li></ul>"
+        }
+      }
+    ]
+  },
+  {
+    id: "wolly-kpi-tracking",
+    category: "wolly",
+    subcategory: "data-analysis",
+    year: "2026",
+    month: "06",
+    day: "03",
+    slug: "tracking-and-analyzing-key-kpis",
+    title: "Tracking and Analyzing Key KPIs",
+    description: "The setup phase for tracking and analyzing user behavior, infrastructure performance, and live API costs for Wolly's AI systems.",
+    date: "3 June 2026",
+    coverImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2426&auto=format&fit=crop",
+    content: [
+      {
+        type: 'text',
+        data: {
+          html: "<p>One of the fundamental phases in launching a new product or digital platform is tracking and analyzing user behavior, as well as general performance and technical functionality. Market research and preliminary tests allow us to guide the product and develop the first prototypes; however, only the analysis of real usage behaviors in the field can reveal actual preferences, usage patterns, and priority areas for improvement.</p><p>Wolly, for example, uses three different modes for logging expenses. Which one is used the most? How long does the application take to process a single entry? How much does a user cost on a monthly basis? These are all crucial questions that require answers based on quantitative data from real users. Since the launch of the first private demo (dedicated to a restricted circle of testers) is just around the corner, it was essential to understand right now what to track and how to do it from an infrastructural standpoint.</p><p><em>*Note: the application aims to adhere to privacy standards from the start based on what is actually tracked: financial data is stored locally on the device, no profiling or marketing is conducted, Firebase Analytics is disabled in this beta, and only data strictly necessary for authentication (email via Google OAuth/Supabase) and temporary AI log processing is collected.*</em></p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Analysis Objectives",
+          html: "<p>The first phase involved defining clear analysis objectives: what do we really need to know? What strategic points do we need to define? What is essential to understand during the first private demo? The definition of objectives is crucial. They must be targeted, measurable, and conform to SMART criteria (Specific, Measurable, Achievable, Relevant, Time-bound):</p><ul><li><strong>Which parsing tools people use:</strong> This data is essential for understanding which specific mode (among those offered) users prefer to record new financial transactions. Isolating this behavior will allow, in a later stage of development, the optimization of primary flows, improving both infrastructural performance and user interface usability (UX).</li><li><strong>Which analysis tool they use:</strong> It is necessary to understand whether, to analyze their expenses, people prefer to interact via written text or voice commands. Identifying the primary mode serves not only to optimize the user experience but also to understand which native tools of the application are considered most useful and accessible.</li><li><strong>Do people ask for financial advice or analysis of historical data?</strong> In this phase, also in light of the <a href='/en/projects/wolly/2026/04/21/user-research-problem-validation-and-ai-trust' target='_self'><strong>primary research</strong></a>, it was noted that people primarily desire a clear and immediate overview of their expenses (an overview), rather than proactive advice or a personal financial tutor. Despite this, the goal is to verify if Wolly can evolve in the future towards automated consulting or if users show no interest in this feature.</li><li><strong>What is the cost of a user?</strong> To ensure the economic sustainability of the project and accurately define the price of the future subscription, we need to calculate how much a user costs each month. Since the use of Artificial Intelligence services is based on a <em>pay-as-you-go</em> model (billing by consumption), the variable costs per user are linked to API calls. It is therefore essential to track the exact cost of each single operation in order not to affect margins.</li><li><strong>Which pages do users use the most?</strong> Mapping navigation behavior within the application allows for the identification of the most visited sections and features. Although the app is designed to perform most actions by directly accessing AI functions (reducing classic navigation), we need to understand which summary or settings pages capture the most user interest.</li></ul>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Tracking Tools Used and Analysis Stack",
+          html: "<p>Once the objectives were defined, it was necessary to identify the useful tools for the analyses and establish where and how to centralize the data, so that it could be viewed and managed in a simple, clear, and fast way.</p><ul><li><strong>Google Analytics:</strong> Although initially configured using <a href='https://firebase.google.com/products/analytics' target='_blank'><strong>Google Firebase</strong></a> to monitor aggregate metrics like sessions or screens, Firebase Analytics has been <strong>disabled in this beta version</strong> to align with high privacy standards and data minimization.</li><li><strong>Supabase:</strong> Used to store completely anonymous technical logs and backend metrics related to AI usage, which are essential for tracking variable costs and token consumption. Query text, parameters, or personal identifiers are not stored.</li><li><strong>Looker Studio:</strong> Used as a centralized platform to supervise only the aggregate trend of variable costs and technical logs stored on Supabase, ensuring a clear and secure overview in a single screen.</li></ul>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Behavioral Metrics Analyzed",
+          html: "<p>Having defined objectives and tools, we moved to selecting the actual metrics. It is essential to define clear and valuable KPIs that yield relevant information, avoiding the risk of getting lost in vanity metrics or redundant data.</p><h3>Google Analytics (Disabled)</h3><p>No user behavior, navigation, or detailed usage tracking metrics (such as unique users, screen views, or average session duration) are currently collected via Google Analytics, as it is disabled in the beta version.</p><h3>Supabase (Anonymous AI Logs)</h3><p>Only anonymous technical logs and metadata related to AI calls are stored on Supabase, which are essential for tracking costs and ensuring infrastructure performance:</p><ul><li><strong>Cost of each AI call:</strong> Calculates the monetary outlay associated with each single request sent to the language models to monitor financial sustainability.</li><li><strong>Call creation date:</strong> Records the exact timestamp of the operation to analyze usage flows over time.</li><li><strong>App version:</strong> Tracks the application build to isolate technical issues or anomalies linked to specific releases.</li><li><strong>Tokens used (input, processing, output):</strong> Measures token consumption to monitor service costs linked to AI responses.</li><li><strong>Operation duration:</strong> Records the response latency of the system to ensure a _smooth user experience._</li></ul>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Conclusion and Reflections",
+          html: "<p>Integrating the analysis infrastructure in this embryonic phase of the application has proven to be a fundamental step: it will allow us to guide product development based on data and concentrate development resources exclusively on the features that generate real value for the user. In the next article, I will show in detail how I configured the Looker Studio dashboard to obtain clear, efficient, and immediately actionable data analysis.</p>"
+        }
+      }
+    ]
+  },
+  {
+    id: "wolly-prototype-v001",
+    category: "wolly",
+    subcategory: "product-design",
+    year: "2026",
+    month: "06",
+    day: "07",
+    slug: "prototyping-first-version-v001",
+    title: "Development of the first working prototype (Wolly v0.0.1)",
+    description: "Launching an application in a market already saturated and consolidated like that of personal finance apps requires a clear strategy: you don't need to reinvent the wheel, but you need to make it turn better. My goal from the beginning was to create an innovative product that bends to the real needs of the user, introducing a powerful Artificial Intelligence layer without disrupting the visual standards that people are already used to.",
+    date: "June 7, 2026",
+    coverImage: "/media/projects/wolly/wolly prototype/processed_Wolly_home.png",
+    content: [
+      {
+        type: 'text',
+        data: {
+          html: "<p>Launching a personal finance application in a saturated market requires a clear strategy: you don't need to reinvent the wheel, but to make it turn better. My goal with Wolly v0.0.1 was to lay the foundation of a lean application focused on offline transaction management, subsequently grafting a powerful Artificial Intelligence layer in a modular way.</p><p>This article summarizes the logical structure and UX/UI choices of the first functional prototype. Each of these areas will be explored in depth in dedicated upcoming articles.</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Base Prototype",
+          html: "<p>The primary goal of Wolly v0.0.1 was to validate a lean, responsive, and offline-first application. Before having the app communicate with complex AI models, it was essential to implement the <a href=\"/en/projects/wolly/2026/04/26/building-the-base-demo-before-ai-architecture\"><strong>base stability of traditional financial management</strong></a>.</p><h3>Core Engine & Local Database</h3><p>I developed an offline transaction engine for rapid manual logging and categorization of expenses and income. All data is stored directly on the user's device via SQLite/AsyncStorage, ensuring zero latency and absolute privacy. This initial local phase also hosts the contextual bug reporting system (Anomaly Reporter) to monitor operational health without compromising privacy.</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Screens",
+          html: "<p>The graphical interface provides the user with an immediate overview of their net worth and spending habits. I designed and developed four main vertical views based on dynamic charts:</p><h3>Flow Visualizations</h3><ul><li><strong>Cash Flow:</strong> Direct comparison between monthly income and expenses.</li><li><strong>Earnings & Expenses:</strong> Cards focused on tracking revenue sources and aggregating expenses by category.</li><li><strong>Net Worth:</strong> Overall state of accumulated wealth net of expenses incurred.</li></ul>"
+        }
+      },
+      {
+        type: 'gallery',
+        data: {
+          images: [
+            { src: "/media/projects/wolly/wolly prototype/processed_Wolly_home.png", alt: "Main Dashboard" },
+            { src: "/media/projects/wolly/wolly prototype/processed_Wolly_ai_chat.png", alt: "AI Assistant Chat" },
+            { src: "/media/projects/wolly/wolly prototype/processed_wolly_fotocamera.png", alt: "OCR Camera Parsing" },
+            { src: "/media/projects/wolly/wolly prototype/processed_Wolly_pagina_transazione.png", alt: "Transaction detail accordion" },
+            { src: "/media/projects/wolly/wolly prototype/processed_Wolly_pagina_spese.png", alt: "Transaction history and categories" },
+            { src: "/media/projects/wolly/wolly prototype/processed_Wolly_pagina_abbonamenti.png", alt: "Active subscriptions" }
+          ]
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "AI Parsing Layer",
+          html: "<p>The offline-to-online transition happens transparently and non-destructively. If network connectivity is lost, the app operates normally; when online, the AI layer grafts onto the existing system to eliminate manual input friction.</p><h3>External APIs & Semantic Enrichment</h3><p>By connecting the app to the <strong>Google Vision API</strong> (for receipt scanning) and the <strong>Groq API</strong> (for fast natural language inference), the application automatically captures and enriches each transaction. The AI interprets social context (friends, family), geographic status (vacation, business trips), purchase channels (online/offline), and smart tags, while also identifying future planned expenses and active subscriptions.</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "AI Analysis",
+          html: "<p>Once transaction logging was automated, I redesigned the analysis workflow, removing complex search filters. The objective is to let the user directly converse with their financial history.</p><h3>Queries & Just-in-Time (JIT) Widgets</h3><p>The user can ask open-ended questions in natural language (e.g. \"How much did I spend online this month with friends?\"). The AI interprets the intent, queries the local database, and evokes pre-configured UI templates (JIT Widgets for totals, distributions, lists, or timelines) populated on-the-fly.</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Menu and Navigation",
+          html: "<p>The main navigation menu (Tab Bar) was structured to guarantee lightning-fast access to the new AI features, maintaining a familiar layout.</p><h3>Centralized Multi-Gesture Menu</h3><p>The 5-icon Tab Bar centers around the central AI button. To avoid cluttering the screen with buttons, I designed a multi-gesture interaction system: single tap to open the AI text field, double tap to open the OCR camera, and long press (Hold) to record audio (with an SVG circular progress ring indicating the timer and swipe-up gestures to cancel).</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Tracking",
+          html: "<p>Dealing with sensitive financial information made compliance and secure architecture priorities from day one of development.</p><h3>GDPR & KPI Monitoring</h3><p>I implemented anonymized technical logs on Supabase to monitor API token usage and latency, ensuring full GDPR compliance. If you want to explore the tracking stack and technology in depth, read the <a href=\"/en/projects/wolly/2026/06/03/tracking-and-analyzing-key-kpis\"><strong>dedicated tracking strategy and KPI article</strong></a>. Lastly, I implemented code-level guardrails to filter irrelevant requests and token limits to secure the system from cost spikes.</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Core App Features",
+          html: "<p>To complete the initial development phase, I structured the login flows, onboarding system, and data management policies to merge operational ease with system security.</p><h3>Onboarding and Access</h3><p>The initial user onboarding flow was reduced to the absolute minimum to lower the entry barrier. Access is managed securely via Google Login (OAuth), ensuring reliable access control and eliminating the need for custom credentials. All initial preferences and configurations are loaded in the background during the first launch.</p><h3>Privacy Policy</h3><p>Personal and financial data are secured at the core: the primary database resides locally on the user's device. Data transmission only occurs when utilizing the AI semantic enrichment layer, adhering to strict privacy policies aligned with GDPR compliance, without any form of commercial tracking or profiling.</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Next Steps",
+          html: "<p>The next milestone will be the release of a publicly accessible demo version. Following this, the final technical specifications and brand identity details will be established, laying the foundation for the launch of the first official stable version.</p>"
         }
       }
     ]

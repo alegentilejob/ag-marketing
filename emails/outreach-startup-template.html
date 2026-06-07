@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="format-detection" content="telephone=no" />
+  <meta name="color-scheme" content="light only">
+  <meta name="supported-color-schemes" content="light only">
   <title>Alessandro Gentile — Growth Marketer</title>
   <!--[if mso]>
   <noscript>
@@ -18,6 +20,7 @@
   <style type="text/css">
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+    :root { color-scheme: light only; supported-color-schemes: light only; }
     /* RESET */
     body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
     table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
@@ -27,6 +30,12 @@
 
     /* TYPOGRAPHY */
     .font-primary { font-family: 'Inter', Arial, Helvetica, sans-serif; }
+
+    .wolly-logo {
+      width: 16% !important;
+      max-width: 72px !important;
+      height: auto !important;
+    }
 
     /* RESPONSIVE */
     @media only screen and (max-width: 620px) {
@@ -38,8 +47,49 @@
       .padding-mobile { padding: 32px 24px !important; }
       .padding-mobile-sm { padding: 24px !important; }
       .profile-img { width: 80px !important; height: 80px !important; }
-      .hero-text-col, .hero-img-col { display: block !important; width: 100% !important; padding-right: 0 !important; }
-      .hero-img-col { margin-top: 32px; text-align: center; }
+      .hero-section-cell { padding: 32px 0 0 0 !important; }
+      .hero-text-col { display: block !important; width: 100% !important; padding-left: 24px !important; padding-right: 24px !important; padding-bottom: 0 !important; }
+      .hero-img-col { display: block !important; width: 100% !important; margin-top: 32px !important; text-align: center !important; padding: 0 !important; }
+      .wolly-col { display: block !important; width: 100% !important; margin-top: 32px !important; text-align: center !important; padding: 0 !important; }
+      .skills-intro-col { display: block !important; width: 100% !important; padding-right: 0 !important; margin-bottom: 32px !important; }
+      .skills-list-col { display: block !important; width: 100% !important; }
+      .hero-img-col img { width: 100% !important; max-width: none !important; border-radius: 0 !important; display: block !important; }
+      
+      /* Experience stacking */
+      .exp-content-cell { display: block !important; width: 100% !important; padding: 0 !important; }
+      .exp-content-link { display: block !important; padding: 24px 0 12px 0 !important; text-decoration: none !important; color: inherit !important; }
+      .exp-arrow-cell { display: block !important; width: 100% !important; text-align: left !important; }
+      .exp-arrow-link { min-height: 0 !important; display: inline-block !important; padding-bottom: 16px !important; }
+      .exp-arrow-div { padding-top: 0 !important; font-size: 24px !important; }
+      .exp-img-col, .exp-text-col { display: block !important; width: 100% !important; padding-right: 0 !important; }
+      .exp-img-col { margin-bottom: 16px; }
+
+      /* Square box responsiveness */
+      .square-container { width: 280px !important; height: 280px !important; }
+      .square-cell { width: 280px !important; height: 280px !important; }
+
+      /* Grid card responsiveness */
+      .card-cell { display: block !important; width: 100% !important; max-width: 100% !important; margin-bottom: 24px !important; box-sizing: border-box !important; }
+      .card-spacer { display: none !important; }
+
+      /* Footer adjustments */
+      .footer-top-cell { padding-bottom: 48px !important; }
+      .footer-heading { font-size: 32px !important; }
+      .footer-contacts-cell { display: block !important; width: 100% !important; text-align: left !important; }
+      .footer-contacts-table { align: left !important; float: none !important; width: 100% !important; }
+      .footer-contact-item { text-align: left !important; padding-bottom: 16px !important; }
+    }
+    
+    @media only screen and (max-width: 350px) {
+      .square-container { width: 240px !important; height: 240px !important; }
+      .square-cell { width: 240px !important; height: 240px !important; }
+    }
+  
+    @media (prefers-color-scheme: dark) {
+      .email-container, .hero-section-cell { background-color: #ffffff !important; }
+      body { background-color: #f5f5f5 !important; }
+      h1, h2, h3, p, span { color: inherit !important; }
+      .font-primary { color: inherit !important; }
     }
   </style>
 </head>
@@ -47,7 +97,7 @@
 
   <!-- PREHEADER (hidden preview text) -->
   <div style="display:none;max-height:0;overflow:hidden;font-size:1px;color:#f5f5f5;">
-    Mi chiamo Alessandro Gentile, sono un growth marketer. Trovo che {{ contact.COMPANY }} sia la startup giusta per crescere insieme.
+    Mi chiamo Alessandro Gentile, sono un growth marketer. Trovo che {{ contact.NOME }} sia la startup giusta per crescere insieme.
     &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
   </div>
 
@@ -65,29 +115,28 @@
           <!-- SEZIONE 1 — HERO PERSONALIZZATO             -->
           <!-- ─────────────────────────────────────────── -->
           <tr>
-            <td class="padding-mobile" style="padding:56px 48px 48px 48px;background-color:#ffffff;border-bottom:1px solid #e8e8e8;">
+            <td class="padding-mobile hero-section-cell" style="padding:56px 48px 48px 48px;background-color:#ffffff;border-bottom:1px solid #e8e8e8;">
 
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                 <tr>
                   <td width="55%" valign="middle" style="padding-right: 32px;" class="hero-text-col">
                     <h1 class="hero-heading" style="margin:0 0 28px 0;font-family:'Inter',Arial,sans-serif;font-size:44px;font-weight:500;line-height:1.08;letter-spacing:-0.03em;color:#0a0a0a;">
-                      Sono Alessandro Gentile, <span style="color:#3720E5;">Junior growth marketer</span>. Il mio obiettivo è entrare in una startup come <span style="color:#3720E5;">{{ contact.COMPANY }}</span> e dare il massimo ogni giorno, crescendo e contribuendo agli obiettivi del team.
+                      Sono Alessandro Gentile, <span style="color:#3720E5;">Junior growth marketer</span>. Il mio obiettivo è entrare in una startup come <span style="color:#3720E5;">{{ contact.NOME }}</span> e dare il massimo ogni giorno, crescendo e contribuendo agli obiettivi del team.
                     </h1>
+                    <!-- CTA BUTTON -->
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td style="background-color:#3720E5;border-radius:30px;">
+                          <a href="mailto:alegentilejob@gmail.com"
+                             style="display:inline-block;padding:16px 36px;font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ffffff;text-decoration:none;">
+                            Scrivi mail
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
-                  <td width="45%" valign="middle" class="hero-img-col">
-                    <img src="https://ag-marketing.vercel.app/profile/alessandro-gentile-image-profile.png" alt="Alessandro Gentile" style="width:100%; max-width:400px; height:auto; display:block; border-radius:4px; object-fit:cover;" />
-                  </td>
-                </tr>
-              </table>
-
-              <!-- CTA BUTTON -->
-              <table role="presentation" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td style="background-color:#3720E5;border-radius:30px;">
-                    <a href="mailto:alegentilejob@gmail.com?subject=Colloquio%20%E2%80%94%20Alessandro%20Gentile%20%C3%97%20{{ contact.COMPANY }}"
-                       style="display:inline-block;padding:16px 36px;font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ffffff;text-decoration:none;">
-                      Scrivi mail
-                    </a>
+                  <td width="45%" valign="middle" align="right" class="hero-img-col">
+                    <img src="https://ag-marketing.vercel.app/profile/alessandro-gentile-image-profile.png" alt="Alessandro Gentile" style="width:100%; max-width:400px; height:auto; display:inline-block; border-radius:4px; object-fit:cover;" />
                   </td>
                 </tr>
               </table>
@@ -101,6 +150,67 @@
           <!-- ─────────────────────────────────────────── -->
           <tr>
             <td class="padding-mobile" style="padding:48px 48px;background-color:#3720E5;border-bottom:1px solid #e8e8e8;">
+              <!-- COSA SO FARE SECTION -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:48px;">
+                <tr>
+                  <!-- Left side: Introduction -->
+                  <td width="45%" valign="top" style="padding-right:40px;" class="skills-intro-col">
+                    <p style="margin:0 0 12px 0;font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.7);">
+                      Cosa so fare
+                    </p>
+                    <p style="margin:0;font-family:'Inter',Arial,sans-serif;font-size:18px;font-weight:400;line-height:1.5;color:rgba(255,255,255,0.9);">
+                      In una startup servono persone dinamiche e capaci di adattarsi alle sfide quotidiane per accelerare la crescita e strutturare la scalabilità del business.
+                    </p>
+                    <div style="margin-top:24px;">
+                      <a href="https://ag-marketing.vercel.app/skills?utm_content=skills_link"
+                         style="display:inline-block;font-family:'Inter',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#ffffff;text-decoration:none;border-bottom:1px solid #ffffff;padding-bottom:2px;">
+                        Vedi tutte le skill &rarr;
+                      </a>
+                    </div>
+                  </td>
+                  <!-- Right side: Skills in Display H2 -->
+                  <td width="55%" valign="top" class="skills-list-col">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                      <tr>
+                        <td style="padding-bottom:16px;">
+                          <h2 style="margin:0;font-family:'Inter',Arial,sans-serif;font-size:32px;font-weight:700;line-height:1.1;color:#ffffff;letter-spacing:-0.03em;">SEO & AEO</h2>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-bottom:16px;border-top:1px solid rgba(255,255,255,0.15);padding-top:16px;">
+                          <h2 style="margin:0;font-family:'Inter',Arial,sans-serif;font-size:32px;font-weight:700;line-height:1.1;color:#ffffff;letter-spacing:-0.03em;">Social Media Management</h2>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-bottom:16px;border-top:1px solid rgba(255,255,255,0.15);padding-top:16px;">
+                          <h2 style="margin:0;font-family:'Inter',Arial,sans-serif;font-size:32px;font-weight:700;line-height:1.1;color:#ffffff;letter-spacing:-0.03em;">Brand Strategy</h2>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-bottom:16px;border-top:1px solid rgba(255,255,255,0.15);padding-top:16px;">
+                          <h2 style="margin:0;font-family:'Inter',Arial,sans-serif;font-size:32px;font-weight:700;line-height:1.1;color:#ffffff;letter-spacing:-0.03em;">Performance Marketing</h2>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-bottom:16px;border-top:1px solid rgba(255,255,255,0.15);padding-top:16px;">
+                          <h2 style="margin:0;font-family:'Inter',Arial,sans-serif;font-size:32px;font-weight:700;line-height:1.1;color:#ffffff;letter-spacing:-0.03em;">B2B Lead Gen & Outreach</h2>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-bottom:16px;border-top:1px solid rgba(255,255,255,0.15);padding-top:16px;">
+                          <h2 style="margin:0;font-family:'Inter',Arial,sans-serif;font-size:32px;font-weight:700;line-height:1.1;color:#ffffff;letter-spacing:-0.03em;">Email Marketing & Automation</h2>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-bottom:0;border-top:1px solid rgba(255,255,255,0.15);padding-top:16px;">
+                          <h2 style="margin:0;font-family:'Inter',Arial,sans-serif;font-size:32px;font-weight:700;line-height:1.1;color:#ffffff;letter-spacing:-0.03em;">UI/UX & CMS Design</h2>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
               <p style="margin:0 0 32px 0;font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.7);">
                 Esperienze
               </p>
@@ -108,15 +218,16 @@
               <!-- Experience Row: Naxa -->
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-top:1px solid rgba(255,255,255,0.2);">
                 <tr>
-                  <td style="padding:24px 24px 24px 0;">
+                  <td style="padding:0;" class="exp-content-cell">
+                    <a href="https://ag-marketing.vercel.app/esperienze/naxa?utm_content=exp_naxa" class="exp-content-link" style="display:block;text-decoration:none;padding:24px 24px 24px 0;color:inherit;">
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                       <tr>
-                        <td width="96" valign="middle" style="padding-right:24px;">
+                        <td width="96" valign="middle" style="padding-right:24px;" class="exp-img-col">
                           <img src="https://ag-marketing.vercel.app/media/experiences/naxa/MG_9908-w-poltu-quatu.jpg" alt="Naxa" style="display:block;width:96px;height:96px;object-fit:cover;background-color:#ffffff;" />
                         </td>
-                        <td valign="middle">
+                        <td valign="middle" class="exp-text-col">
                           <h3 style="margin:0 0 6px 0;font-family:'Inter',Arial,sans-serif;font-size:20px;font-weight:500;color:#ffffff;">
-                            Naxa — Junior SEO / AEO
+                            Naxa — Junior web performance and SEO
                           </h3>
                           <p style="margin:0 0 6px 0;font-family:'Inter',Arial,sans-serif;font-size:12px;font-weight:500;color:rgba(255,255,255,0.8);">
                             Nov 25 – Mag 26
@@ -127,10 +238,11 @@
                         </td>
                       </tr>
                     </table>
+                    </a>
                   </td>
-                  <td width="64" align="center" valign="middle" style="">
-                    <a href="https://ag-marketing.vercel.app/esperienze/naxa?utm_medium=cold_outreach&utm_campaign=get_interview_{{ contact.COMPANY }}" style="display:block;width:100%;height:100%;min-height:140px;text-decoration:none;font-size:28px;color:#ffffff;">
-                      <div style="padding-top:55px;">&#8599;</div>
+                  <td width="64" align="center" valign="middle" class="exp-arrow-cell">
+                    <a href="https://ag-marketing.vercel.app/esperienze/naxa?utm_content=exp_naxa_arrow" class="exp-arrow-link" style="display:block;width:100%;height:100%;min-height:140px;text-decoration:none;font-size:28px;color:#ffffff;">
+                      <div class="exp-arrow-div" style="padding-top:55px;">&#8599;</div>
                     </a>
                   </td>
                 </tr>
@@ -139,13 +251,14 @@
               <!-- Experience Row: Anularis -->
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-top:1px solid rgba(255,255,255,0.2);">
                 <tr>
-                  <td style="padding:24px 24px 24px 0;">
+                  <td style="padding:0;" class="exp-content-cell">
+                    <a href="https://ag-marketing.vercel.app/esperienze/anularis?utm_content=exp_anularis" class="exp-content-link" style="display:block;text-decoration:none;padding:24px 24px 24px 0;color:inherit;">
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                       <tr>
-                        <td width="96" valign="middle" style="padding-right:24px;">
+                        <td width="96" valign="middle" style="padding-right:24px;" class="exp-img-col">
                           <img src="https://ag-marketing.vercel.app/media/experiences/anularis/FotoAnularis.png" alt="Anularis" style="display:block;width:96px;height:96px;object-fit:cover;background-color:#ffffff;" />
                         </td>
-                        <td valign="middle">
+                        <td valign="middle" class="exp-text-col">
                           <h3 style="margin:0 0 6px 0;font-family:'Inter',Arial,sans-serif;font-size:20px;font-weight:500;color:#ffffff;">
                             Anularis — Brand Strategist
                           </h3>
@@ -158,10 +271,11 @@
                         </td>
                       </tr>
                     </table>
+                    </a>
                   </td>
-                  <td width="64" align="center" valign="middle" style="">
-                    <a href="https://ag-marketing.vercel.app/esperienze/anularis?utm_medium=cold_outreach&utm_campaign=get_interview_{{ contact.COMPANY }}" style="display:block;width:100%;height:100%;min-height:140px;text-decoration:none;font-size:28px;color:#ffffff;">
-                      <div style="padding-top:55px;">&#8599;</div>
+                  <td width="64" align="center" valign="middle" class="exp-arrow-cell">
+                    <a href="https://ag-marketing.vercel.app/esperienze/anularis?utm_content=exp_anularis_arrow" class="exp-arrow-link" style="display:block;width:100%;height:100%;min-height:140px;text-decoration:none;font-size:28px;color:#ffffff;">
+                      <div class="exp-arrow-div" style="padding-top:55px;">&#8599;</div>
                     </a>
                   </td>
                 </tr>
@@ -170,15 +284,16 @@
               <!-- Experience Row: Fridhem Center -->
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="border-top:1px solid rgba(255,255,255,0.2);border-bottom:1px solid rgba(255,255,255,0.2);margin-bottom:32px;">
                 <tr>
-                  <td style="padding:24px 24px 24px 0;">
+                  <td style="padding:0;" class="exp-content-cell">
+                    <a href="https://ag-marketing.vercel.app/esperienze/fridhem-center?utm_content=exp_fridhem" class="exp-content-link" style="display:block;text-decoration:none;padding:24px 24px 24px 0;color:inherit;">
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                       <tr>
-                        <td width="96" valign="middle" style="padding-right:24px;">
+                        <td width="96" valign="middle" style="padding-right:24px;" class="exp-img-col">
                           <img src="https://ag-marketing.vercel.app/media/experiences/fridhem/Tavola%20disegno%201@2x.png" alt="Fridhem Center" style="display:block;width:96px;height:96px;object-fit:cover;background-color:#ffffff;" />
                         </td>
-                        <td valign="middle">
+                        <td valign="middle" class="exp-text-col">
                           <h3 style="margin:0 0 6px 0;font-family:'Inter',Arial,sans-serif;font-size:20px;font-weight:500;color:#ffffff;">
-                            Fridhem Center — Staff Multi-purpose
+                            Fridhem Center — Social Media Manager
                           </h3>
                           <p style="margin:0 0 6px 0;font-family:'Inter',Arial,sans-serif;font-size:12px;font-weight:500;color:rgba(255,255,255,0.8);">
                             Giu 24 – Ago 24
@@ -189,17 +304,18 @@
                         </td>
                       </tr>
                     </table>
+                    </a>
                   </td>
-                  <td width="64" align="center" valign="middle" style="">
-                    <a href="https://ag-marketing.vercel.app/esperienze/fridhem-center?utm_medium=cold_outreach&utm_campaign=get_interview_{{ contact.COMPANY }}" style="display:block;width:100%;height:100%;min-height:140px;text-decoration:none;font-size:28px;color:#ffffff;">
-                      <div style="padding-top:55px;">&#8599;</div>
+                  <td width="64" align="center" valign="middle" class="exp-arrow-cell">
+                    <a href="https://ag-marketing.vercel.app/esperienze/fridhem-center?utm_content=exp_fridhem_arrow" class="exp-arrow-link" style="display:block;width:100%;height:100%;min-height:140px;text-decoration:none;font-size:28px;color:#ffffff;">
+                      <div class="exp-arrow-div" style="padding-top:55px;">&#8599;</div>
                     </a>
                   </td>
                 </tr>
               </table>
 
               <!-- Link tutte esperienze -->
-              <a href="https://ag-marketing.vercel.app/esperienze?utm_medium=cold_outreach&utm_campaign=get_interview_{{ contact.COMPANY }}"
+              <a href="https://ag-marketing.vercel.app/esperienze?utm_content=all_experiences"
                  style="font-family:'Inter',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#ffffff;text-decoration:none;border-bottom:1px solid #ffffff;padding-bottom:2px;">
                 Vedi tutte le esperienze &rarr;
               </a>
@@ -214,7 +330,7 @@
             <td class="padding-mobile" style="padding:48px 48px 0 48px;background-color:#ffffff;">
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                 <tr>
-                  <td valign="top" style="padding-right:32px;">
+                  <td valign="top" style="padding-right:32px;" class="hero-text-col">
                     <h2 style="margin:0 0 48px 0;font-family:'Inter',Arial,sans-serif;font-size:26px;font-weight:500;line-height:1.3;letter-spacing:-0.02em;color:#0a0a0a;">
                       Per me il marketing è più di un lavoro: è il modo per unire creatività e strategia. Per questo sto sviluppando <span style="color:#3720E5;">Wolly</span> e sto raccontando tutto il processo, dall'idea al go-to-market.
                     </h2>
@@ -238,15 +354,17 @@
                       </tr>
                     </table>
                   </td>
-                  <td valign="top" align="right" style="padding-top:0;">
-                    <a href="https://ag-marketing.vercel.app/progetti/wolly?utm_medium=cold_outreach&utm_campaign=get_interview_{{ contact.COMPANY }}"
+                  <td valign="top" align="center" style="padding-top:0; width:450px;" class="wolly-col">
+                    <a href="https://ag-marketing.vercel.app/progetti/wolly?utm_content=wolly_project"
                        style="display:inline-block;margin-bottom:40px;margin-top:6px;font-family:'Inter',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#3720E5;text-decoration:none;border-bottom:1px solid #3720E5;padding-bottom:2px;">
                       Vedi il progetto Wolly &rarr;
                     </a>
-                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width:450px; height:450px;">
+                    <table class="square-container" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="width:100%; max-width:450px; height:450px; margin:0 auto;">
                       <tr>
-                        <td width="450" height="450" background="https://ag-marketing.vercel.app/media/wolly-bg.jpg" bgcolor="#e8eefc" valign="middle" align="center" style="background-image:url('https://ag-marketing.vercel.app/media/wolly-bg.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat; width:450px; height:450px; max-width:100%; border-radius:8px; overflow:hidden;">
-                          <img src="https://ag-marketing.vercel.app/media/Logo_wolly.png" alt="Wolly Logo" width="90" style="display:inline-block;width:90px;height:auto;" />
+                        <td class="square-cell" width="450" height="450" valign="middle" align="center"
+                            background="https://ag-marketing.vercel.app/media/Personal%20branding/Background_glasslightblue.jpg"
+                            style="background-image:url('https://ag-marketing.vercel.app/media/Personal%20branding/Background_glasslightblue.jpg'); background-size:cover; background-position:center; width:450px; height:450px;">
+                          <img src="https://ag-marketing.vercel.app/media/Logo_wolly.png" alt="Wolly Logo" width="72" class="wolly-logo" style="display:inline-block; width:16%; max-width:72px; height:auto;" />
                         </td>
                       </tr>
                     </table>
@@ -256,212 +374,180 @@
             </td>
           </tr>
 
+
           <!-- ─────────────────────────────────────────── -->
-          <!-- SEZIONE 3 — CHI SONO                        -->
+          <!-- SEZIONE NUOVA — VALORI/COMPETENZE (White)   -->
           <!-- ─────────────────────────────────────────── -->
           <tr>
-            <td class="padding-mobile" style="padding:48px 48px;background-color:#fafafa;border-bottom:1px solid #e8e8e8;">
-
-              <!-- Section label -->
-              <p style="margin:0 0 28px 0;font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#3720E5;">
-                Chi sono
-              </p>
-
-              <!-- Profile row -->
+            <td class="padding-mobile" style="padding:64px 48px;background-color:#ffffff;border-top:1px solid #e8e8e8;">
               <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                 <tr>
-                  <td width="96" valign="top" style="padding-right:24px;">
-                    <img class="profile-img"
-                         src="https://ag-marketing.vercel.app/profile/alessandro-gentile-image-profile.png"
-                         alt="Alessandro Gentile"
-                         width="96" height="96"
-                         style="display:block;width:96px;height:96px;object-fit:cover;border-radius:2px;border:2px solid #e8e8e8;" />
-                  </td>
-                  <td valign="middle">
-                    <h2 class="section-heading" style="margin:0 0 4px 0;font-family:'Inter',Arial,sans-serif;font-size:28px;font-weight:500;line-height:1.1;letter-spacing:-0.02em;color:#0a0a0a;">
-                      Alessandro Gentile
+                  <td align="center" style="padding-bottom:48px;">
+                    <h2 class="font-primary" style="margin:0;font-family:'Inter',Arial,sans-serif;font-size:24px;font-weight:500;line-height:1.4;letter-spacing:-0.02em;color:#0a0a0a;text-align:center;max-width:640px;">
+                      Nel mio percorso scolastico e professionale sto cercando di costruire una figura completa e dinamica, pronta ai cambiamenti dell'ambiente startup e all'adozione dei nuovi strumenti AI:
                     </h2>
-                    <p style="margin:0;font-family:'Inter',Arial,sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#3720E5;">
-                      Junior Marketing Strategist
-                    </p>
                   </td>
                 </tr>
-              </table>
-
-              <!-- Divider -->
-              <div style="height:1px;background-color:#e8e8e8;margin:28px 0;"></div>
-
-              <!-- Bio -->
-              <p style="margin:0 0 20px 0;font-family:'Inter',Arial,sans-serif;font-size:15px;font-weight:400;line-height:1.8;color:#2d2d2d;">
-                Junior Marketing Strategist con un forte approccio <strong>data-driven</strong>. Specializzato nell'analisi delle performance web e nello sviluppo di strategie digitali misurabili, trasformo insight complessi in azioni concrete per la crescita del brand.
-              </p>
-              <p style="margin:0 0 28px 0;font-family:'Inter',Arial,sans-serif;font-size:15px;font-weight:400;line-height:1.8;color:#2d2d2d;">
-                Monza, Italia &nbsp;·&nbsp; ITS Digital Marketing – Fondazione Ammi (2023–2025) &nbsp;·&nbsp; Italiano madrelingua, Inglese B2
-              </p>
-
-              <!-- Link -->
-              <a href="https://ag-marketing.vercel.app/chi-sono?utm_medium=cold_outreach&utm_campaign=get_interview_{{ contact.COMPANY }}"
-                 style="font-family:'Inter',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#3720E5;text-decoration:none;border-bottom:1px solid #3720E5;padding-bottom:2px;">
-                Scopri di più su di me &rarr;
-              </a>
-
-            </td>
-          </tr>
-
-
-
-          <!-- ─────────────────────────────────────────── -->
-          <!-- SEZIONE 4 — WOLLY                           -->
-          <!-- ─────────────────────────────────────────── -->
-          <tr>
-            <td class="padding-mobile" style="padding:48px 48px;background-color:#0a0a0a;border-bottom:3px solid #3720E5;">
-
-              <!-- Section label -->
-              <p style="margin:0 0 24px 0;font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#3720E5;">
-                Progetto Personale
-              </p>
-
-              <h2 style="margin:0 0 12px 0;font-family:'Inter',Arial,sans-serif;font-size:34px;font-weight:500;line-height:1.1;letter-spacing:-0.03em;color:#ffffff;">
-                Wolly Finance
-              </h2>
-
-              <p style="margin:0 0 8px 0;font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#3720E5;">
-                App fintech di finanza personale — 2025/2026
-              </p>
-
-              <div style="height:1px;background-color:#222222;margin:24px 0;"></div>
-
-              <p style="margin:0 0 20px 0;font-family:'Inter',Arial,sans-serif;font-size:15px;font-weight:400;line-height:1.8;color:#c8c8c8;">
-                Wolly è un progetto che ho avviato in autonomia per applicare concretamente le competenze di growth marketing in un contesto startup. Non aspettavo un'azienda per farlo: l'ho costruito.
-              </p>
-
-              <!-- Highlights grid -->
-              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:28px;">
-                <tr>
-                  <td width="50%" valign="top" style="padding-right:8px;padding-bottom:12px;">
-                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
-                           style="background-color:#111111;border:1px solid #222222;padding:20px;">
-                      <tr><td>
-                        <p style="margin:0 0 6px 0;font-family:'Inter',Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#3720E5;">User Research</p>
-                        <p style="margin:0;font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:400;line-height:1.6;color:#999999;">Ricerca qualitativa su 6 utenti, validazione del Job to be Done, AI trust e willingness to pay.</p>
-                      </td></tr>
-                    </table>
-                  </td>
-                  <td width="50%" valign="top" style="padding-left:8px;padding-bottom:12px;">
-                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
-                           style="background-color:#111111;border:1px solid #222222;padding:20px;">
-                      <tr><td>
-                        <p style="margin:0 0 6px 0;font-family:'Inter',Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#3720E5;">Competitor Analysis</p>
-                        <p style="margin:0;font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:400;line-height:1.6;color:#999999;">Analisi di 6 competitor diretti e indiretti (Intesa, Revolut, TrackCent) per identificare il gap di mercato.</p>
-                      </td></tr>
-                    </table>
-                  </td>
-                </tr>
-                <tr>
-                  <td width="50%" valign="top" style="padding-right:8px;">
-                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
-                           style="background-color:#111111;border:1px solid #222222;padding:20px;">
-                      <tr><td>
-                        <p style="margin:0 0 6px 0;font-family:'Inter',Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#3720E5;">Brand Strategy</p>
-                        <p style="margin:0;font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:400;line-height:1.6;color:#999999;">Archetipo, tono di voce, identità visiva e differenziazione dal banking tradizionale.</p>
-                      </td></tr>
-                    </table>
-                  </td>
-                  <td width="50%" valign="top" style="padding-left:8px;">
-                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
-                           style="background-color:#111111;border:1px solid #222222;padding:20px;">
-                      <tr><td>
-                        <p style="margin:0 0 6px 0;font-family:'Inter',Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#3720E5;">Buyer Persona</p>
-                        <p style="margin:0;font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:400;line-height:1.6;color:#999999;">Profilo utente costruito su dati reali: trigger comportamentali, frizioni e momenti d'acquisto.</p>
-                      </td></tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-
-              <a href="https://ag-marketing.vercel.app/progetti/wolly?utm_medium=cold_outreach&utm_campaign=get_interview_{{ contact.COMPANY }}"
-                 style="display:inline-block;padding:14px 32px;font-family:'Inter',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#ffffff;text-decoration:none;border:1px solid #3720E5;background-color:transparent;">
-                Esplora il progetto &rarr;
-              </a>
-
-            </td>
-          </tr>
-
-
-          <!-- ─────────────────────────────────────────── -->
-          <!-- CTA FINALE                                  -->
-          <!-- ─────────────────────────────────────────── -->
-          <tr>
-            <td class="padding-mobile" style="padding:48px 48px;background-color:#3720E5;text-align:center;">
-              <p style="margin:0 0 8px 0;font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.6);">
-                Pronti a parlarne?
-              </p>
-              <h2 style="margin:0 0 28px 0;font-family:'Inter',Arial,sans-serif;font-size:30px;font-weight:500;line-height:1.2;letter-spacing:-0.02em;color:#ffffff;">
-                Fissiamo un colloquio
-              </h2>
-              <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto;">
-                <tr>
-                  <td style="background-color:#ffffff;border-radius:2px;">
-                    <a href="mailto:alegentilejob@gmail.com?subject=Colloquio%20%E2%80%94%20Alessandro%20Gentile%20%C3%97%20{{ contact.COMPANY }}"
-                       style="display:inline-block;padding:16px 40px;font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#3720E5;text-decoration:none;">
-                      Scrivimi ora &rarr;
-                    </a>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-
-          <!-- ─────────────────────────────────────────── -->
-          <!-- FOOTER                                      -->
-          <!-- ─────────────────────────────────────────── -->
-          <tr>
-            <td style="padding:32px 48px;background-color:#0a0a0a;">
-              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                 <tr>
                   <td>
-                    <p style="margin:0 0 4px 0;font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:600;color:#ffffff;letter-spacing:-0.01em;">
-                      Alessandro Gentile
-                    </p>
-                    <p style="margin:0 0 20px 0;font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#3720E5;">
-                      Growth Marketer · Milano
-                    </p>
-                    <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                    <!-- CARDS GRID -->
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                       <tr>
-                        <td style="padding-right:20px;">
-                          <a href="mailto:alegentilejob@gmail.com"
-                             style="font-family:'Inter',Arial,sans-serif;font-size:12px;font-weight:500;color:#888888;text-decoration:none;">
-                            alegentilejob@gmail.com
-                          </a>
-                        </td>
-                        <td style="padding-right:20px;">
-                          <a href="https://www.linkedin.com/in/alessandro-gentile-a1151a258/?utm_medium=cold_outreach&utm_campaign=get_interview_{{ contact.COMPANY }}"
-                             style="font-family:'Inter',Arial,sans-serif;font-size:12px;font-weight:500;color:#888888;text-decoration:none;">
-                            LinkedIn
-                          </a>
-                        </td>
-                        <td>
-                          <a href="https://ag-marketing.vercel.app?utm_medium=cold_outreach&utm_campaign=get_interview_{{ contact.COMPANY }}"
-                             style="font-family:'Inter',Arial,sans-serif;font-size:12px;font-weight:500;color:#888888;text-decoration:none;">
-                            Portfolio
-                          </a>
+                        <td align="left" style="font-size:0;">
+                          <!--[if mso]>
+                          <table role="presentation" border="0" cellspacing="0" cellpadding="0" width="100%">
+                          <tr>
+                          <td valign="top" width="31%">
+                          <![endif]-->
+                          <div class="card-cell" style="display:inline-block; width:100%; max-width:31%; vertical-align:top; min-width:280px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color:#f5f5f5; border-radius:8px; padding:32px 24px; text-align:left; height:100%; min-height:360px;">
+                              
+                            <tr>
+                              <td align="left" height="48" valign="top" style="padding-bottom:16px;">
+                                <div class="font-primary" style="font-family:'Inter',Arial,sans-serif; font-size:48px; font-weight:700; color:#3720E5; line-height:1;">01</div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="left" height="52" valign="top" style="padding-bottom:16px;">
+                                <h3 class="font-primary" style="margin:0; font-family:'Inter',Arial,sans-serif; font-size:18px; font-weight:600; color:#0a0a0a; line-height:1.2;">Visione a 360°</h3>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="left" valign="top">
+                                <p class="font-primary" style="margin:0; font-family:'Inter',Arial,sans-serif; font-size:15px; font-weight:400; color:#4a4a4a; line-height:1.6; text-align:left;">
+                                  Ho esperienze soprattutto in parti strategiche, sulle performance dei siti e sulle strategie di mercato per far crescere l'azienda, ma con un occhio alla praticità delle strategie, con conoscenza di fotografia, social media management e grafica. Questo mi permette di proporre strategie con visione sulla loro realizzazione.
+                                </p>
+                              </td>
+                            </tr>
+                          
+                            </table>
+                          </div>
+                          <!--[if mso]>
+                          </td>
+                          <td valign="top" width="3.5%"></td>
+                          <td valign="top" width="31%">
+                          <![endif]-->
+                          <div class="card-spacer" style="display:inline-block; width:3.5%; max-width:3.5%;"></div>
+                          <div class="card-cell" style="display:inline-block; width:100%; max-width:31%; vertical-align:top; min-width:280px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color:#f5f5f5; border-radius:8px; padding:32px 24px; text-align:left; height:100%; min-height:360px;">
+                              
+                            <tr>
+                              <td align="left" height="48" valign="top" style="padding-bottom:16px;">
+                                <div class="font-primary" style="font-family:'Inter',Arial,sans-serif; font-size:48px; font-weight:700; color:#3720E5; line-height:1;">02</div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="left" height="52" valign="top" style="padding-bottom:16px;">
+                                <h3 class="font-primary" style="margin:0; font-family:'Inter',Arial,sans-serif; font-size:18px; font-weight:600; color:#0a0a0a; line-height:1.2;">Proattività</h3>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="left" valign="top">
+                                <p class="font-primary" style="margin:0; font-family:'Inter',Arial,sans-serif; font-size:15px; font-weight:400; color:#4a4a4a; line-height:1.6; text-align:left;">
+                                  Ogni giorno voglio dare il massimo, e credo sia fondamentale in un ambiente startup. Sto creando campagne mail per visibilità, siti web fidelity, progetti completi per costruire fiducia.
+                                </p>
+                              </td>
+                            </tr>
+                          
+                            </table>
+                          </div>
+                          <!--[if mso]>
+                          </td>
+                          <td valign="top" width="3.5%"></td>
+                          <td valign="top" width="31%">
+                          <![endif]-->
+                          <div class="card-spacer" style="display:inline-block; width:3.5%; max-width:3.5%;"></div>
+                          <div class="card-cell" style="display:inline-block; width:100%; max-width:31%; vertical-align:top; min-width:280px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color:#f5f5f5; border-radius:8px; padding:32px 24px; text-align:left; height:100%; min-height:360px;">
+                              
+                            <tr>
+                              <td align="left" height="48" valign="top" style="padding-bottom:16px;">
+                                <div class="font-primary" style="font-family:'Inter',Arial,sans-serif; font-size:48px; font-weight:700; color:#3720E5; line-height:1;">03</div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="left" height="52" valign="top" style="padding-bottom:16px;">
+                                <h3 class="font-primary" style="margin:0; font-family:'Inter',Arial,sans-serif; font-size:18px; font-weight:600; color:#0a0a0a; line-height:1.2;">Utilizzo degli strumenti AI</h3>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="left" valign="top">
+                                <p class="font-primary" style="margin:0; font-family:'Inter',Arial,sans-serif; font-size:15px; font-weight:400; color:#4a4a4a; line-height:1.6; text-align:left;">
+                                  Ogni giorno lavoro con Claude e nuovi agenti AI come Perplexity, così da capire le opportunità ma anche le aree in cui l'IA deve essere supportata dall'uomo.
+                                </p>
+                              </td>
+                            </tr>
+                          
+                            </table>
+                          </div>
+                          <!--[if mso]>
+                          </td>
+                          </tr>
+                          </table>
+                          <![endif]-->
                         </td>
                       </tr>
                     </table>
                   </td>
                 </tr>
               </table>
-              <!-- Unsubscribe (obbligatorio per Brevo) -->
-              <p style="margin:24px 0 0 0;font-family:'Inter',Arial,sans-serif;font-size:11px;font-weight:400;color:#444444;line-height:1.5;">
-                Hai ricevuto questa email perché sei registrato come contatto. 
-                <a href="{{ unsubscribe }}" style="color:#555555;text-decoration:underline;">Annulla iscrizione</a>
-              </p>
             </td>
           </tr>
 
 
-        </table>
+          <!-- ─────────────────────────────────────────── -->
+          <!-- ULTIMA SEZIONE / FOOTER                     -->
+          <!-- ─────────────────────────────────────────── -->
+          <tr>
+            <td style="background-color:#3720E5; padding:80px 48px; background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(135deg, #3720E5 0%, #20108A 100%); background-size: 8px 8px, 8px 8px, cover;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td align="left" valign="top" style="padding-bottom:120px;" class="footer-top-cell">
+                    <h1 class="footer-heading" style="margin:0 0 32px 0;font-family:'Inter',Arial,sans-serif;font-size:48px;font-weight:600;line-height:1.1;letter-spacing:-0.03em;color:#ffffff;">
+                      Iniziamo qualcosa di<br />grande insieme
+                    </h1>
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td style="background-color:#ffffff;border-radius:30px;">
+                          <a href="mailto:alegentilejob@gmail.com"
+                             style="display:inline-block;padding:16px 36px;font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#3720E5;text-decoration:none;">
+                            Scrivi mail
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" valign="bottom" class="footer-contacts-cell">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="right" class="footer-contacts-table">
+                      <tr>
+                        <td style="padding-bottom:12px;" align="right" class="footer-contact-item">
+                          <a href="mailto:alegentilejob@gmail.com" style="font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,0.8);text-decoration:none;">alegentilejob@gmail.com</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-bottom:12px;" align="right" class="footer-contact-item">
+                          <a href="https://www.linkedin.com/in/alessandro-gentile-a1151a258/" style="font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,0.8);text-decoration:none;">LinkedIn</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding-bottom:12px;" align="right" class="footer-contact-item">
+                          <a href="https://ag-marketing.vercel.app?utm_content=footer_website" style="font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,0.8);text-decoration:none;">Visita il mio sito web</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="right" class="footer-contact-item">
+                          <a href="https://ag-marketing.vercel.app/media/AlessandroGentile_CV.pdf?utm_content=footer_cv" style="font-family:'Inter',Arial,sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,0.8);text-decoration:none;">Scarica CV</a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
         <!-- /EMAIL CONTAINER -->
 
       </td>

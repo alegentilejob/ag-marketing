@@ -4,12 +4,10 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { projectsIt, projectsEn } from '@/data/projects';
 import { useLanguage } from '@/context/LanguageContext';
-import Header from '@/components/Header';
+import PageLayout from '@/components/PageLayout';
 import { FadeIn, RevealText } from '@/components/animations';
 import { Calendar, Tag, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import Breadcrumbs from '@/components/Breadcrumbs';
-import { siteConfig } from '@/data/content-it';
 import { StandardH1, StandardH2 } from '@/components/Typography';
 
 export default function BlogPostPage() {
@@ -79,16 +77,9 @@ export default function BlogPostPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#111] transition-colors duration-300">
-      <Header />
-
-      <main className="w-full pt-32 pb-24 flex flex-col items-center overflow-x-hidden">
-        {/* Main Article Container */}
-        <article className="w-full max-w-4xl px-6 md:px-0">
-          <Breadcrumbs />
-
-          {/* Hero Section */}
-          <header className="mb-12">
+    <PageLayout narrow customPadding="pt-[104px] pb-[104px]">
+      {/* Hero Section */}
+      <header className="mb-12">
             <StandardH1
               lines={[project.title]}
               className="mb-8 leading-[1.1] uppercase font-display"
@@ -101,57 +92,22 @@ export default function BlogPostPage() {
             </FadeIn>
 
             {/* Metadata Row */}
-            <FadeIn delay={0.3} className="flex flex-wrap items-center justify-between gap-6 border-y border-gray-100 dark:border-gray-800 py-8">
-              <Link
-                href={lang === 'en' ? '/en/about-me' : '/chi-sono'}
-                className="flex items-center gap-4 hover:opacity-70 transition-opacity group"
-              >
-                <div className="relative w-12 h-12 rounded-full overflow-hidden border border-gray-100 dark:border-gray-800 group-hover:border-blue-500/50 transition-all">
-                  <Image
-                    src={siteConfig.meta.profileImage}
-                    alt={siteConfig.meta.name}
-                    fill
-                    sizes="48px"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="text-left">
-                  <p className="text-[10px] font-mono uppercase tracking-widest text-gray-400 font-bold mb-0.5">
-                    {labels.writtenBy}
-                  </p>
-                  <p className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors">
-                    {siteConfig.meta.name}
-                  </p>
-                </div>
-              </Link>
-
+            <FadeIn delay={0.3} className="flex flex-wrap items-center gap-6 border-y border-gray-100 dark:border-gray-800 py-8">
               <div className="flex items-center gap-3">
-                <span className="px-4 py-1.5 rounded-full border border-gray-100 dark:border-gray-800 text-[10px] font-mono font-bold uppercase tracking-widest text-blue-600">
+                <span className="px-4 py-1.5 rounded-full border border-gray-100 dark:border-gray-800 text-[10px] font-maison font-bold uppercase tracking-[0.08em] text-blue-600">
                   {project.category}
                 </span>
-                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gray-400">
+                <span className="text-[10px] font-maison font-bold uppercase tracking-[0.08em] text-gray-400">
                   {project.date}
                 </span>
-                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gray-400 border-l border-gray-100 dark:border-gray-800 pl-3">
+                <span className="text-[10px] font-maison font-bold uppercase tracking-[0.08em] text-gray-400 border-l border-gray-100 dark:border-gray-800 pl-3">
                   {labels.readTime}
                 </span>
               </div>
             </FadeIn>
           </header>
 
-          {/* Featured Image */}
-          <FadeIn delay={0.4} className="mb-20">
-            <div className="w-full aspect-[16/10] overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-800 shadow-2xl relative">
-              <Image
-                src={project.coverImage}
-                alt={project.title}
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 800px"
-                className="object-cover"
-              />
-            </div>
-          </FadeIn>
+
 
           {/* Content Body */}
           <div className="space-y-16 text-left">
@@ -159,16 +115,17 @@ export default function BlogPostPage() {
               switch (block.type) {
                 case 'text':
                   return (
-                    <FadeIn key={index} delay={0.1 * index} className="prose prose-xl dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-blue-500 prose-a:font-bold prose-a:underline decoration-blue-500/30 hover:decoration-blue-500 transition-all font-normal">
+                    <FadeIn key={index} delay={0.1 * index} className="prose prose-xl dark:prose-invert max-w-none prose-headings:font-semibold prose-a:text-blue-600 prose-a:font-bold prose-a:underline decoration-blue-600/30 hover:decoration-blue-600 transition-all font-normal">
                       {block.data.title && (
                         <StandardH2
                           text={block.data.title}
                           className="mb-8 mt-16 text-gray-900 dark:text-white uppercase font-display"
+                          size="small"
                         />
                       )}
                       {block.data.html ? (
                         <div
-                          className="text-gray-800 dark:text-gray-200 leading-[1.8] font-normal [&>p]:mb-8 [&>ul]:list-disc [&>ul]:ml-6 [&>ul]:mb-8 [&>ol]:mb-8 [&>ol]:ml-6 [&>ol]:list-decimal [&>h3]:text-2xl [&>h3]:font-semibold [&>h3]:mb-6 [&>h3]:mt-10 [&>h4]:text-xl [&>h4]:font-semibold [&>h4]:mb-4 [&>h4]:mt-8 [&>strong]:text-gray-900 dark:[&>strong]:text-white [&>strong]:font-bold"
+                          className="text-gray-800 dark:text-gray-200 leading-[1.8] font-normal [&>p]:mb-8 [&>ul]:list-disc [&>ul]:ml-6 [&>ul]:mb-8 [&>ol]:mb-8 [&>ol]:ml-6 [&>ol]:list-decimal [&>h3]:text-2xl [&>h3]:font-medium [&>h3]:mb-6 [&>h3]:mt-10 [&>h4]:text-xl [&>h4]:font-medium [&>h4]:mb-4 [&>h4]:mt-8 [&>strong]:text-gray-900 dark:[&>strong]:text-white [&>strong]:font-bold"
                           dangerouslySetInnerHTML={{
                             __html: block.data.html.replace(/<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1/g, (match: string, quote: string, url: string) => {
                               if (url.startsWith('http')) {
@@ -191,8 +148,8 @@ export default function BlogPostPage() {
                       <table className="w-full text-left border-collapse bg-white dark:bg-[#111]">
                         <thead>
                           <tr>
-                            {block.data.headers.map((h: string, i: number) => (
-                              <th key={i} className="border-b-2 border-gray-200 dark:border-gray-700 py-5 px-6 text-[10px] font-mono font-bold uppercase tracking-widest text-gray-500 bg-gray-50 dark:bg-gray-800/50">
+                             {block.data.headers.map((h: string, i: number) => (
+                              <th key={i} className="border-b-2 border-gray-200 dark:border-gray-700 py-5 px-6 text-[10px] font-maison font-bold uppercase tracking-[0.08em] text-gray-500 bg-gray-50 dark:bg-gray-800/50">
                                 {h}
                               </th>
                             ))}
@@ -213,7 +170,7 @@ export default function BlogPostPage() {
                 case 'image':
                   return (
                     <FadeIn key={index} delay={0.1 * index} className="w-full">
-                      <div className="group relative w-full rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800">
+                      <div className="group relative w-full overflow-hidden border border-gray-100 dark:border-gray-800">
                         <div className="relative aspect-video w-full overflow-hidden">
                           <Image 
                             src={block.data.src} 
@@ -225,11 +182,29 @@ export default function BlogPostPage() {
                         </div>
                         {block.data.caption && (
                           <div className="p-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
-                            <p className="text-[11px] font-mono uppercase tracking-widest font-bold text-gray-400 text-center">
+                            <p className="text-[11px] font-maison uppercase tracking-[0.08em] font-bold text-gray-400 text-center">
                               {block.data.caption}
                             </p>
                           </div>
                         )}
+                      </div>
+                    </FadeIn>
+                  );
+                case 'gallery':
+                  return (
+                    <FadeIn key={index} delay={0.1 * index} className="w-full">
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 my-12">
+                        {block.data.images.map((img: { src: string; alt?: string }, i: number) => (
+                          <div key={i} className="relative overflow-hidden aspect-[3/4] w-full">
+                            <Image 
+                              src={img.src} 
+                              alt={img.alt || project.title} 
+                              fill
+                              sizes="(max-width: 768px) 50vw, 300px"
+                              className="object-cover" 
+                            />
+                          </div>
+                        ))}
                       </div>
                     </FadeIn>
                   );
@@ -238,9 +213,6 @@ export default function BlogPostPage() {
               }
             })}
           </div>
-
-        </article>
-      </main>
-    </div>
+    </PageLayout>
   );
 }

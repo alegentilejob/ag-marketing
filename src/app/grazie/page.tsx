@@ -44,7 +44,7 @@ export default function ThankYouPage() {
           <StandardH1
             lines={[content.title]}
             className="mb-6 uppercase text-center"
-            lineClassName="text-6xl md:text-8xl font-black tracking-tighter"
+            lineClassName="text-6xl md:text-8xl font-black tracking-tight"
           />
           
           <StandardH2

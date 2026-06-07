@@ -26,27 +26,27 @@ export const framerColors = {
   },
   primary: {
     name: "Primary",
-    value: "#0048F9",
+    value: "#2B13E2",
     cssVar: "--framer-primary",
   },
   primaryHover: {
     name: "Primary Hover",
-    value: "rgb(0, 58, 200)",
+    value: "#1D0CA8",
     cssVar: "--framer-primary-hover",
   },
   primarySubtle: {
     name: "Primary Subtle",
-    value: "rgba(0, 72, 249, 0.05)",
+    value: "rgba(43, 19, 226, 0.05)",
     cssVar: "--framer-primary-subtle",
   },
   primaryGlow: {
     name: "Primary Glow",
-    value: "rgba(0, 72, 249, 0.035)",
+    value: "rgba(43, 19, 226, 0.035)",
     cssVar: "--framer-primary-glow",
   },
   primaryBorder: {
     name: "Primary Border",
-    value: "rgba(0, 72, 249, 0.1)",
+    value: "rgba(43, 19, 226, 0.1)",
     cssVar: "--framer-primary-border",
   },
   white: {
@@ -377,12 +377,12 @@ export const framerAnimations = {
 // ─────────────────────────────────────────────
 export const framerEffects = {
   // Glow radiale sfumato in background (Hero)
-  heroGlow: `radial-gradient(circle at center, rgba(0, 72, 249, 0.035) 0%, transparent 70%)`,
+  heroGlow: `radial-gradient(circle at center, rgba(43, 19, 226, 0.035) 0%, transparent 70%)`,
   // Shadow bottoni (idle → hover)
   shadowButtonIdle: "0 1px 3px rgba(0,0,0,0.1)",
   shadowButtonHover: "0 4px 16px rgba(0,0,0,0.12)",
   // Shadow PrimaryButton glow
-  shadowPrimaryGlow: "0 10px 30px -10px rgba(0, 72, 249, 0.3)",
+  shadowPrimaryGlow: "0 10px 30px -10px rgba(43, 19, 226, 0.3)",
   // Shadow card al hover
   shadowCardHover: "0 8px 32px rgba(0,0,0,0.07)",
   // Shadow pannello specs
@@ -546,7 +546,7 @@ export const framerSpecNotes = {
     title:  "FAQ DETAILS",
     nodeId: "hBptkB8kb",
     label:  "List",
-    lines:  ["Plus icon rotation: 45°", "Active color: #0048F9"],
+    lines:  ["Plus icon rotation: 45°", "Active color: #2B13E2"],
   },
 };
 
@@ -641,7 +641,7 @@ export const framerButtons = {
     name: "Primary - Small",
     nodeId: "XCUq3HXQ7",
     type: "button",
-    backgroundColor: "rgb(0, 72, 249)",
+    backgroundColor: "rgb(43, 19, 226)",
     borderRadius: "100px",
     padding: "18px 24px",
     height: "57px",

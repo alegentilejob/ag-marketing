@@ -41,24 +41,24 @@ export default function SkillsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
         {/* Hard Skills Sidebar */}
         <div className="lg:col-span-4">
-          <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-blue-600 mb-10 border-b border-gray-100 dark:border-gray-800 pb-4">
+          <h3 className="text-xs font-bold uppercase tracking-[0.08em] text-blue-600 mb-10 border-b border-gray-100 dark:border-gray-800 pb-4">
             {lang === 'it' ? 'Competenze Chiave' : 'Hard Skills'}
           </h3>
           <ul className="space-y-5">
             {sections.skills.hard.map((skill: string, index: number) => (
               <li key={index} className="flex items-center gap-4 group">
                 <div className="w-2 h-2 bg-blue-600 scale-0 group-hover:scale-100 transition-transform shrink-0" />
-                <span className="text-lg md:text-xl font-bold uppercase tracking-tight group-hover:text-blue-600 transition-colors text-gray-900 dark:text-white">{skill}</span>
+                <span className="text-lg md:text-xl font-bold uppercase tracking-[0.02em] group-hover:text-blue-600 transition-colors text-gray-900 dark:text-white">{skill}</span>
               </li>
             ))}
           </ul>
 
-          <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-gray-600 dark:text-gray-400 mt-16 mb-10 border-b border-gray-100 dark:border-gray-800 pb-4">
+          <h3 className="text-xs font-bold uppercase tracking-[0.08em] text-gray-600 dark:text-gray-400 mt-16 mb-10 border-b border-gray-100 dark:border-gray-800 pb-4">
             {lang === 'it' ? 'Soft Skills' : 'Soft Skills'}
           </h3>
           <div className="flex flex-wrap gap-2">
             {sections.skills.soft.map((skill: string, index: number) => (
-              <div key={index} className="px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 text-[10px] font-bold uppercase tracking-widest text-gray-700 dark:text-gray-300">
+              <div key={index} className="px-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 text-[10px] font-bold uppercase tracking-[0.08em] text-gray-700 dark:text-gray-300">
                 {skill}
               </div>
             ))}
@@ -67,7 +67,7 @@ export default function SkillsPage() {
 
         {/* Software & Tools Main Grid */}
         <div className="lg:col-span-8">
-          <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-blue-600 mb-10 border-b border-gray-100 dark:border-gray-800 pb-4">
+          <h3 className="text-xs font-bold uppercase tracking-[0.08em] text-blue-600 mb-10 border-b border-gray-100 dark:border-gray-800 pb-4">
             {lang === 'it' ? 'Software & Strumenti' : 'Software & Tools'}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -77,12 +77,12 @@ export default function SkillsPage() {
                   <div className="p-3 bg-white dark:bg-black border border-gray-100 dark:border-gray-800">
                     {getIcon(sw.category)}
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400">{sw.category}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-gray-600 dark:text-gray-400">{sw.category}</span>
                 </div>
-                <h4 className="text-xl md:text-2xl font-bold mb-2 group-hover:text-blue-600 transition-colors uppercase tracking-tighter text-gray-900 dark:text-white">{sw.name}</h4>
+                <h4 className="text-xl md:text-2xl font-bold mb-2 group-hover:text-blue-600 transition-colors uppercase tracking-[0.02em] text-gray-900 dark:text-white">{sw.name}</h4>
                 <div className="flex items-center gap-2 mt-auto text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity">
                   <CheckCircle2 size={12} />
-                  <span className="text-[8px] font-bold uppercase tracking-[0.3em]">
+                  <span className="text-[8px] font-bold uppercase tracking-[0.08em]">
                     {lang === 'it' ? 'Piena Padronanza' : 'Full Proficiency'}
                   </span>
                 </div>

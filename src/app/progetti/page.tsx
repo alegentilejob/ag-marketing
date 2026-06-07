@@ -1,15 +1,14 @@
 "use client";
 import React from 'react';
-import Header from '@/components/Header';
-import { FadeIn, RevealText } from '@/components/animations';
-import { DisplayH1, DisplayH2, StandardH1, StandardH2 } from '@/components/Typography';
-import { projectsIt, projectsEn } from '@/data/projects';
+import PageLayout from '@/components/PageLayout';
+import { getLocalizedPath } from '@/utils/navigation';
 import { useLanguage } from '@/context/LanguageContext';
+import { projectsIt, projectsEn } from '@/data/projects';
+import { StandardH1, StandardH2 } from '@/components/Typography';
+import { FadeIn } from '@/components/animations';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Tag } from 'lucide-react';
-import Breadcrumbs from '@/components/Breadcrumbs';
-import { getLocalizedPath } from '@/utils/navigation';
+import { ArrowRight } from 'lucide-react';
 
 export default function ProjectsHub() {
   const { lang } = useLanguage();
@@ -24,12 +23,12 @@ export default function ProjectsHub() {
     return acc;
   }, {} as Record<string, typeof projects>);
 
-  // Sort projects within each category by date (ascending)
+  // Sort projects within each category by date (descending)
   Object.keys(groups).forEach(cat => {
     groups[cat].sort((a, b) => {
       const dateA = `${a.year}-${a.month}-${a.day}`;
       const dateB = `${b.year}-${b.month}-${b.day}`;
-      return dateA.localeCompare(dateB);
+      return dateB.localeCompare(dateA);
     });
   });
 
@@ -41,28 +40,24 @@ export default function ProjectsHub() {
   });
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#111] transition-colors duration-300">
-      <Header />
-      
-      <main className="max-w-[1400px] mx-auto px-2 md:px-4 pt-40 pb-24">
-        <Breadcrumbs />
-        <header className="mb-24">
-          <StandardH1
-            lines={[
-              <>
-                {lang === 'it' ? 'Progetti' : 'Projects'} <span className="text-blue-600">.</span>
-              </>
-            ]}
-            className="mb-8 translate-x-[-4px]"
-          />
-          <FadeIn delay={0.2}>
-            <p className="text-xl md:text-2xl text-gray-500 max-w-2xl leading-relaxed">
-              {lang === 'it' 
-                ? 'Una raccolta curata dei miei lavori, dalle ricerche di mercato alle implementazioni AI.'
-                : 'A curated collection of my work, from market research to AI implementations.'}
-            </p>
-          </FadeIn>
-        </header>
+    <PageLayout customPadding="pt-[104px] pb-[104px]">
+      <header className="mb-16">
+        <StandardH1
+          lines={[
+            <>
+              {lang === 'it' ? 'Progetti' : 'Projects'} <span className="text-blue-600">.</span>
+            </>
+          ]}
+          className="mb-6 translate-x-[-4px]"
+        />
+        <FadeIn delay={0.2}>
+          <p className="text-xl md:text-2xl text-gray-500 max-w-2xl leading-relaxed">
+            {lang === 'it' 
+              ? 'Una raccolta curata dei miei lavori, dalle ricerche di mercato alle implementazioni AI.'
+              : 'A curated collection of my work, from market research to AI implementations.'}
+          </p>
+        </FadeIn>
+      </header>
 
         <div className="grid grid-cols-1 gap-24">
           {sortedCategories.map((category, index) => {
@@ -79,17 +74,17 @@ export default function ProjectsHub() {
                   <div className="flex-1 p-12 md:p-20 flex flex-col justify-between z-10">
                     <div>
                       <div className="flex items-center gap-4 mb-8">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-600 bg-blue-50 dark:bg-blue-900/30 px-4 py-2 text-center">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-blue-600 bg-blue-50 dark:bg-blue-900/30 px-4 py-2 text-center">
                           Project Case Study
                         </span>
-                        <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-400">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-gray-400">
                           {articleCount} {lang === 'it' ? 'CONTRIBUTI' : 'CONTRIBUTIONS'}
                         </span>
                       </div>
                       <StandardH2
                         text={category}
                         className="mb-8"
-                        lineClassName="group-hover:text-blue-600 transition-colors text-5xl md:text-8xl font-bold tracking-tighter"
+                        lineClassName="group-hover:text-blue-600 transition-colors text-5xl md:text-8xl font-bold tracking-tight"
                       />
                       <p className="text-xl md:text-2xl text-gray-500 font-light max-w-xl leading-relaxed mb-12">
                         {category === 'WOLLY' 
@@ -98,7 +93,7 @@ export default function ProjectsHub() {
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] text-gray-900 dark:text-white">
+                    <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-[0.08em] text-gray-900 dark:text-white">
                       <span>{lang === 'it' ? 'Esplora Progetto' : 'Explore Project'}</span>
                       <div className="w-12 h-0.5 bg-blue-600 transition-all duration-500 group-hover:w-24" />
                       <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
@@ -126,8 +121,7 @@ export default function ProjectsHub() {
             );
           })}
         </div>
-      </main>
-    </div>
+    </PageLayout>
   );
 }
 
