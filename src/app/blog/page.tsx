@@ -5,10 +5,11 @@ import { projectsIt, projectsEn } from '@/data/projects';
 import { useLanguage } from '@/context/LanguageContext';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Search, Filter } from 'lucide-react';
+import { ArrowUpRight, Search, Filter } from 'lucide-react';
 import { getLocalizedPath } from '@/utils/navigation';
 import RevealText from '@/components/RevealText';
 import { StandardH1, StandardH2 } from '@/components/Typography';
+import { motion } from 'framer-motion';
 
 export default function BlogPage() {
   const { lang } = useLanguage();
@@ -79,58 +80,64 @@ export default function BlogPage() {
       </header>
 
       {/* Blog Feed */}
-      <div className="flex flex-col gap-12 mb-12">
+      <div className="flex flex-col border-t border-gray-300 dark:border-gray-700 w-full mt-12 mb-12">
         {filteredProjects.map((article, index) => (
-          <Link 
+          <motion.div
             key={article.id}
-            href={getLocalizedPath(`/blog/${article.category.toLowerCase()}/${article.year}/${article.month}/${article.day}/${article.slug}`, lang)}
-            className="group relative flex flex-col md:flex-row bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 overflow-hidden hover:border-blue-600/30 transition-all duration-500 gap-0 md:gap-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.6, delay: index * 0.1, ease: [0.15, 0.85, 0.35, 1] }}
+            className="w-full"
           >
-            {/* Left Side: Info - Golden Ratio 61.8% */}
-            <div className="w-full md:w-[61.8%] p-8 md:p-12 lg:p-16 flex flex-col justify-between z-10">
-              <div>
-                <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-blue-600">
-                  {article.date}
-                </span>
-                <StandardH2
-                  text={article.title}
-                  className="mb-2 mt-4"
-                  lineClassName="group-hover:text-blue-600 transition-colors"
-                />
-                <h3 className="text-lg md:text-xl font-medium text-gray-600 dark:text-gray-400 mb-8 uppercase tracking-[0.08em]">
-                  {article.category} — {lang === 'it' ? 'Articolo Blog' : 'Blog Article'}
-                </h3>
-                <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed font-light mb-8 line-clamp-2">
-                  {article.description}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-[0.08em] text-gray-900 dark:text-white mt-auto">
-                <span>{lang === 'it' ? 'Leggi Articolo' : 'Read Article'}</span>
-                <div className="w-12 h-0.5 bg-blue-600 transition-all duration-500 group-hover:w-24" />
-                <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
-              </div>
-            </div>
-
-            {/* Right Side: Visual - Golden Ratio 38.2% */}
-            <div 
-              className="w-full md:w-[38.2%] relative overflow-hidden flex-shrink-0 border-l border-gray-100 dark:border-gray-800 min-h-[250px]"
-              style={{ aspectRatio: '1 / 1.618' }}
+            <Link
+              href={getLocalizedPath(`/blog/${article.category.toLowerCase()}/${article.year}/${article.month}/${article.day}/${article.slug}`, lang)}
+              className="group w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6 py-8 px-4 md:px-10 border-b border-gray-300 dark:border-gray-700 hover:bg-blue-600 transition-all duration-[300ms]"
+              style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
             >
-              <Image
-                src={article.coverImage}
-                alt={article.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 40vw"
-                className="object-cover transition-all duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-blue-600/10 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
+              <div className="max-w-[1400px] mx-auto w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                
+                {/* Left: Square Image */}
+                <div className="relative w-24 h-24 md:w-32 md:h-32 shrink-0 bg-blue-600 overflow-hidden rounded-none">
+                  <Image
+                    src={article.coverImage}
+                    alt={article.title}
+                    fill
+                    sizes="(max-width: 768px) 96px, 128px"
+                    className="object-cover transition-transform duration-[400ms] group-hover:scale-95"
+                    style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
+                  />
+                </div>
 
-            <div className="absolute -bottom-6 -right-6 text-[12rem] md:text-[16rem] font-bold text-black/5 dark:text-white/5 pointer-events-none select-none tracking-tighter leading-none">
-              0{filteredProjects.length - index}
-            </div>
-          </Link>
+                {/* Center: Title / Intro text */}
+                <div className="flex-1 md:pl-10 text-left">
+                  <RevealText
+                    lines={[article.title]}
+                    lineClassName="text-lg md:text-xl font-medium tracking-tight text-gray-900 dark:text-white group-hover:text-white! font-maison leading-snug transition-colors"
+                  />
+                  <RevealText
+                    lines={[`${article.category} — ${lang === 'it' ? 'Articolo Blog' : 'Blog Article'}`]}
+                    lineClassName="text-xs text-gray-400 dark:text-gray-500 group-hover:text-white! font-maison mt-1 uppercase tracking-wider transition-colors"
+                    delay={0.05}
+                  />
+                </div>
+
+                {/* Right: Date & Arrow */}
+                <div className="flex items-center gap-6 shrink-0 text-left md:text-right">
+                  <RevealText
+                    lines={[article.date]}
+                    lineClassName="text-sm font-medium text-gray-500 dark:text-gray-400 group-hover:text-white! font-maison transition-colors"
+                    delay={0.1}
+                  />
+                  <ArrowUpRight 
+                    size={20} 
+                    className="text-gray-400 dark:text-gray-500 group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1" 
+                  />
+                </div>
+
+              </div>
+            </Link>
+          </motion.div>
         ))}
       </div>
 

@@ -854,41 +854,6 @@ export const projectsIt: Project[] = [
         }
       }
     ]
-  },
-  {
-    id: "wolly-infrastructure-security",
-    category: "wolly",
-    subcategory: "product-design",
-    year: "2026",
-    month: "06",
-    day: "08",
-    slug: "infrastruttura-ai-sicurezza-e-conformita",
-    title: "Infrastruttura AI, Sicurezza e Conformità",
-    description: "Dettagli architetturali sull'ottimizzazione dei modelli linguistici, token management, sicurezza e conformità GDPR per un'app di finanza personale solida e scalabile.",
-    date: "8 Giugno 2026",
-    coverImage: "/media/projects/wolly/wolly prototype/processed_wolly_fotocamera.png",
-    content: [
-      {
-        type: 'text',
-        data: {
-          html: "<p>Quando si progetta un'applicazione basata su modelli linguistici, ci sono dinamiche architetturali e di business critiche che spesso non vengono considerate, ma che sono fondamentali per la stabilità e la sostenibilità economica del prodotto. Questo articolo approfondisce le soluzioni adottate nel <a href=\"/progetti/wolly/2026/06/07/prototipizzazione-prima-versione-v001\"><strong>primo prototipo funzionante (Wolly v0.0.1)</strong></a>.</p>"
-        }
-      },
-      {
-        type: 'text',
-        data: {
-          title: "Ottimizzazione dell'AI: i dettagli che fanno la differenza",
-          html: "<p>Durante lo sviluppo del layer di Intelligenza Artificiale, mi sono concentrato su tre punti chiave per garantire sicurezza e abbattere i costi:</p><ul><li><strong>Inerenza del messaggio e sicurezza:</strong> Wolly è un'app di finanza personale, non un chatbot generalista. Ho implementato dei sistemi di controllo affinché l'AI rifiuti di rispondere a richieste non contestuali o incoerenti con lo scopo dell'applicazione. Se un utente prova a sfruttare il motore interno per compiti esterni (come farsi scrivere un saggio o chiedere ricette di cucina), il sistema blocca la richiesta sul nascere.</li><li><strong>Filtro del contesto e messaggi non utili:</strong> Per evitare di avviare computazioni inutili, l'applicazione analizza l'input e, se rileva che si tratta di messaggi privi di senso, provocazioni o puro rumore visivo, non interroga il database e non consuma risorse, interrompendo immediatamente il flusso.</li><li><strong>Limitazione rigorosa dell'input (Token Management):</strong> Essendo i servizi AI basati su logiche di costo al consumo, è vitale impedire abusi. Ho previsto delle limitazioni severe lato codice che agiscono su base temporale (limite di richieste al minuto), sul numero massimo di caratteri inseribili dall'utente e sul tetto massimo di token per singola chiamata. Questo non solo protegge l'infrastruttura da utilizzi impropri, ma mette al sicuro l'applicazione da picchi di costo variabili e imprevisti.</li></ul>"
-        }
-      },
-      {
-        type: 'text',
-        data: {
-          title: "Infrastrutture di gestione, conformità e onboarding",
-          html: "<p>Per trasformare un progetto amatoriale in un prodotto software serio e scalabile, è stato necessario implementare infrastrutture di gestione robuste.</p><h3>Onboarding e Accessi</h3><p>L'onboarding iniziale è stato ridotto al minimo indispensabile per abbattere la barriera d'ingresso, sfruttando Google Login (OAuth) per garantire controlli d'accesso affidabili e sicuri senza gravare sull'utente con l'ennesima registrazione manuale.</p><h3>Privacy e GDPR</h3><p>I dati personali e finanziari sono protetti alla radice: la base dati risiede localmente sul dispositivo dell'utente. La trasmissione dati verso l'esterno avviene esclusivamente in presenza del layer AI per l'arricchimento semantico, seguendo rigide policy di riservatezza in linea con la conformità GDPR, senza alcuna forma di tracciamento o profilazione commerciale.</p><p>Per monitorare l'uso delle API e mantenere sotto controllo i costi tecnici, ho implementato log anonimizzati. I dettagli di questa architettura sono esplorati nel link esplicito alla <a href=\"/progetti/wolly/2026/06/03/tracciamento-e-analisi-dei-principali-kpi\"><strong>strategia di tracciamento e KPI</strong></a>.</p>"
-        }
-      }
-    ]
   }
 ];
 
@@ -1726,41 +1691,6 @@ export const projectsEn: Project[] = [
         data: {
           title: "Next Steps",
           html: "<p>The next milestone will be the release of a publicly accessible demo version. Following this, the final technical specifications and brand identity details will be established, laying the foundation for the launch of the first official stable version.</p>"
-        }
-      }
-    ]
-  },
-  {
-    id: "wolly-infrastructure-security",
-    category: "wolly",
-    subcategory: "product-design",
-    year: "2026",
-    month: "06",
-    day: "08",
-    slug: "ai-infrastructure-security-and-compliance",
-    title: "AI Infrastructure, Security, and Compliance",
-    description: "Architectural details on language model optimization, token management, security, and GDPR compliance for a solid and scalable personal finance app.",
-    date: "June 8, 2026",
-    coverImage: "/media/projects/wolly/wolly prototype/processed_wolly_fotocamera.png",
-    content: [
-      {
-        type: 'text',
-        data: {
-          html: "<p>When designing an application based on language models, there are critical architectural and business dynamics that are often overlooked, but which are fundamental for the stability and economic sustainability of the product. This article delves into the solutions adopted in the <a href=\"/en/projects/wolly/2026/06/07/prototipizzazione-prima-versione-v001\"><strong>first working prototype (Wolly v0.0.1)</strong></a>.</p>"
-        }
-      },
-      {
-        type: 'text',
-        data: {
-          title: "AI Optimization: details that make a difference",
-          html: "<p>During the development of the Artificial Intelligence layer, I focused on three key points to ensure security and reduce costs:</p><ul><li><strong>Message relevance and security:</strong> Wolly is a personal finance app, not a generalist chatbot. I implemented control systems so that the AI refuses to answer out-of-context requests or those inconsistent with the application's purpose. If a user tries to exploit the internal engine for external tasks (like writing an essay or asking for recipes), the system blocks the request instantly.</li><li><strong>Context filtering and useless messages:</strong> To avoid starting useless computations, the application analyzes the input and, if it detects meaningless messages, provocations, or pure visual noise, it does not query the database and does not consume resources, immediately interrupting the flow.</li><li><strong>Strict input limitation (Token Management):</strong> Since AI services are based on consumption cost logic, it is vital to prevent abuse. I have provided strict code-side limitations that act on a time basis (limit of requests per minute), on the maximum number of characters that can be entered by the user, and on the maximum token cap for a single call. This not only protects the infrastructure from improper use, but secures the application from variable and unforeseen cost spikes.</li></ul>"
-        }
-      },
-      {
-        type: 'text',
-        data: {
-          title: "Management infrastructure, compliance, and onboarding",
-          html: "<p>To transform an amateur project into a serious and scalable software product, it was necessary to implement robust management infrastructures.</p><h3>Onboarding and Access</h3><p>Initial onboarding was reduced to the bare minimum to lower the barrier to entry, utilizing Google Login (OAuth) to ensure reliable and secure access controls without burdening the user with yet another manual registration.</p><h3>Privacy and GDPR</h3><p>Personal and financial data are protected at the root: the database resides locally on the user's device. Data transmission outside the device occurs exclusively in the presence of the AI layer for semantic enrichment, following strict confidentiality policies in line with GDPR compliance, without any form of tracking or commercial profiling.</p><p>To monitor API usage and keep technical costs under control, I implemented anonymized logs. The details of this architecture are explored in the explicit link to the <a href=\"/en/projects/wolly/2026/06/03/tracciamento-e-analisi-dei-principali-kpi\"><strong>tracking and KPI strategy</strong></a>.</p>"
         }
       }
     ]
