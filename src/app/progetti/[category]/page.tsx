@@ -102,7 +102,7 @@ export default function CategoryPage() {
                   {section.title}
                 </h2>
                 
-                <div className="flex flex-col gap-12">
+                <div className="flex flex-col border-t border-gray-300 dark:border-gray-700 w-full mt-12 mb-12">
                   {sectionProjects.length > 0 ? (
                     sectionProjects.map((project, index) => (
                       <motion.div
