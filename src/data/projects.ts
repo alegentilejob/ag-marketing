@@ -1,7 +1,7 @@
 export interface Project {
   id: string;
   category: string;
-  subcategory?: 'desk-research' | 'primary-research' | 'product-design' | 'marketing-plan';
+  subcategory?: 'desk-research' | 'primary-research' | 'product-design' | 'marketing-plan' | 'data-analysis';
   year: string;
   month: string;
   day: string;

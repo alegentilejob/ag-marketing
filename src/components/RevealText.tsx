@@ -11,7 +11,7 @@ interface RevealTextProps {
     animateOnMount?: boolean;
 }
 
-const easeExpoRoot = [0.15, 0.85, 0.35, 1];
+const easeExpoRoot = [0.15, 0.85, 0.35, 1] as const;
 
 export default function RevealText({
     lines,

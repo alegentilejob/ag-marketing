@@ -92,7 +92,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
   };
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 font-sans ${isMobileMenuOpen ? 'bg-blue-600 text-white border-none' : 'bg-white dark:bg-[#111] border-b border-gray-100 dark:border-gray-800'}`}>
+    <header className={`fixed top-0 left-0 w-full z-50 transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] font-sans ${isMobileMenuOpen ? 'bg-[#0038A8] text-white border-none' : 'bg-white dark:bg-[#111] border-b border-[#0038A8]/10'}`}>
 
       {/* ── Desktop Header: 3-zone layout ── */}
       <div className="hidden md:grid grid-cols-3 max-w-[1400px] mx-auto px-2 md:px-4 h-20 items-center">
@@ -126,8 +126,8 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                 <Link
                   href={item.href}
                   id={`nav_link_${item.key}_header`}
-                  className={`flex items-center gap-1.5 text-sm font-medium uppercase tracking-wider transition-all hover:text-blue-600 font-maison
-                    ${isActive ? 'text-blue-600' : 'text-gray-500 dark:text-gray-400'}`}
+                  className={`flex items-center gap-1.5 text-[14px] font-normal normal-case tracking-normal transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-[#0038A8] font-maison
+                    ${isActive ? 'text-[#0038A8]' : 'text-[#0D1016]/50 dark:text-white/50'}`}
                 >
                   <RevealText
                     lines={[
@@ -136,7 +136,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                         {hasDropdown && (
                           <ChevronDown 
                             size={14} 
-                            className={`transition-transform duration-300 ${openDropdown === item.name ? 'rotate-180' : ''}`} 
+                            className={`transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${openDropdown === item.name ? 'rotate-180' : ''}`} 
                           />
                         )}
                       </span>
@@ -153,8 +153,8 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                       initial={{ opacity: 0, y: 10, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-[calc(100%)] left-1/2 -translate-x-1/2 min-w-[200px] bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-800 shadow-2xl p-2"
+                      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute top-[calc(100%)] left-1/2 -translate-x-1/2 min-w-[200px] bg-white dark:bg-[#111] border border-[#0038A8]/10 shadow-2xl p-2"
                     >
                       <div className="grid gap-1">
                         {isProjects ? (
@@ -162,13 +162,13 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                             <Link
                               key={cat}
                               href={getLocalizedPath(`/progetti/${cat.toLowerCase()}`, lang)}
-                              className="group flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+                              className="group flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors duration-400"
                               onClick={() => setOpenDropdown(null)}
                             >
-                              <span className="text-sm font-medium font-maison uppercase tracking-wider text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors">
+                              <span className="text-[14px] font-normal font-maison normal-case tracking-normal text-[#0D1016] dark:text-white group-hover:text-[#0038A8] transition-colors duration-400">
                                 {cat}
                               </span>
-                              <ArrowRight size={10} className="text-gray-300 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
+                              <ArrowRight size={10} className="text-gray-300 group-hover:text-[#0038A8] group-hover:translate-x-1 transition-all duration-400" />
                             </Link>
                           ))
                         ) : (
@@ -176,13 +176,13 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                             <Link
                               key={job.id}
                               href={getLocalizedPath(`/esperienze/${job.id}`, lang)}
-                              className="group flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+                              className="group flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors duration-400"
                               onClick={() => setOpenDropdown(null)}
                             >
-                              <span className="text-sm font-medium font-maison uppercase tracking-wider text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors">
+                              <span className="text-[14px] font-normal font-maison normal-case tracking-normal text-[#0D1016] dark:text-white group-hover:text-[#0038A8] transition-colors duration-400">
                                 {job.company}
                               </span>
-                              <ArrowRight size={10} className="text-gray-300 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
+                              <ArrowRight size={10} className="text-gray-300 group-hover:text-[#0038A8] group-hover:translate-x-1 transition-all duration-400" />
                             </Link>
                           ))
                         )}
@@ -200,7 +200,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
           <button
             id="nav_lang_switch"
             onClick={handleLanguageChange}
-            className="text-sm font-medium uppercase tracking-wider text-gray-400 hover:text-blue-600 transition-colors font-maison"
+            className="text-[14px] font-normal normal-case tracking-normal text-[#0D1016]/50 dark:text-white/50 hover:text-[#0038A8] transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] font-maison"
             aria-label="Toggle language"
           >
             <RevealText
@@ -214,7 +214,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
             id="cta_contact_header"
             href="#contact"
             onClick={scrollToContact}
-            className="text-sm font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400 hover:text-blue-600 transition-colors font-maison"
+            className="text-[14px] font-normal normal-case tracking-normal text-[#0D1016]/50 dark:text-white/50 hover:text-[#0038A8] transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] font-maison"
           >
             <RevealText
               lines={[lang === 'it' ? 'Contatti' : 'Contact']}
@@ -258,8 +258,8 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-20 left-0 w-full min-h-[calc(100vh-80px)] bg-blue-600 px-4 py-8 flex flex-col md:hidden shadow-2xl z-40 text-white"
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute top-20 left-0 w-full min-h-[calc(100vh-80px)] bg-[#0038A8] px-4 py-8 flex flex-col md:hidden shadow-2xl z-40 text-white"
           >
             <div className="flex flex-col gap-2 mt-4">
               {navigation.map((item) => (
@@ -273,7 +273,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                   <RevealText
                     lines={[
                       <span key={item.name} className="flex items-center justify-between w-full">
-                        <span className="text-2xl font-normal uppercase tracking-wider text-white">
+                        <span className="text-2xl font-normal normal-case tracking-normal text-white font-maison">
                           {item.name}
                         </span>
                         <ArrowRight size={24} className="text-white" />

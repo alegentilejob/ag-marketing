@@ -131,7 +131,7 @@ export default function BlogPage() {
                   />
                   <ArrowUpRight 
                     size={20} 
-                    className="text-gray-400 dark:text-gray-500 group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1" 
+                    className="text-gray-400 dark:text-gray-500 transition-all duration-300 transform group-hover:scale-110 group-hover:text-white!" 
                   />
                 </div>
 
