@@ -33,62 +33,57 @@ export default function ExperienceHub() {
         </p>
       </header>
 
-      {/* List of Experiences using the latest case studies component from home page */}
-      <div className="flex flex-col border-t border-gray-300 dark:border-gray-700 w-full mt-12">
+      {/* Experiences Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24 w-full pb-16">
         {experiences.map((job: any, index: number) => (
           <motion.div
             key={job.id}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.6, delay: index * 0.1, ease: [0.15, 0.85, 0.35, 1] }}
+            transition={{ duration: 0.4, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="w-full"
           >
             <Link
               href={getLocalizedPath(`/esperienze/${job.id}`, lang)}
-              className="group w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6 py-8 px-4 md:px-10 border-b border-gray-300 dark:border-gray-700 hover:bg-blue-600 transition-all duration-[300ms]"
-              style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
+              className="group flex flex-col gap-6"
             >
-              <div className="max-w-[1400px] mx-auto w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                
-                {/* Left: Square Image */}
-                <div className="relative w-24 h-24 md:w-32 md:h-32 shrink-0 bg-blue-600 overflow-hidden rounded-none">
-                  <Image
-                    src={job.introduction.image}
-                    alt={job.company}
-                    fill
-                    sizes="(max-width: 768px) 96px, 128px"
-                    className="object-cover transition-transform duration-[400ms] group-hover:scale-95"
-                    style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
-                  />
-                </div>
+              <div className="relative w-full aspect-[4/5] bg-gray-100 dark:bg-gray-800 overflow-hidden rounded-none">
+                <Image
+                  src={job.introduction.image}
+                  alt={job.company}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                />
+              </div>
 
-                {/* Center: Title / Intro text */}
-                <div className="flex-1 md:pl-10 text-left">
+              <div className="flex flex-col gap-3">
+                <div className="flex justify-between items-start gap-4">
                   <RevealText
                     lines={[job.company]}
-                    lineClassName="text-lg md:text-xl font-medium tracking-tight text-gray-900 dark:text-white group-hover:text-white! font-maison leading-snug transition-colors"
+                    lineClassName="text-xl md:text-2xl font-maison tracking-tight text-gray-900 dark:text-white"
                   />
+                  <div className="w-10 h-10 shrink-0 rounded-full bg-transparent group-hover:bg-blue-600 transition-colors duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-center border border-gray-200 dark:border-gray-800 group-hover:border-blue-600">
+                    <ArrowUpRight 
+                      size={18} 
+                      className="text-gray-900 dark:text-white group-hover:text-white transition-colors duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)]" 
+                    />
+                  </div>
+                </div>
+                
+                <div className="flex items-center justify-between border-t border-gray-200 dark:border-gray-800 pt-3">
                   <RevealText
                     lines={[job.role]}
-                    lineClassName="text-xs text-gray-400 dark:text-gray-500 group-hover:text-white! font-maison mt-1 uppercase tracking-wider transition-colors"
+                    lineClassName="text-xs font-maison uppercase tracking-[0.08em] text-gray-500 dark:text-gray-400"
                     delay={0.05}
                   />
-                </div>
-
-                {/* Right: Date & Arrow */}
-                <div className="flex items-center gap-6 shrink-0 text-left md:text-right">
                   <RevealText
                     lines={[job.period]}
-                    lineClassName="text-sm font-medium text-gray-500 dark:text-gray-400 group-hover:text-white! font-maison transition-colors"
+                    lineClassName="text-xs font-maison text-gray-500 dark:text-gray-400"
                     delay={0.1}
                   />
-                  <ArrowUpRight 
-                    size={20} 
-                    className="text-gray-400 dark:text-gray-500 transition-all duration-300 transform group-hover:scale-110 group-hover:text-white!" 
-                  />
                 </div>
-
               </div>
             </Link>
           </motion.div>

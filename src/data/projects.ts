@@ -854,6 +854,48 @@ export const projectsIt: Project[] = [
         }
       }
     ]
+  },
+  {
+    id: "wolly-beta-landing",
+    category: "wolly",
+    subcategory: "product-design",
+    year: "2026",
+    month: "06",
+    day: "11",
+    slug: "creazione-landing-page-beta-tester",
+    title: "Creazione della Landing Page per Beta Tester",
+    description: "Sviluppo e design di una landing page ad alte prestazioni per raccogliere i beta tester di Wolly, integrando Server Actions, Google Sheets e un'infrastruttura sicura in linea con il GDPR.",
+    date: "11 Giugno 2026",
+    coverImage: "/media/projects/wolly/wolly-beta-android.png",
+    content: [
+      {
+        type: 'text',
+        data: {
+          html: "<p>La fase di test privato &egrave; un momento cruciale nel ciclo di vita di un'applicazione. Per accogliere e registrare i beta tester di <strong>Wolly</strong>, ho progettato e sviluppato una landing page dedicata sulla rotta <code>/beta</code>, con l'obiettivo di offrire un'esperienza utente fluida, sicura e dal design premium. Per convogliare il traffico verso il sito e raccogliere le prime iscrizioni, sono partito con un post dedicato su LinkedIn rivolto a professionisti e appassionati del settore.</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Struttura del Sito (Pagine e Rotte)",
+          html: "<p>Il sito &egrave; un'applicazione web sviluppata con <strong>Next.js</strong> strutturata con le seguenti rotte principali:</p><ul><li><strong>Home Page (<code>/</code>):</strong> Una landing page minimale progettata per avviare il caricamento rapido dell'applicazione.</li><li><strong>Beta Page (<code>/beta</code>):</strong> La pagina principale di atterraggio interamente dedicata all'acquisizione e iscrizione dei tester per la versione Beta di Wolly.</li><li><strong>Termini di Utilizzo (<code>/terms</code>):</strong> Pagina legale che stabilisce le regole d'uso del software in versione Beta, definendo le limitazioni di responsabilit&agrave; (come la memorizzazione offline locale SQLite sul dispositivo dell'utente) e le condizioni generali.</li><li><strong>Informativa Privacy (<code>/privacy</code>):</strong> Documento legale conforme al GDPR (Regolamento UE 2016/679) che spiega dettagliatamente quali dati vengono raccolti, come vengono protetti e i fornitori esterni coinvolti.</li></ul>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Elementi dell'Interfaccia Utente (UI)",
+          html: "<p>Sulla pagina <code>/beta</code>, l'interfaccia &egrave; stata curata per garantire la massima eccellenza visiva e un'interazione dinamica:</p><ul><li><strong>Design Visivo:</strong> Sfondo caratterizzato da un blu profondo (<code>#1A73E8</code>) arricchito da animazioni fluide che muovono chiazze di luce sfocate (blur) in background, simulando un effetto tridimensionale fluttuante e moderno.</li><li><strong>Modulo di Registrazione:</strong> Un form minimale con un campo di input email arrotondato. All'invio corretto, il campo cambia colore trasformandosi in verde smeraldo con un'animazione di spunta (checkmark) di successo.</li><li><strong>Checkbox di Consenso:</strong> Due selezioni obbligatorie per l'utente, ovvero l'accettazione dei Termini di Utilizzo Beta (con link che si apre in una nuova scheda) e l'accettazione della Privacy Policy per il trattamento dei dati.</li><li><strong>Gestione degli Errori:</strong> Se l'utente tenta di inviare il form senza aver selezionato i consensi obbligatori, l'interfaccia mostra dinamicamente un messaggio di avviso animato in rosso.</li></ul>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Integrazioni e Gestione Dati (Backend)",
+          html: "<p>La logica di registrazione e monitoraggio si appoggia a <strong>Server Actions</strong> di Next.js (nel file <code>actions.ts</code>), interfacciate in sicurezza con servizi esterni:</p><h3>Raccolta Email dei Tester</h3><p>La Server Action <code>submitBetaEmail</code> riceve l'indirizzo email e lo registra direttamente in un foglio di calcolo <strong>Google Sheets</strong> (nel foglio denominato <em>Beta</em>) tramite le API di Google. Il codice &egrave; strutturato per essere flessibile: se il foglio di calcolo <em>Beta</em> non esiste all'atto dell'invio, viene creato automaticamente prima di salvare i dati. Successivamente, queste email raccolte verranno integrate direttamente come profili abilitati all'interno di <strong>Supabase</strong> per consentire l'accesso controllato all'app mobile in qualità di beta tester.</p><h3>Gestione del Questionario (Survey)</h3><p>La Server Action <code>submitForm</code> gestisce le risposte a un questionario dettagliato sull'uso dei dati e delle finanze personali (suddiviso per rami: utenti attivi, prospect, utenti persi). Insieme alle risposte, vengono raccolti metadati tecnici utili all'analisi: timestamp di compilazione, Paese/Citt&agrave; (rilevato tramite gli header IP di Vercel), tipo di dispositivo utilizzato (Mobile, Tablet o Desktop), User Agent, tempo totale impiegato per la compilazione e numero di clic sul tasto Indietro.</p><h3>Architettura degli Accessi e Database</h3><ul><li><strong>Google OAuth:</strong> L'autenticazione per l'accesso all'app mobile avviene in sicurezza tramite un account Google valido.</li><li><strong>Supabase:</strong> Database cloud principale (ospitato in Irlanda, UE) per la gestione dell'autenticazione utente con regole di sicurezza RLS (Row Level Security).</li><li><strong>Sicurezza Locale:</strong> I dati finanziari reali dell'utente (transazioni, budget) risiedono esclusivamente in locale sul dispositivo in un database offline SQLite e non vengono caricati sul cloud.</li><li><strong>Elaborazione AI:</strong> Le richieste vocali e testuali inviate all'assistente passano temporaneamente tramite le API di Groq per l'elaborazione, senza essere in alcun modo memorizzate nel cloud.</li></ul>"
+        }
+      }
+    ]
   }
 ];
 
@@ -1694,7 +1736,50 @@ export const projectsEn: Project[] = [
         }
       }
     ]
+  },
+  {
+    id: "wolly-beta-landing",
+    category: "wolly",
+    subcategory: "product-design",
+    year: "2026",
+    month: "06",
+    day: "11",
+    slug: "creating-landing-page-beta-testers",
+    title: "Creating the Landing Page for Beta Testers",
+    description: "Development and design of a high-performance landing page to gather Wolly's beta testers, integrating Server Actions, Google Sheets, and a secure infrastructure in line with GDPR.",
+    date: "June 11, 2026",
+    coverImage: "/media/projects/wolly/wolly-beta-android.png",
+    content: [
+      {
+        type: 'text',
+        data: {
+          html: "<p>The private testing phase is a crucial milestone in any application's lifecycle. To welcome and register beta testers for <strong>Wolly</strong>, I designed and developed a dedicated landing page on the <code>/beta</code> route, focusing on delivering a smooth, secure, and premium user experience. To drive initial traffic and capture early registrations, I launched a targeted LinkedIn post directed at professionals and enthusiasts.</p>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Website Structure (Pages & Routes)",
+          html: "<p>The website is a web application built using <strong>Next.js</strong> and structured around the following main routes:</p><ul><li><strong>Home Page (<code>/</code>):</strong> A minimal landing page designed to kickstart the site's loading process.</li><li><strong>Beta Page (<code>/beta</code>):</strong> The primary landing page dedicated to tester sign-ups for the Wolly Beta version.</li><li><strong>Terms of Use (<code>/terms</code>):</strong> A legal page defining the rules of use for the Beta software, liability limitations (such as SQLite local offline storage on the user's device), and general terms.</li><li><strong>Privacy Policy (<code>/privacy</code>):</strong> A GDPR-compliant (EU Regulation 2016/679) legal page explaining which data is collected, how it is secured, and which external vendors are involved.</li></ul>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "User Interface (UI) Elements",
+          html: "<p>On the <code>/beta</code> page, the interface has been crafted to ensure visual excellence and dynamic interactions:</p><ul><li><strong>Visual Design:</strong> A deep blue background (<code>#1A73E8</code>) enriched with fluid animations that move blurred light spots, simulating a floating, modern three-dimensional effect.</li><li><strong>Registration Form:</strong> A minimal form featuring a rounded email input field. Upon successful submission, the input field dynamically transitions to emerald green with a checkmark animation.</li><li><strong>Consent Checkboxes:</strong> Mandatory checkboxes for the user, requiring the acceptance of the Beta Terms of Use (opening in a new tab) and the Privacy Policy for data processing.</li><li><strong>Error Handling:</strong> If the user attempts to sign up without selecting the mandatory consents, the interface dynamically displays a red animated warning message.</li></ul>"
+        }
+      },
+      {
+        type: 'text',
+        data: {
+          title: "Integrations & Data Management (Backend)",
+          html: "<p>Registration and tracking logic relies on Next.js <strong>Server Actions</strong> (implemented in <code>actions.ts</code>), securely interfacing with external services:</p><h3>Tester Email Collection</h3><p>The <code>submitBetaEmail</code> Server Action processes the email input and logs it directly into a <strong>Google Sheets</strong> spreadsheet (in a sheet named <em>Beta</em>) using Google APIs. The system is flexible: if the <em>Beta</em> sheet does not exist upon submission, it is automatically created before writing the data. In a second step, these gathered emails will be integrated as authorized profiles in <strong>Supabase</strong> to grant the testers login permissions to the mobile app.</p><h3>Survey Management</h3><p>The <code>submitForm</code> Server Action handles responses to a detailed questionnaire concerning data usage and personal finance (split into branches: active users, prospects, lost users). Along with the survey answers, useful analysis metadata is collected: submission timestamp, Country/City (detected via Vercel IP headers), device type (Mobile, Tablet, or Desktop), User Agent, total completion time, and the number of clicks on the back button.</p><h3>Access Architecture & Databases</h3><ul><li><strong>Google OAuth:</strong> App authentication is managed securely via a valid Google Account.</li><li><strong>Supabase:</strong> The main cloud database (hosted in Ireland, EU) handling user authentication under Row Level Security (RLS) policies.</li><li><strong>Local Security:</strong> Actual user financial data (transactions, budgets) resides entirely locally on the device in an offline SQLite database and is never uploaded to the cloud.</li><li><strong>AI Processing:</strong> Voice and text queries sent to the AI assistant pass temporarily through Groq APIs for inference but are never stored in the cloud.</li></ul>"
+        }
+      }
+    ]
   }
 ];
+
 
 

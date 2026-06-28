@@ -3,8 +3,8 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Header from "../components/Header";
-import { ArrowUpRight, Mail, Copy, Check } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ArrowUpRight, Mail, Copy, Check, ChevronDown } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 import { useLanguage } from "../context/LanguageContext";
 import Link from 'next/link';
@@ -15,6 +15,7 @@ import { framerTypography, framerColors } from "@/styles/framer-tokens";
 import HeroCarousel from '@/components/HeroCarousel';
 import RevealText from '@/components/RevealText';
 import DynamicRevealText from '@/components/DynamicRevealText';
+import DynamicRevealTextWithImages from '@/components/DynamicRevealTextWithImages';
 import TertiaryButton from '@/components/TertiaryButton';
 import SoftwareLogo from '@/components/SoftwareLogo';
 import { DisplayH1, DisplayH2, StandardH2 } from '@/components/Typography';
@@ -41,6 +42,8 @@ export default function Home() {
   const { lang, content } = useLanguage();
   const { siteConfig, sections } = content;
   const projects = lang === 'it' ? projectsIt : projectsEn;
+  const { scrollY } = useScroll();
+  const scrollOpacity = useTransform(scrollY, [0, 150], [1, 0]);
 
   const trackContactClick = (type: string, value: string, location: string = 'hero') => {
     if (typeof window !== 'undefined') {
@@ -149,85 +152,61 @@ export default function Home() {
       {/* ── Intro animation removed ── */}
 
       <Header activeSection={activeSection} />
-      <main className="pt-[104px] pb-24 relative">
+      <main className="pt-0 pb-24 relative">
 
         {/* ─── HERO SECTION ─── */}
-        <section id="home" className="relative w-full min-h-[calc(100vh-104px)] flex flex-col justify-center py-20 overflow-hidden bg-white dark:bg-[#111]">
+        <section id="home" className="relative w-full min-h-screen flex flex-col justify-center py-20 overflow-hidden bg-white dark:bg-[#111]">
 
           {/* Tagline — only renders (and reveals) once intro is done */}
-          <div className="max-w-[1400px] mx-auto px-4 md:px-8 w-full mb-12 flex flex-col gap-6">
-            <DisplayH1
+          <div className="max-w-[1700px] mx-auto px-4 md:px-8 lg:px-12 w-full mb-12 flex flex-col gap-6">
+            <DynamicRevealTextWithImages
               key="hero-text"
-              lines={
+              text={
                 lang === 'it'
-                  ? [
-                      "Sono Alessandro Gentile, growth marketer.",
-                      "Il mio obiettivo è entrare in una startup",
-                      "e dare il massimo ogni giorno, crescendo",
-                      "e contribuendo agli obiettivi del team."
-                    ]
-                  : [
-                      "I'm Alessandro Gentile, growth marketer.",
-                      "My goal is to join a startup and give",
-                      "my best every day, growing and",
-                      "contributing to the team's objectives."
-                    ]
+                  ? "Sono Alessandro Gentile, growth marketer. Il mio obiettivo è entrare in una startup e dare il massimo ogni giorno, crescendo e contribuendo agli obiettivi del team."
+                  : "I'm Alessandro Gentile, growth marketer. My goal is to join a startup and give my best every day, growing and contributing to the team's objectives."
               }
+              images={defaultImages}
+              wordsPerImage={3}
               delay={0}
               stagger={0.12}
               animateOnMount={true}
+              lineClassName="text-gray-900 dark:text-white font-medium font-sans text-[clamp(19px,4.8vw,64px)] tracking-tight leading-tight display-h1 uppercase"
             />
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4, ease: [0.15, 0.85, 0.35, 1] }}
+              className="flex justify-center w-full"
             >
               <motion.a
                 href={`mailto:${siteConfig.contact.email}`}
                 onClick={() => trackContactClick('email', siteConfig.contact.email, 'hero')}
-                className="btn-primary w-fit flex items-center justify-between gap-4 mt-10 cursor-pointer pl-4 pr-3"
+                className="bg-[#0038A8] text-white text-[14px] font-inter font-normal tracking-normal normal-case rounded-full px-6 py-3 leading-none transition-none select-none cursor-pointer w-fit mt-10 hover:bg-[#1D0CA8] shadow-[0_4px_24px_rgba(0,56,168,0.15)] flex items-center justify-center"
               >
-                <span>{lang === 'it' ? 'Scrivi mail' : 'Write email'}</span>
-                <span
-                  onClick={handleCopy}
-                  role="button"
-                  tabIndex={0}
-                  title={lang === 'it' ? 'Copia email' : 'Copy email'}
-                  className="p-1.5 rounded-full border border-white/30 hover:bg-white/10 active:bg-white/20 transition-all flex items-center justify-center text-white shrink-0 cursor-pointer pointer-events-auto"
-                >
-                  {copied ? <Check size={14} /> : <Copy size={14} />}
-                </span>
+                {lang === 'it' ? 'Scrivi mail' : 'Write email'}
               </motion.a>
             </motion.div>
           </div>
 
-          {/* Carousel — visible only after intro, with a subtle fade-in */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5, ease: [0.15, 0.85, 0.35, 1] }}
-            className="w-full overflow-hidden flex select-none pointer-events-none"
+            style={{ opacity: scrollOpacity }}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 pointer-events-none"
           >
-            <div className="flex gap-8 whitespace-nowrap animate-marquee-rtl shrink-0 min-w-full">
-              {Array.from({ length: 3 }).map((_, loopIdx) => (
-                <React.Fragment key={loopIdx}>
-                  {defaultImages.map((src, imgIdx) => (
-                    <div 
-                      key={`${loopIdx}-${imgIdx}`} 
-                      className="relative w-64 h-64 md:w-[380px] md:h-[380px] aspect-square overflow-hidden bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-none shrink-0"
-                    >
-                      <Image
-                        src={src}
-                        alt="Alessandro Gentile Marketing Journey"
-                        fill
-                        sizes="(max-width: 768px) 256px, 380px"
-                        className="object-cover"
-                      />
-                    </div>
-                  ))}
-                </React.Fragment>
-              ))}
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 3.0, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col items-center gap-0.5 text-gray-400 dark:text-gray-500 cursor-pointer pointer-events-auto"
+              onClick={() => {
+                document.getElementById('esperienze')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              <span className="text-[10px] font-maison uppercase tracking-[0.2em] select-none text-gray-400 dark:text-gray-500">
+                {lang === 'it' ? 'Scorri' : 'Scroll'}
+              </span>
+              <ChevronDown size={14} className="text-[#0038A8] dark:text-white" />
+            </motion.div>
           </motion.div>
 
         </section>
@@ -275,11 +254,11 @@ export default function Home() {
                       />
                     </div>
                     <RevealText
-                      lines={[job.company]}
+                      lines={[job.role]}
                       lineClassName="text-[22px] font-normal tracking-tight mb-2 leading-tight text-gray-900 dark:text-white font-maison"
                     />
                     <RevealText
-                      lines={[job.role]}
+                      lines={[job.company]}
                       lineClassName="text-[14px] text-gray-500 dark:text-gray-400 font-normal uppercase tracking-[0.08em] mb-1 font-maison"
                       delay={0.05}
                     />

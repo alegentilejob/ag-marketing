@@ -19,55 +19,55 @@ export function VisualText({ type, children, className = '' }: VisualTextProps) 
   switch (type) {
     case 'menu':
       return (
-        <span className={`font-maison text-[14px] font-normal tracking-normal text-black normal-case leading-none ${className}`}>
+        <span className={`font-inter text-[14px] font-normal tracking-normal text-black normal-case leading-none ${className}`}>
           {children}
         </span>
       );
     case 'h1':
       return (
-        <h1 className={`text-[54px] font-maison font-normal text-gray-950 tracking-normal leading-tight ${className}`}>
+        <h1 className={`text-[54px] font-inter font-normal text-gray-950 tracking-[0.03em] leading-tight ${className}`}>
           {children}
         </h1>
       );
     case 'h2':
       return (
-        <h2 className={`text-[40px] font-maison font-normal text-gray-950 tracking-normal leading-tight ${className}`}>
+        <h2 className={`text-[40px] font-inter font-normal text-gray-950 tracking-[0.03em] leading-tight ${className}`}>
           {children}
         </h2>
       );
     case 'h3':
       return (
-        <h3 className={`text-[33px] font-maison font-normal text-gray-950 tracking-normal leading-tight ${className}`}>
+        <h3 className={`text-[33px] font-inter font-normal text-gray-950 tracking-[0.03em] leading-tight ${className}`}>
           {children}
         </h3>
       );
     case 'p':
       return (
-        <p className={`text-[15px] font-maison font-normal text-gray-900 leading-normal tracking-normal ${className}`}>
+        <p className={`text-[15px] font-inter font-normal text-gray-900 leading-normal tracking-normal ${className}`}>
           {children}
         </p>
       );
     case 'caption':
       return (
-        <span className={`text-[13px] font-maison font-normal text-[#0D1016]/50 leading-normal tracking-normal ${className}`}>
+        <span className={`text-[13px] font-inter font-normal text-[#0D1016]/50 leading-normal tracking-normal ${className}`}>
           {children}
         </span>
       );
     case 'section-name':
       return (
-        <span className={`text-[13px] font-maison font-normal text-gray-400 uppercase tracking-[0.05em] ${className}`}>
+        <span className={`text-[13px] font-inter font-normal text-gray-400 uppercase tracking-[0.05em] ${className}`}>
           {children}
         </span>
       );
     case 'display-number':
       return (
-        <span className={`text-[87px] font-maison font-normal text-gray-950 tracking-normal leading-none ${className}`}>
+        <span className={`text-[87px] font-inter font-normal text-gray-950 tracking-[0.03em] leading-none ${className}`}>
           {children}
         </span>
       );
     case 'lead':
       return (
-        <span className={`text-[22px] font-maison font-normal text-gray-900 leading-normal tracking-normal ${className}`}>
+        <span className={`text-[22px] font-inter font-normal text-gray-900 leading-normal tracking-[0.03em] ${className}`}>
           {children}
         </span>
       );
@@ -87,7 +87,7 @@ export function ColorSwatch({ name, hex, bgClass }: ColorSwatchProps) {
     <div className="flex flex-col gap-2">
       <div className={`w-full aspect-square rounded-none ${bgClass}`} />
       <div className="flex flex-col">
-        <span className="text-[11px] font-maison font-normal text-gray-900 leading-none">{name}</span>
+        <span className="text-[11px] font-inter font-normal text-gray-900 leading-none">{name}</span>
         <span className="text-[10px] font-mono text-gray-400 mt-1 uppercase">{hex}</span>
       </div>
     </div>
@@ -104,7 +104,7 @@ export function PrimaryButton({ children, onClick, className = '' }: ButtonProps
   return (
     <button
       onClick={onClick}
-      className={`bg-[#0038A8] text-white text-[14px] font-maison font-normal tracking-normal normal-case rounded-full p-3 leading-none transition-none select-none cursor-pointer w-fit ${className}`}
+      className={`bg-[#0038A8] text-white text-[14px] font-inter font-normal tracking-normal normal-case rounded-full p-3 leading-none transition-none select-none cursor-pointer w-fit ${className}`}
     >
       {children}
     </button>
@@ -126,7 +126,7 @@ export function SecondaryButton({ children, onClick, className = '' }: ButtonPro
           strokeLinejoin="miter" 
         />
       </svg>
-      <span className="text-[14px] font-maison font-normal tracking-normal normal-case leading-none transition-transform duration-400 ease-out group-hover:translate-x-[2px]">
+      <span className="text-[14px] font-inter font-normal tracking-normal normal-case leading-none transition-transform duration-400 ease-out group-hover:translate-x-[2px]">
         {children}
       </span>
     </div>
@@ -137,7 +137,7 @@ export function TertiaryButton({ children, onClick, className = '' }: ButtonProp
   return (
     <button
       onClick={onClick}
-      className={`bg-transparent text-[#0D1016] text-[14px] font-maison font-normal tracking-normal normal-case rounded-full p-3 leading-none border border-transparent hover:border-[#0D1016]/20 transition-colors duration-400 cursor-pointer w-fit ${className}`}
+      className={`bg-transparent text-[#0D1016] text-[14px] font-inter font-normal tracking-normal normal-case rounded-full p-3 leading-none border border-transparent hover:border-[#0D1016]/20 transition-colors duration-400 cursor-pointer w-fit ${className}`}
     >
       {children}
     </button>
@@ -159,7 +159,7 @@ export function SecondaryLargeButton({ children, onClick, className = '' }: Butt
           strokeLinejoin="miter" 
         />
       </svg>
-      <span className="text-[22px] font-maison font-normal tracking-normal normal-case leading-none transition-all duration-400 ease-out group-hover:text-[#0D1016] group-hover:translate-x-[2px]">
+      <span className="text-[22px] font-inter font-normal tracking-[0.03em] normal-case leading-none transition-all duration-400 ease-out group-hover:text-[#0D1016] group-hover:translate-x-[2px]">
         {children}
       </span>
     </div>
@@ -208,7 +208,7 @@ export default function CentralizedSandboxPage() {
   return (
     <div className="min-h-screen bg-white text-black flex flex-col items-center justify-start py-20">
       <div className="w-full max-w-xl px-8 border-b border-gray-200 pb-4 mb-8">
-        <h1 className="text-xl font-maison font-normal tracking-tight text-gray-500 uppercase">
+        <h1 className="text-xl font-inter font-normal tracking-[0.03em] text-gray-500 uppercase">
           Visual Identity Sandbox
         </h1>
         <p className="text-xs text-gray-400 mt-1">
@@ -228,31 +228,31 @@ export default function CentralizedSandboxPage() {
 
         {/* H1 Row container */}
         <div className="flex flex-col gap-2 pt-4 border-b border-gray-100 pb-4">
-          <span className="text-xs text-gray-400 font-sans">Preview H1 (54px, Maison Neue, normal, kerning 0%)</span>
+          <span className="text-xs text-gray-400 font-sans">Preview H1 (54px, Inter, normal, kerning 0%)</span>
           <VisualText type="h1">Voce a menu</VisualText>
         </div>
 
         {/* H2 Row container */}
         <div className="flex flex-col gap-2 pt-2 border-b border-gray-100 pb-4">
-          <span className="text-xs text-gray-400 font-sans">Preview H2 (40px, Maison Neue, normal, kerning 0%)</span>
+          <span className="text-xs text-gray-400 font-sans">Preview H2 (40px, Inter, normal, kerning 0%)</span>
           <VisualText type="h2">Voce a menu</VisualText>
         </div>
 
         {/* H3 Row container */}
         <div className="flex flex-col gap-2 pt-2 border-b border-gray-100 pb-4">
-          <span className="text-xs text-gray-400 font-sans">Preview H3 (33px, Maison Neue, normal, kerning 0%)</span>
+          <span className="text-xs text-gray-400 font-sans">Preview H3 (33px, Inter, normal, kerning 0%)</span>
           <VisualText type="h3">Voce a menu</VisualText>
         </div>
 
         {/* Paragraph (p) Row container */}
         <div className="flex flex-col gap-2 pt-2 border-b border-gray-100 pb-4">
-          <span className="text-xs text-gray-400 font-sans">Preview Paragraph (15px, Maison Neue, normal, kerning 0%)</span>
+          <span className="text-xs text-gray-400 font-sans">Preview Paragraph (15px, Inter, normal, kerning 0%)</span>
           <VisualText type="p">Voce a menu</VisualText>
         </div>
 
         {/* Didascalia Row container */}
         <div className="flex flex-col gap-2 pt-2 border-b border-gray-100 pb-4">
-          <span className="text-xs text-gray-400 font-sans">Preview Didascalia (13px, Maison Neue, normal, opacità 50% nero, kerning 0%)</span>
+          <span className="text-xs text-gray-400 font-sans">Preview Didascalia (13px, Inter, normal, opacità 50% nero, kerning 0%)</span>
           <VisualText type="caption">Voce a menu</VisualText>
         </div>
 
@@ -267,19 +267,19 @@ export default function CentralizedSandboxPage() {
 
         {/* Nomi Sezioni Row container */}
         <div className="flex flex-col gap-2 pt-2 border-b border-gray-100 pb-4">
-          <span className="text-xs text-gray-400 font-sans">Preview Nomi Sezioni (13px, Maison Neue, normal, kerning 0%)</span>
+          <span className="text-xs text-gray-400 font-sans">Preview Nomi Sezioni (13px, Inter, normal, kerning 0%)</span>
           <VisualText type="section-name">Voce a menu</VisualText>
         </div>
 
         {/* Numero Grande Display Row container */}
         <div className="flex flex-col gap-2 pt-2 border-b border-gray-100 pb-4">
-          <span className="text-xs text-gray-400 font-sans">Preview Numero Grande Display (87px, Maison Neue, normal, kerning 0%)</span>
+          <span className="text-xs text-gray-400 font-sans">Preview Numero Grande Display (87px, Inter, normal, kerning 0%)</span>
           <VisualText type="display-number">01</VisualText>
         </div>
 
         {/* Lead Paragraph / Subhead (22px) Row container */}
         <div className="flex flex-col gap-2 pt-2 border-b border-gray-100 pb-4">
-          <span className="text-xs text-gray-400 font-sans">Preview Lead Paragraph / Subhead (22px, Maison Neue, normal, kerning 0%)</span>
+          <span className="text-xs text-gray-400 font-sans">Preview Lead Paragraph / Subhead (22px, Inter, normal, kerning 0%)</span>
           <VisualText type="lead">Voce a menu</VisualText>
         </div>
 
@@ -327,7 +327,7 @@ export default function CentralizedSandboxPage() {
 
         {/* Pulsante Secondario Grande / Lead Action Row container */}
         <div className="flex flex-col gap-3 pt-2 border-b border-gray-100 pb-6">
-          <span className="text-xs text-gray-400 font-sans">Preview Elemento Secondario Grande (22px, Maison Neue, normal, opacità 50% nero, kerning 0%)</span>
+          <span className="text-xs text-gray-400 font-sans">Preview Elemento Secondario Grande (22px, Inter, normal, opacità 50% nero, kerning 0%)</span>
           <SecondaryLargeButton>Voce a menu</SecondaryLargeButton>
         </div>
 
@@ -335,11 +335,11 @@ export default function CentralizedSandboxPage() {
         <div className="flex flex-col gap-3 pt-2 border-b border-gray-100 pb-8">
           <span className="text-xs text-gray-400 font-sans">Preview Token Animazioni & Transizioni</span>
           <div className="flex flex-col gap-4 border border-gray-100 p-6 rounded-none">
-            <div className="flex justify-between text-[13px] font-maison">
+            <div className="flex justify-between text-[13px] font-inter">
               <span className="text-gray-500">Duration Token</span>
               <span className="text-gray-950 font-mono">400ms (0.4s)</span>
             </div>
-            <div className="flex justify-between text-[13px] font-maison border-t border-gray-100 pt-3">
+            <div className="flex justify-between text-[13px] font-inter border-t border-gray-100 pt-3">
               <span className="text-gray-500">Easing Curve Token</span>
               <span className="text-gray-950 font-mono">cubic-bezier(0.16, 1, 0.3, 1) (Slow Deceleration)</span>
             </div>
@@ -354,7 +354,7 @@ export default function CentralizedSandboxPage() {
                   className="w-4 h-4 bg-[#0038A8] rounded-none group-hover:translate-x-[350px]"
                 />
                 <span 
-                  className="text-[13px] font-maison font-normal text-gray-900 ml-4 absolute left-12 group-hover:opacity-0 transition-opacity duration-150"
+                  className="text-[13px] font-inter font-normal text-gray-900 ml-4 absolute left-12 group-hover:opacity-0 transition-opacity duration-150"
                 >
                   Passa il mouse per testare la curva fluida (Slow Deceleration)
                 </span>
@@ -365,13 +365,13 @@ export default function CentralizedSandboxPage() {
 
         {/* SEZIONE COMPONENTI */}
         <div className="w-full max-w-xl pt-4">
-          <span className="text-[13px] font-maison font-normal text-gray-400 uppercase tracking-[0.05em] block mb-6">
+          <span className="text-[13px] font-inter font-normal text-gray-400 uppercase tracking-[0.05em] block mb-6">
             Componenti
           </span>
 
           <div className="flex flex-col gap-4">
             {/* FAQ Titolo in stile H2 */}
-            <h2 className="text-[40px] font-maison font-normal text-gray-900 tracking-normal leading-tight">
+            <h2 className="text-[40px] font-inter font-normal text-gray-900 tracking-[0.03em] leading-tight">
               FAQ & Elenchi Puntati (Interattivo: Clicca per aprire)
             </h2>
 
@@ -397,10 +397,10 @@ export default function CentralizedSandboxPage() {
                 <TokenImage className="w-full cursor-pointer" />
                 <div className="flex flex-col gap-1">
                   <div className="flex flex-col gap-0.5">
-                    <h4 className="text-[15px] font-maison font-normal text-gray-900 leading-tight">
+                    <h4 className="text-[15px] font-inter font-normal text-gray-900 leading-tight">
                       Progetto Alpha
                     </h4>
-                    <span className="text-[13px] font-maison font-normal text-[#0D1016]/50 leading-normal">
+                    <span className="text-[13px] font-inter font-normal text-[#0D1016]/50 leading-normal">
                       Visual Identity, Design System
                     </span>
                   </div>
@@ -410,7 +410,7 @@ export default function CentralizedSandboxPage() {
                       <path d="M6 6v10h10" strokeLinecap="square" strokeLinejoin="miter" />
                       <path d="M12 12l4 4-4 4" className="transition-transform duration-400 ease-out group-hover:translate-x-[3px]" strokeLinecap="square" strokeLinejoin="miter" />
                     </svg>
-                    <span className="text-[13px] font-maison font-normal tracking-normal normal-case leading-none transition-transform duration-400 ease-out group-hover:translate-x-[2px]">
+                    <span className="text-[13px] font-inter font-normal tracking-normal normal-case leading-none transition-transform duration-400 ease-out group-hover:translate-x-[2px]">
                       Scopri di più
                     </span>
                   </div>
@@ -422,10 +422,10 @@ export default function CentralizedSandboxPage() {
                 <TokenImage className="w-full cursor-pointer" />
                 <div className="flex flex-col gap-1">
                   <div className="flex flex-col gap-0.5">
-                    <h4 className="text-[15px] font-maison font-normal text-gray-900 leading-tight">
+                    <h4 className="text-[15px] font-inter font-normal text-gray-900 leading-tight">
                       Progetto Beta
                     </h4>
-                    <span className="text-[13px] font-maison font-normal text-[#0D1016]/50 leading-normal">
+                    <span className="text-[13px] font-inter font-normal text-[#0D1016]/50 leading-normal">
                       App Development, Prototypes
                     </span>
                   </div>
@@ -435,7 +435,7 @@ export default function CentralizedSandboxPage() {
                       <path d="M6 6v10h10" strokeLinecap="square" strokeLinejoin="miter" />
                       <path d="M12 12l4 4-4 4" className="transition-transform duration-400 ease-out group-hover:translate-x-[3px]" strokeLinecap="square" strokeLinejoin="miter" />
                     </svg>
-                    <span className="text-[13px] font-maison font-normal tracking-normal normal-case leading-none transition-transform duration-400 ease-out group-hover:translate-x-[2px]">
+                    <span className="text-[13px] font-inter font-normal tracking-normal normal-case leading-none transition-transform duration-400 ease-out group-hover:translate-x-[2px]">
                       Scopri di più
                     </span>
                   </div>
@@ -506,7 +506,7 @@ function SliderDemo() {
         <span className="text-[10px] uppercase font-mono tracking-widest text-[#E1D5B6]">
           Slide {activeSlide + 1} di {totalSlides}
         </span>
-        <h3 className="text-2xl font-maison font-normal leading-none tracking-normal">
+        <h3 className="text-2xl font-inter font-normal leading-none tracking-[0.03em]">
           {activeSlide === 0 && "Wolly: Prototipo Iniziale"}
           {activeSlide === 1 && "L'Architettura del Brand"}
           {activeSlide === 2 && "Sviluppo Tecnico & Ecosistema"}
@@ -602,8 +602,8 @@ function FaqItem({ title, content }: { title: string; content: string }) {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-between w-full text-left cursor-pointer focus:outline-none py-1"
       >
-        {/* Titolo principale in stile p (15px, Maison Neue, normal, kerning 0%) */}
-        <span className="text-[15px] font-maison font-normal text-gray-900 pr-4 leading-snug tracking-normal">
+        {/* Titolo principale in stile p (15px, Inter, normal, kerning 0%) */}
+        <span className="text-[15px] font-inter font-normal text-gray-900 pr-4 leading-snug tracking-normal">
           {title}
         </span>
         
@@ -624,7 +624,7 @@ function FaqItem({ title, content }: { title: string; content: string }) {
         </svg>
       </button>
 
-      {/* Contenuto di dettaglio (15px, Maison Neue, 50% opacità) con transizione */}
+      {/* Contenuto di dettaglio (15px, Inter, 50% opacità) con transizione */}
       <div 
         className="overflow-hidden transition-all"
         style={{
@@ -635,7 +635,7 @@ function FaqItem({ title, content }: { title: string; content: string }) {
           marginTop: isOpen ? '12px' : '0px'
         }}
       >
-        <p className="text-[15px] font-maison font-normal text-[#0D1016]/50 leading-relaxed pb-2">
+        <p className="text-[15px] font-inter font-normal text-[#0D1016]/50 leading-relaxed pb-2">
           {content}
         </p>
       </div>
@@ -656,7 +656,7 @@ function CaseStudyRow({ title, category, date }: { title: string; category: stri
         {/* Titolo e Categoria (con animazione hover di slittamento e fade blur per testo mozzato) */}
         <div className="flex-1 flex flex-col justify-center min-w-0 pr-4">
           <h4 
-            className="text-[15px] font-maison font-normal text-gray-900 leading-tight transition-transform duration-400 ease-out group-hover:translate-x-[2px] overflow-hidden whitespace-nowrap w-full"
+            className="text-[15px] font-inter font-normal text-gray-900 leading-tight transition-transform duration-400 ease-out group-hover:translate-x-[2px] overflow-hidden whitespace-nowrap w-full"
             style={{
               maskImage: 'linear-gradient(to right, #000 80%, transparent 100%)',
               WebkitMaskImage: 'linear-gradient(to right, #000 80%, transparent 100%)'
@@ -665,7 +665,7 @@ function CaseStudyRow({ title, category, date }: { title: string; category: stri
             {title}
           </h4>
           <span 
-            className="text-[13px] font-maison font-normal text-[#0D1016]/50 leading-normal mt-0.5 transition-transform duration-400 ease-out group-hover:translate-x-[2px] overflow-hidden whitespace-nowrap w-full"
+            className="text-[13px] font-inter font-normal text-[#0D1016]/50 leading-normal mt-0.5 transition-transform duration-400 ease-out group-hover:translate-x-[2px] overflow-hidden whitespace-nowrap w-full"
             style={{
               maskImage: 'linear-gradient(to right, #000 85%, transparent 100%)',
               WebkitMaskImage: 'linear-gradient(to right, #000 85%, transparent 100%)'
@@ -677,7 +677,7 @@ function CaseStudyRow({ title, category, date }: { title: string; category: stri
 
         {/* Data e Freccia orizzontale come slide senza cerchio */}
         <div className="flex items-center gap-5 shrink-0">
-          <span className="text-[13px] font-maison font-normal text-[#0D1016]/50 transition-transform duration-400 ease-out group-hover:translate-x-[2px]">
+          <span className="text-[13px] font-inter font-normal text-[#0D1016]/50 transition-transform duration-400 ease-out group-hover:translate-x-[2px]">
             {date}
           </span>
           <div className="flex items-center justify-center w-5 h-5">

@@ -77,26 +77,9 @@ const Footer = () => {
                             id="lnk_email"
                             href={`mailto:${siteConfig.contact.email}`}
                             onClick={() => trackContactClick('email', siteConfig.contact.email, 'footer')}
-                            className="btn-primary-white w-fit overflow-hidden pl-4 pr-3"
+                            className="bg-white text-[#0038A8] text-[14px] font-inter font-normal tracking-normal normal-case rounded-full px-6 py-3 leading-none transition-none select-none cursor-pointer w-fit hover:bg-gray-100 shadow-[0_4px_24px_rgba(255,255,255,0.15)] flex items-center justify-center"
                         >
-                            <RevealText
-                                lines={[
-                                    <span key="email-content" className="flex items-center justify-between gap-4 w-full">
-                                        <span>{lang === 'it' ? 'Scrivi mail' : 'Write email'}</span>
-                                        <span
-                                            onClick={handleCopy}
-                                            role="button"
-                                            tabIndex={0}
-                                            title={lang === 'it' ? 'Copia email' : 'Copy email'}
-                                            className="p-1.5 rounded-full border border-blue-600/30 hover:bg-blue-600/10 active:bg-blue-600/20 transition-all flex items-center justify-center text-blue-600 shrink-0 cursor-pointer pointer-events-auto"
-                                        >
-                                            {copied ? <Check size={14} /> : <Copy size={14} />}
-                                        </span>
-                                    </span>
-                                ]}
-                                lineClassName="font-bold text-blue-600 uppercase flex items-center justify-center w-full"
-                                stagger={0}
-                            />
+                            {lang === 'it' ? 'Scrivi mail' : 'Write email'}
                         </a>
 
                         {/* Secondary contacts (LinkedIn & Phone) kept subtle to preserve GTM tracking */}

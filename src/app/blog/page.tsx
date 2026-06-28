@@ -80,65 +80,65 @@ export default function BlogPage() {
       </header>
 
       {/* Blog Feed */}
-      <div className="flex flex-col border-t border-gray-300 dark:border-gray-700 w-full mt-12 mb-12">
-        {filteredProjects.map((article, index) => (
-          <motion.div
-            key={article.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.6, delay: index * 0.1, ease: [0.15, 0.85, 0.35, 1] }}
-            className="w-full"
-          >
-            <Link
-              href={getLocalizedPath(`/blog/${article.category.toLowerCase()}/${article.year}/${article.month}/${article.day}/${article.slug}`, lang)}
-              className="group w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6 py-8 px-4 md:px-10 border-b border-gray-300 dark:border-gray-700 hover:bg-blue-600 transition-all duration-[300ms]"
-              style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 w-full mt-16 mb-24">
+        {filteredProjects.map((article, index) => {
+          const isFeatured = index === 0;
+
+          return (
+            <motion.div
+              key={article.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.6, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+              className={`w-full flex flex-col ${isFeatured ? 'md:col-span-2' : ''}`}
             >
-              <div className="max-w-[1400px] mx-auto w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                
-                {/* Left: Square Image */}
-                <div className="relative w-24 h-24 md:w-32 md:h-32 shrink-0 bg-blue-600 overflow-hidden rounded-none">
+              <Link
+                href={getLocalizedPath(`/blog/${article.category.toLowerCase()}/${article.year}/${article.month}/${article.day}/${article.slug}`, lang)}
+                className="group w-full flex flex-col gap-6"
+              >
+                {/* Image */}
+                <div className={`relative w-full ${isFeatured ? 'h-[50vh] md:h-[65vh]' : 'h-[40vh] md:h-[45vh]'} bg-gray-100 dark:bg-gray-800 overflow-hidden rounded-none`}>
                   <Image
                     src={article.coverImage}
                     alt={article.title}
                     fill
-                    sizes="(max-width: 768px) 96px, 128px"
-                    className="object-cover transition-transform duration-[400ms] group-hover:scale-95"
-                    style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
+                    sizes={isFeatured ? "100vw" : "(max-width: 768px) 100vw, 50vw"}
+                    className="object-cover transition-transform duration-[400ms] group-hover:scale-105"
+                    style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
                   />
                 </div>
 
-                {/* Center: Title / Intro text */}
-                <div className="flex-1 md:pl-10 text-left">
-                  <RevealText
-                    lines={[article.title]}
-                    lineClassName="text-lg md:text-xl font-medium tracking-tight text-gray-900 dark:text-white group-hover:text-white! font-maison leading-snug transition-colors"
-                  />
-                  <RevealText
-                    lines={[`${article.category} — ${lang === 'it' ? 'Articolo Blog' : 'Blog Article'}`]}
-                    lineClassName="text-xs text-gray-400 dark:text-gray-500 group-hover:text-white! font-maison mt-1 uppercase tracking-wider transition-colors"
-                    delay={0.05}
-                  />
-                </div>
+                {/* Text Content */}
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center justify-between gap-4">
+                    <RevealText
+                      lines={[`${article.category} \u2022 ${lang === 'it' ? 'Articolo Blog' : 'Blog Article'}`]}
+                      lineClassName="text-[10px] text-blue-600 dark:text-blue-400 font-maison uppercase tracking-[0.08em]"
+                    />
+                    <RevealText
+                      lines={[article.date]}
+                      lineClassName="text-[10px] text-gray-500 dark:text-gray-400 font-maison uppercase tracking-[0.08em]"
+                      delay={0.1}
+                    />
+                  </div>
 
-                {/* Right: Date & Arrow */}
-                <div className="flex items-center gap-6 shrink-0 text-left md:text-right">
-                  <RevealText
-                    lines={[article.date]}
-                    lineClassName="text-sm font-medium text-gray-500 dark:text-gray-400 group-hover:text-white! font-maison transition-colors"
-                    delay={0.1}
-                  />
-                  <ArrowUpRight 
-                    size={20} 
-                    className="text-gray-400 dark:text-gray-500 transition-all duration-300 transform group-hover:scale-110 group-hover:text-white!" 
-                  />
+                  <div className="flex items-start justify-between gap-6">
+                    <RevealText
+                      lines={[article.title]}
+                      lineClassName={`${isFeatured ? 'text-3xl md:text-5xl' : 'text-2xl md:text-3xl'} font-maison tracking-tight text-gray-900 dark:text-white leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-[400ms]`}
+                    />
+                    <ArrowUpRight 
+                      size={isFeatured ? 32 : 24} 
+                      className="text-gray-400 dark:text-gray-500 transition-transform duration-[400ms] group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 shrink-0 mt-1" 
+                      style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
+                    />
+                  </div>
                 </div>
-
-              </div>
-            </Link>
-          </motion.div>
-        ))}
+              </Link>
+            </motion.div>
+          );
+        })}
       </div>
 
       {filteredProjects.length === 0 && (

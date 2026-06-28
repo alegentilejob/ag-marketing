@@ -4,7 +4,7 @@ import { ArrowUpRight, Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter, usePathname } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { projectsIt, projectsEn } from "@/data/projects";
 import { getLocalizedPath } from "@/utils/navigation";
@@ -18,6 +18,28 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [showHeader, setShowHeader] = useState(true);
+
+  const isHomepage = pathname === '/' || pathname === '/it' || pathname === '/en' || pathname === '/it/' || pathname === '/en/';
+
+  useEffect(() => {
+    if (!isHomepage) {
+      setShowHeader(true);
+      return;
+    }
+
+    const handleScroll = () => {
+      if (window.scrollY > 150) {
+        setShowHeader(true);
+      } else {
+        setShowHeader(false);
+      }
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHomepage]);
 
   const handleLanguageChange = () => {
     const newLang = lang === 'it' ? 'en' : 'it';
@@ -92,10 +114,10 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
   };
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] font-sans ${isMobileMenuOpen ? 'bg-[#0038A8] text-white border-none' : 'bg-white dark:bg-[#111] border-b border-[#0038A8]/10'}`}>
+    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] font-sans ${isMobileMenuOpen ? 'bg-[#0038A8] text-white border-none' : 'bg-white dark:bg-[#111] border-b border-[#0038A8]/10'} ${(!showHeader && !isMobileMenuOpen) ? '-translate-y-full' : 'translate-y-0'}`}>
 
       {/* ── Desktop Header: 3-zone layout ── */}
-      <div className="hidden md:grid grid-cols-3 max-w-[1400px] mx-auto px-2 md:px-4 h-20 items-center">
+      <div className="hidden md:grid grid-cols-3 max-w-[1400px] mx-auto px-2 md:px-4 h-16 items-center">
 
         {/* Zone 1: Logo (left) */}
         <div className="flex items-center">
@@ -127,7 +149,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                   href={item.href}
                   id={`nav_link_${item.key}_header`}
                   className={`flex items-center gap-1.5 text-[14px] font-normal normal-case tracking-normal transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-[#0038A8] font-maison
-                    ${isActive ? 'text-[#0038A8]' : 'text-[#0D1016]/50 dark:text-white/50'}`}
+                    ${isActive ? 'text-[#0038A8]' : 'text-[#0D1016] dark:text-white'}`}
                 >
                   <RevealText
                     lines={[
@@ -200,7 +222,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
           <button
             id="nav_lang_switch"
             onClick={handleLanguageChange}
-            className="text-[14px] font-normal normal-case tracking-normal text-[#0D1016]/50 dark:text-white/50 hover:text-[#0038A8] transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] font-maison"
+            className="text-[14px] font-normal normal-case tracking-normal text-[#0D1016] dark:text-white hover:text-[#0038A8] transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] font-maison"
             aria-label="Toggle language"
           >
             <RevealText
@@ -210,24 +232,30 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
               animateOnMount={true}
             />
           </button>
-          <Link
+          <a
             id="cta_contact_header"
-            href="#contact"
-            onClick={scrollToContact}
-            className="text-[14px] font-normal normal-case tracking-normal text-[#0D1016]/50 dark:text-white/50 hover:text-[#0038A8] transition-colors duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] font-maison"
+            href={`mailto:${siteConfig.contact.email}`}
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                (window as any).dataLayer = (window as any).dataLayer || [];
+                (window as any).dataLayer.push({
+                  event: 'contact_click',
+                  contact_type: 'email',
+                  contact_value: siteConfig.contact.email,
+                  click_location: 'header',
+                  page_path: window.location.pathname
+                });
+              }
+            }}
+            className="bg-[#0038A8] text-white text-[13px] font-inter font-normal tracking-normal normal-case rounded-full px-5 py-2.5 leading-none hover:bg-[#1D0CA8] shadow-[0_4px_24px_rgba(0,56,168,0.15)] flex items-center justify-center font-sans transition-all duration-300"
           >
-            <RevealText
-              lines={[lang === 'it' ? 'Contatti' : 'Contact']}
-              lineClassName="inline-block"
-              stagger={0}
-              animateOnMount={true}
-            />
-          </Link>
+            {lang === 'it' ? 'Scrivi mail' : 'Write email'}
+          </a>
         </div>
       </div>
 
       {/* ── Mobile Header ── */}
-      <div className="md:hidden max-w-[1400px] mx-auto px-4 h-20 flex items-center justify-between">
+      <div className="md:hidden max-w-[1400px] mx-auto px-4 h-16 flex items-center justify-between">
         <Link href={getLocalizedPath("/", lang)} className="flex items-center">
           <img
             src="/media/Personal branding/1x/AGM_blacklogo.png"
@@ -259,7 +287,7 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute top-20 left-0 w-full min-h-[calc(100vh-80px)] bg-[#0038A8] px-4 py-8 flex flex-col md:hidden shadow-2xl z-40 text-white"
+            className="absolute top-16 left-0 w-full min-h-[calc(100vh-64px)] bg-[#0038A8] px-4 py-8 flex flex-col md:hidden shadow-2xl z-40 text-white"
           >
             <div className="flex flex-col gap-2 mt-4">
               {navigation.map((item) => (
@@ -285,6 +313,28 @@ export default function Header({ activeSection = "home" }: { activeSection?: str
                   />
                 </Link>
               ))}
+              <div className="mt-8 pt-6 border-t border-white/10 flex justify-center w-full">
+                <a
+                  id="cta_contact_mobile_menu"
+                  href={`mailto:${siteConfig.contact.email}`}
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    if (typeof window !== 'undefined') {
+                      (window as any).dataLayer = (window as any).dataLayer || [];
+                      (window as any).dataLayer.push({
+                        event: 'contact_click',
+                        contact_type: 'email',
+                        contact_value: siteConfig.contact.email,
+                        click_location: 'mobile_menu',
+                        page_path: window.location.pathname
+                      });
+                    }
+                  }}
+                  className="bg-white text-[#0038A8] text-[15px] font-inter font-normal tracking-normal normal-case rounded-full px-6 py-3.5 leading-none transition-all select-none cursor-pointer w-full text-center hover:bg-gray-100 shadow-[0_4px_24px_rgba(0,56,168,0.15)] flex items-center justify-center font-sans"
+                >
+                  {lang === 'it' ? 'Scrivi mail' : 'Write email'}
+                </a>
+              </div>
             </div>
           </motion.div>
         )}

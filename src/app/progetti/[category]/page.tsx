@@ -52,12 +52,12 @@ export default function CategoryPage() {
       <header className="mb-16">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
           <div className="flex-1">
-            <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-blue-600 mb-8 block">
+            <span className="text-[10px] font-maison uppercase tracking-[0.08em] text-blue-600 mb-8 block">
               {lang === 'it' ? 'Progetto Case Study' : 'Project Case Study'}
             </span>
             <StandardH1
               lines={[categoryTitle]}
-              className="mb-8 uppercase font-display"
+              className="mb-8 uppercase font-maison tracking-tight"
             />
             <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-2xl font-normal leading-relaxed">
               {category === 'wolly' 
@@ -68,14 +68,15 @@ export default function CategoryPage() {
           
           <div className="text-left md:text-right">
             {category === 'wolly' ? (
-              <div className="flex flex-col gap-3 items-start md:items-end">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 mb-2">
+              <div className="flex flex-col gap-4 items-start md:items-end">
+                <span className="text-[10px] font-maison uppercase tracking-[0.08em] text-gray-500 dark:text-gray-400">
                   {lang === 'it' ? 'Filtra per Modulo' : 'Filter by Module'}
                 </span>
-                <div className="flex flex-col gap-1 items-start md:items-end">
+                <div className="flex flex-col gap-2 items-start md:items-end">
                   <button 
                     onClick={() => setActiveFilter(null)}
-                    className={`text-xs font-bold uppercase tracking-widest transition-colors border-b pb-0.5 ${!activeFilter ? 'text-blue-600 border-blue-600' : 'text-gray-900 dark:text-white border-transparent hover:text-blue-600 hover:border-blue-600'}`}
+                    className={`text-[10px] font-maison uppercase tracking-[0.08em] transition-colors duration-[400ms] ${!activeFilter ? 'text-blue-600' : 'text-gray-900 dark:text-white hover:text-blue-600'}`}
+                    style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
                   >
                     {lang === 'it' ? 'Tutti i moduli' : 'All modules'}
                   </button>
@@ -83,7 +84,8 @@ export default function CategoryPage() {
                     <button 
                       key={s.id} 
                       onClick={() => setActiveFilter(s.id)}
-                      className={`text-xs font-bold uppercase tracking-widest transition-colors border-b pb-0.5 ${activeFilter === s.id ? 'text-blue-600 border-blue-600' : 'text-gray-900 dark:text-white border-transparent hover:text-blue-600 hover:border-blue-600'}`}
+                      className={`text-[10px] font-maison uppercase tracking-[0.08em] transition-colors duration-[400ms] ${activeFilter === s.id ? 'text-blue-600' : 'text-gray-900 dark:text-white hover:text-blue-600'}`}
+                      style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
                     >
                       {s.title}
                     </button>
@@ -91,9 +93,9 @@ export default function CategoryPage() {
                 </div>
               </div>
             ) : (
-              <div className="inline-block p-8 border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50">
-                <span className="block text-[40px] font-bold tracking-tighter mb-1 text-gray-900 dark:text-white">{categoryProjects.length}</span>
-                <span className="block text-[10px] font-bold uppercase tracking-widest text-gray-600 dark:text-gray-400 whitespace-nowrap">
+              <div className="inline-block md:text-right">
+                <span className="block text-[80px] md:text-[120px] font-maison leading-none tracking-tight text-blue-600 mb-4">{categoryProjects.length}</span>
+                <span className="block text-[10px] font-maison uppercase tracking-[0.08em] text-gray-900 dark:text-white whitespace-nowrap">
                   {lang === 'it' ? 'Contributi Pubblicati' : 'Published Contributions'}
                 </span>
               </div>
@@ -102,62 +104,63 @@ export default function CategoryPage() {
         </div>
       </header>
 
-      {/* Project articles list/grid */}
-      <div className="flex flex-col border-t border-gray-300 dark:border-gray-700 w-full mt-12 mb-12">
+      {/* Project articles grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mt-24 mb-32">
         {filteredProjects.map((project, index) => (
           <motion.div
             key={project.id}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.6, delay: index * 0.1, ease: [0.15, 0.85, 0.35, 1] }}
-            className="w-full"
+            transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full flex"
           >
             <Link
               href={getLocalizedPath(`/progetti/${project.category}/${project.year}/${project.month}/${project.day}/${project.slug}`, lang)}
-              className="group w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6 py-8 px-4 md:px-10 border-b border-gray-300 dark:border-gray-700 hover:bg-blue-600 transition-all duration-[300ms]"
-              style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
+              className="group w-full flex flex-col bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-blue-600 dark:hover:border-blue-600 transition-colors duration-[400ms] rounded-none overflow-hidden"
+              style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
             >
-              <div className="max-w-[1400px] mx-auto w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                
-                {/* Left: Square Image */}
-                <div className="relative w-24 h-24 md:w-32 md:h-32 shrink-0 bg-blue-600 overflow-hidden rounded-none">
-                  <Image
-                    src={project.coverImage}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 768px) 96px, 128px"
-                    className="object-cover transition-transform duration-[400ms] group-hover:scale-95"
-                    style={{ transitionTimingFunction: 'var(--ease-expo-root)' }}
-                  />
-                </div>
+              {/* Top: Image */}
+              <div className="relative w-full aspect-[4/3] bg-gray-200 dark:bg-gray-800 overflow-hidden">
+                <Image
+                  src={project.coverImage}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-[400ms] group-hover:scale-105"
+                  style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
+                />
+              </div>
 
-                {/* Center: Title / Intro text */}
-                <div className="flex-1 md:pl-10 text-left">
+              {/* Bottom: Content */}
+              <div className="flex flex-col p-8 flex-1 justify-between gap-12">
+                <div>
+                  <div className="flex justify-between items-start mb-6 gap-4">
+                    <RevealText
+                      lines={[`${project.category} / ${lang === 'it' ? 'Analisi' : 'Analysis'}`]}
+                      lineClassName="text-[10px] font-maison uppercase tracking-[0.08em] text-blue-600"
+                      delay={0}
+                    />
+                    <ArrowUpRight 
+                      size={20} 
+                      className="text-gray-400 dark:text-gray-500 transition-all duration-[400ms] transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-blue-600" 
+                      style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
+                    />
+                  </div>
                   <RevealText
                     lines={[project.title]}
-                    lineClassName="text-lg md:text-xl font-medium tracking-tight text-gray-900 dark:text-white group-hover:text-white! font-maison leading-snug transition-colors"
-                  />
-                  <RevealText
-                    lines={[`${project.category} — ${lang === 'it' ? 'Analisi' : 'Analysis'}`]}
-                    lineClassName="text-xs text-gray-400 dark:text-gray-500 group-hover:text-white! font-maison mt-1 uppercase tracking-wider transition-colors"
+                    lineClassName="text-2xl md:text-3xl tracking-tight text-gray-900 dark:text-white font-maison leading-snug"
                     delay={0.05}
                   />
                 </div>
-
-                {/* Right: Date & Arrow */}
-                <div className="flex items-center gap-6 shrink-0 text-left md:text-right">
+                
+                <div className="flex items-center justify-between border-t border-gray-200 dark:border-gray-800 pt-6 mt-auto">
                   <RevealText
                     lines={[project.date]}
-                    lineClassName="text-sm font-medium text-gray-500 dark:text-gray-400 group-hover:text-white! font-maison transition-colors"
+                    lineClassName="text-sm text-gray-500 dark:text-gray-400 font-maison"
                     delay={0.1}
                   />
-                  <ArrowUpRight 
-                    size={20} 
-                    className="text-gray-400 dark:text-gray-500 transition-all duration-300 transform group-hover:scale-110 group-hover:text-white!" 
-                  />
                 </div>
-
               </div>
             </Link>
           </motion.div>
